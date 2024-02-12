@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>create verbose (GNU tar 1.34)</title>
+
+<meta name="description" content="create verbose (GNU tar 1.34)">
+<meta name="keywords" content="create verbose (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="create.html" rel="up" title="create">
+<link href="short-create.html" rel="next" title="short create">
+<link href="Creating-the-archive.html" rel="prev" title="Creating the archive">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+span.r {font-family: initial; font-weight: normal; font-style: normal}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="create-verbose">
+<div class="nav-panel">
+<p>
+Next: <a href="short-create.html" accesskey="n" rel="next">Short Forms with &lsquo;<samp class="samp">create</samp>&rsquo;</a>, Previous: <a href="Creating-the-archive.html" accesskey="p" rel="prev">Creating the Archive</a>, Up: <a href="create.html" accesskey="u" rel="up">How to Create Archives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="Running-_002d_002dcreate-with-_002d_002dverbose">2.6.3 Running <samp class="option">--create</samp> with <samp class="option">--verbose</samp></h4>
+
+<a class="index-entry-id" id="index-create_002c-using-with-_002d_002dverbose"></a>
+<a class="index-entry-id" id="index-verbose_002c-using-with-_002d_002dcreate"></a>
+<p>If you include the <samp class="option">--verbose</samp> (<samp class="option">-v</samp>) option on the command line,
+<code class="command">tar</code> will list the files it is acting on as it is working.  In
+verbose mode, the <code class="code">create</code> example above would appear as:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar --create --verbose --file=collection.tar blues folk jazz</kbd>
+blues
+folk
+jazz
+</pre></div>
+
+<p>This example is just like the example we showed which did not use
+<samp class="option">--verbose</samp>, except that <code class="command">tar</code> generated the remaining
+</p>
+<p>In the rest of the examples in this chapter, we will frequently use
+<code class="code">verbose</code> mode so we can show actions or <code class="command">tar</code> responses that
+you would otherwise not see, and which are important for you to
+understand.
+</p>
+</div>
+
+
+
+</body>
+</html>

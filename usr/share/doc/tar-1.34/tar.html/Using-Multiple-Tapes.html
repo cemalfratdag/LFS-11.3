@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Using Multiple Tapes (GNU tar 1.34)</title>
+
+<meta name="description" content="Using Multiple Tapes (GNU tar 1.34)">
+<meta name="keywords" content="Using Multiple Tapes (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Media.html" rel="up" title="Media">
+<link href="label.html" rel="next" title="label">
+<link href="Many.html" rel="prev" title="Many">
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Using-Multiple-Tapes">
+<div class="nav-panel">
+<p>
+Next: <a href="label.html" accesskey="n" rel="next">Including a Label in the Archive</a>, Previous: <a href="Many.html" accesskey="p" rel="prev">Many Archives on One Tape</a>, Up: <a href="Media.html" accesskey="u" rel="up">Tapes and Other Archive Media</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Using-Multiple-Tapes-1">9.6 Using Multiple Tapes</h3>
+
+<p>Often you might want to write a large archive, one larger than will fit
+on the actual tape you are using.  In such a case, you can run multiple
+<code class="command">tar</code> commands, but this can be inconvenient, particularly if you
+are using options like <samp class="option">--exclude=<var class="var">pattern</var></samp> or dumping entire file systems.
+Therefore, <code class="command">tar</code> provides a special mode for creating
+multi-volume archives.
+</p>
+<p><em class="dfn">Multi-volume</em> archive is a single <code class="command">tar</code> archive, stored
+on several media volumes of fixed size.  Although in this section we will
+often call &lsquo;<samp class="samp">volume</samp>&rsquo; a <em class="dfn">tape</em>, there is absolutely no
+requirement for multi-volume archives to be stored on tapes.  Instead,
+they can use whatever media type the user finds convenient, they can
+even be located on files.
+</p>
+<p>When creating a multi-volume archive, <abbr class="acronym">GNU</abbr> <code class="command">tar</code> continues to fill
+current volume until it runs out of space, then it switches to
+next volume (usually the operator is queried to replace the tape on
+this point), and continues working on the new volume.  This operation
+continues until all requested files are dumped.  If <abbr class="acronym">GNU</abbr> <code class="command">tar</code> detects
+end of media while dumping a file, such a file is archived in split
+form.  Some very big files can even be split across several volumes.
+</p>
+<p>Each volume is itself a valid <abbr class="acronym">GNU</abbr> <code class="command">tar</code> archive, so it can be read
+without any special options.  Consequently any file member residing
+entirely on one volume can be extracted or otherwise operated upon
+without needing the other volume.  Sure enough, to extract a split
+member you would need all volumes its parts reside on.
+</p>
+<p>Multi-volume archives suffer from several limitations.  In particular,
+they cannot be compressed.
+</p>
+<p><abbr class="acronym">GNU</abbr> <code class="command">tar</code> is able to create multi-volume archives of two formats
+(see <a class="pxref" href="Formats.html">Controlling the Archive Format</a>): &lsquo;<samp class="samp">GNU</samp>&rsquo; and &lsquo;<samp class="samp">POSIX</samp>&rsquo;.
+</p>
+
+<ul class="mini-toc">
+<li><a href="Multi_002dVolume-Archives.html" accesskey="1">Archives Longer than One Tape or Disk</a></li>
+<li><a href="Tape-Files.html" accesskey="2">Tape Files</a></li>
+<li><a href="Tarcat.html" accesskey="3">Concatenate Volumes into a Single Archive</a></li>
+</ul>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="label.html">Including a Label in the Archive</a>, Previous: <a href="Many.html">Many Archives on One Tape</a>, Up: <a href="Media.html">Tapes and Other Archive Media</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

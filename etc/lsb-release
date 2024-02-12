@@ -1,0 +1,4 @@
+DISTRIB_ID="Linux From Scratch"
+DISTRIB_RELEASE="11.3"
+DISTRIB_CODENAME="enpisko"
+DISTRIB_DESCRIPTION="Linux From Scratch"

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>C++ Interface Internals (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="C++ Interface Internals (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="Internals.html" rel="up" title="Internals">
+<link href="Raw-Output-Internals.html" rel="prev" title="Raw Output Internals">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="C_002b_002b-Interface-Internals">
+<div class="nav-panel">
+<p>
+Previous: <a href="Raw-Output-Internals.html" accesskey="p" rel="prev">Raw Output Internals</a>, Up: <a href="Internals.html" accesskey="u" rel="up">Internals</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="C_002b_002b-Interface-Internals-1">16.5 C++ Interface Internals</h3>
+<a class="index-entry-id" id="index-C_002b_002b-interface-internals"></a>
+
+<p>A system of expression templates is used to ensure something like <code class="code">a=b+c</code>
+turns into a simple call to <code class="code">mpz_add</code> etc.  For <code class="code">mpf_class</code>
+the scheme also ensures the precision of the final
+destination is used for any temporaries within a statement like
+<code class="code">f=w*x+y*z</code>.  These are important features which a naive implementation
+cannot provide.
+</p>
+<p>A simplified description of the scheme follows.  The true scheme is
+complicated by the fact that expressions have different return types.  For
+detailed information, refer to the source code.
+</p>
+<p>To perform an operation, say, addition, we first define a &ldquo;function object&rdquo;
+evaluating it,
+</p>
+<div class="example">
+<pre class="example-preformatted">struct __gmp_binary_plus
+{
+  static void eval(mpf_t f, const mpf_t g, const mpf_t h)
+  {
+    mpf_add(f, g, h);
+  }
+};
+</pre></div>
+
+<p>And an &ldquo;additive expression&rdquo; object,
+</p>
+<div class="example">
+<pre class="example-preformatted">__gmp_expr&lt;__gmp_binary_expr&lt;mpf_class, mpf_class, __gmp_binary_plus&gt; &gt;
+operator+(const mpf_class &amp;f, const mpf_class &amp;g)
+{
+  return __gmp_expr
+    &lt;__gmp_binary_expr&lt;mpf_class, mpf_class, __gmp_binary_plus&gt; &gt;(f, g);
+}
+</pre></div>
+
+<p>The seemingly redundant <code class="code">__gmp_expr&lt;__gmp_binary_expr&lt;&hellip;&gt;&gt;</code> is used to
+encapsulate any possible kind of expression into a single template type.  In
+fact even <code class="code">mpf_class</code> etc are <code class="code">typedef</code> specializations of
+<code class="code">__gmp_expr</code>.
+</p>
+<p>Next we define assignment of <code class="code">__gmp_expr</code> to <code class="code">mpf_class</code>.
+</p>
+<div class="example">
+<pre class="example-preformatted">template &lt;class T&gt;
+mpf_class &amp; mpf_class::operator=(const __gmp_expr&lt;T&gt; &amp;expr)
+{
+  expr.eval(this-&gt;get_mpf_t(), this-&gt;precision());
+  return *this;
+}
+
+template &lt;class Op&gt;
+void __gmp_expr&lt;__gmp_binary_expr&lt;mpf_class, mpf_class, Op&gt; &gt;::eval
+(mpf_t f, mp_bitcnt_t precision)
+{
+  Op::eval(f, expr.val1.get_mpf_t(), expr.val2.get_mpf_t());
+}
+</pre></div>
+
+<p>where <code class="code">expr.val1</code> and <code class="code">expr.val2</code> are references to the expression&rsquo;s
+operands (here <code class="code">expr</code> is the <code class="code">__gmp_binary_expr</code> stored within the
+<code class="code">__gmp_expr</code>).
+</p>
+<p>This way, the expression is actually evaluated only at the time of assignment,
+when the required precision (that of <code class="code">f</code>) is known.  Furthermore the
+target <code class="code">mpf_t</code> is now available, thus we can call <code class="code">mpf_add</code> directly
+with <code class="code">f</code> as the output argument.
+</p>
+<p>Compound expressions are handled by defining operators taking subexpressions
+as their arguments, like this:
+</p>
+<div class="example">
+<pre class="example-preformatted">template &lt;class T, class U&gt;
+__gmp_expr
+&lt;__gmp_binary_expr&lt;__gmp_expr&lt;T&gt;, __gmp_expr&lt;U&gt;, __gmp_binary_plus&gt; &gt;
+operator+(const __gmp_expr&lt;T&gt; &amp;expr1, const __gmp_expr&lt;U&gt; &amp;expr2)
+{
+  return __gmp_expr
+    &lt;__gmp_binary_expr&lt;__gmp_expr&lt;T&gt;, __gmp_expr&lt;U&gt;, __gmp_binary_plus&gt; &gt;
+    (expr1, expr2);
+}
+</pre></div>
+
+<p>And the corresponding specializations of <code class="code">__gmp_expr::eval</code>:
+</p>
+<div class="example">
+<pre class="example-preformatted">template &lt;class T, class U, class Op&gt;
+void __gmp_expr
+&lt;__gmp_binary_expr&lt;__gmp_expr&lt;T&gt;, __gmp_expr&lt;U&gt;, Op&gt; &gt;::eval
+(mpf_t f, mp_bitcnt_t precision)
+{
+  // declare two temporaries
+  mpf_class temp1(expr.val1, precision), temp2(expr.val2, precision);
+  Op::eval(f, temp1.get_mpf_t(), temp2.get_mpf_t());
+}
+</pre></div>
+
+<p>The expression is thus recursively evaluated to any level of complexity and
+all subexpressions are evaluated to the precision of <code class="code">f</code>.
+</p>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Previous: <a href="Raw-Output-Internals.html">Raw Output Internals</a>, Up: <a href="Internals.html">Internals</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

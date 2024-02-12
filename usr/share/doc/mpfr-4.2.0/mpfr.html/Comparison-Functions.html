@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual documents how to install and use the Multiple Precision
+Floating-Point Reliable Library, version 4.2.0.
+
+Copyright 1991, 1993-2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.2 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the
+license is included in GNU Free Documentation License. -->
+<title>Comparison Functions (GNU MPFR 4.2.0)</title>
+
+<meta name="description" content="How to install and use GNU MPFR, a library for reliable multiple precision
+floating-point arithmetic, version 4.2.0.">
+<meta name="keywords" content="Comparison Functions (GNU MPFR 4.2.0)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="MPFR-Interface.html" rel="up" title="MPFR Interface">
+<link href="Transcendental-Functions.html" rel="next" title="Transcendental Functions">
+<link href="Arithmetic-Functions.html" rel="prev" title="Arithmetic Functions">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Comparison-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Transcendental-Functions.html" accesskey="n" rel="next">Transcendental Functions</a>, Previous: <a href="Arithmetic-Functions.html" accesskey="p" rel="prev">Arithmetic Functions</a>, Up: <a href="MPFR-Interface.html" accesskey="u" rel="up">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a class="index-entry-id" id="index-Comparison-functions"></a>
+<h3 class="section" id="Comparison-Functions-1">5.6 Comparison Functions</h3>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcmp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cmp</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fcmp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcmp_005fui"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cmp_ui</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, unsigned long int <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fcmp_005fui'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcmp_005fsi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cmp_si</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, long int <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fcmp_005fsi'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcmp_005fd"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cmp_d</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, double <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fcmp_005fd'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcmp_005fld"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cmp_ld</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, long double <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fcmp_005fld'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcmp_005fz"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cmp_z</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpz_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fcmp_005fz'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcmp_005fq"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cmp_q</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpq_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fcmp_005fq'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcmp_005ff"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cmp_f</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpf_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fcmp_005ff'> ¶</a></span></dt>
+<dd><p>Compare <var class="var">op1</var> and <var class="var">op2</var>.
+Return a positive value if <var class="var">op1</var> &gt; <var class="var">op2</var><!-- /@w -->,
+zero if <var class="var">op1</var> = <var class="var">op2</var><!-- /@w -->, and
+a negative value if <var class="var">op1</var> &lt; <var class="var">op2</var><!-- /@w -->.
+Both <var class="var">op1</var> and <var class="var">op2</var> are considered to their full own precision,
+which may differ.
+If one of the operands is NaN, set the <em class="emph">erange</em> flag and return zero.
+</p>
+<p>Note: These functions may be useful to distinguish the three possible cases.
+If you need to distinguish two cases only, it is recommended to use the
+predicate functions (e.g., <code class="code">mpfr_equal_p</code> for the equality) described
+below; they behave like the IEEE 754 comparisons, in particular when one
+or both arguments are NaN. But only floating-point numbers can be compared
+(you may need to do a conversion first).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcmp_005fui_005f2exp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cmp_ui_2exp</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, unsigned long int <var class="var">op2</var>, mpfr_exp_t <var class="var">e</var>)</code><a class="copiable-link" href='#index-mpfr_005fcmp_005fui_005f2exp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcmp_005fsi_005f2exp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cmp_si_2exp</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, long int <var class="var">op2</var>, mpfr_exp_t <var class="var">e</var>)</code><a class="copiable-link" href='#index-mpfr_005fcmp_005fsi_005f2exp'> ¶</a></span></dt>
+<dd><p>Compare <var class="var">op1</var> and <var class="var">op2</var> multiplied by two to
+the power <var class="var">e</var>. Similar as above.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcmpabs"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cmpabs</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fcmpabs'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcmpabs_005fui"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cmpabs_ui</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, unsigned long int <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fcmpabs_005fui'> ¶</a></span></dt>
+<dd><p>Compare |<var class="var">op1</var>|<!-- /@w --> and |<var class="var">op2</var>|<!-- /@w -->.
+Return a positive value if |<var class="var">op1</var>| &gt; |<var class="var">op2</var>|<!-- /@w -->,
+zero if |<var class="var">op1</var>| = |<var class="var">op2</var>|<!-- /@w -->, and
+a negative value if |<var class="var">op1</var>| &lt; |<var class="var">op2</var>|<!-- /@w -->.
+If one of the operands is NaN, set the <em class="emph">erange</em> flag and return zero.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fnan_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_nan_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005fnan_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005finf_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_inf_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005finf_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fnumber_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_number_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005fnumber_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fzero_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_zero_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005fzero_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fregular_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_regular_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005fregular_005fp'> ¶</a></span></dt>
+<dd><p>Return non-zero if <var class="var">op</var> is respectively NaN, an infinity, an ordinary
+number (i.e., neither NaN nor an infinity), zero, or a regular number
+(i.e., neither NaN, nor an infinity nor zero). Return zero otherwise.
+</p></dd></dl>
+
+<dl class="first-deftypefn">
+<dt class="deftypefn" id="index-mpfr_005fsgn"><span class="category-def">Macro: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_sgn</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005fsgn'> ¶</a></span></dt>
+<dd><p>Return a positive value if <var class="var">op</var> &gt; 0<!-- /@w -->, zero if <var class="var">op</var> = 0<!-- /@w -->,
+and a negative value if <var class="var">op</var> &lt; 0<!-- /@w -->.
+If the operand is NaN, set the <em class="emph">erange</em> flag and return zero.
+This is equivalent to <code class="code">mpfr_cmp_ui (<var class="var">op</var>, 0)</code>, but more efficient.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fgreater_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_greater_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fgreater_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fgreaterequal_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_greaterequal_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fgreaterequal_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fless_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_less_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fless_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005flessequal_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_lessequal_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005flessequal_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fequal_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_equal_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005fequal_005fp'> ¶</a></span></dt>
+<dd><p>Return non-zero if
+<var class="var">op1</var> &gt; <var class="var">op2</var><!-- /@w -->,
+<var class="var">op1</var> &gt;= <var class="var">op2</var><!-- /@w -->,
+<var class="var">op1</var> &lt; <var class="var">op2</var><!-- /@w -->,
+<var class="var">op1</var> &lt;= <var class="var">op2</var><!-- /@w -->,
+<var class="var">op1</var> = <var class="var">op2</var><!-- /@w --> respectively,
+and zero otherwise.
+Those functions return zero whenever <var class="var">op1</var> and/or <var class="var">op2</var> is NaN.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005flessgreater_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_lessgreater_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005flessgreater_005fp'> ¶</a></span></dt>
+<dd><p>Return non-zero if <var class="var">op1</var> &lt; <var class="var">op2</var><!-- /@w --> or <var class="var">op1</var> &gt; <var class="var">op2</var><!-- /@w -->
+(i.e., neither <var class="var">op1</var>, nor <var class="var">op2</var> is NaN, and
+<var class="var">op1</var> &lt;&gt; <var class="var">op2</var><!-- /@w -->), zero otherwise (i.e., <var class="var">op1</var>
+and/or <var class="var">op2</var> is NaN, or <var class="var">op1</var> = <var class="var">op2</var><!-- /@w -->).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005funordered_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_unordered_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpfr_005funordered_005fp'> ¶</a></span></dt>
+<dd><p>Return non-zero if <var class="var">op1</var> or <var class="var">op2</var> is a NaN (i.e., they cannot be
+compared), zero otherwise.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005ftotal_005forder_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_total_order_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>, mpfr_t <var class="var">y</var>)</code><a class="copiable-link" href='#index-mpfr_005ftotal_005forder_005fp'> ¶</a></span></dt>
+<dd><p>This function implements the totalOrder predicate from IEEE 754,
+where −NaN &lt; −Inf &lt; negative finite numbers
+&lt; −0 &lt; +0 &lt; positive finite numbers
+&lt; +Inf &lt; +NaN.
+It returns a non-zero value (true) when <var class="var">x</var> is smaller than or equal
+to <var class="var">y</var> for this order relation, and zero (false) otherwise.
+Contrary to <code class="code">mpfr_cmp (<var class="var">x</var>, <var class="var">y</var>)</code>, which returns a ternary value,
+<code class="code">mpfr_total_order_p</code> returns a binary value (zero or non-zero).
+In particular, <code class="code">mpfr_total_order_p (<var class="var">x</var>, <var class="var">x</var>)</code> returns true,
+<code class="code">mpfr_total_order_p (-0, +0)</code> returns true and
+<code class="code">mpfr_total_order_p (+0, -0)</code> returns false.
+The sign bit of NaN also matters.
+</p></dd></dl>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Transcendental-Functions.html">Transcendental Functions</a>, Previous: <a href="Arithmetic-Functions.html">Arithmetic Functions</a>, Up: <a href="MPFR-Interface.html">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

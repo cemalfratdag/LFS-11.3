@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Changes (GNU tar 1.34)</title>
+
+<meta name="description" content="Changes (GNU tar 1.34)">
+<meta name="keywords" content="Changes (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html" rel="up" title="Top">
+<link href="Recipes.html" rel="next" title="Recipes">
+<link href="Reliability-and-security.html" rel="prev" title="Reliability and security">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="appendix-level-extent" id="Changes">
+<div class="nav-panel">
+<p>
+Next: <a href="Recipes.html" accesskey="n" rel="next">Recipes</a>, Previous: <a href="Reliability-and-security.html" accesskey="p" rel="prev">Reliability and Security</a>, Up: <a href="index.html" accesskey="u" rel="up"><abbr class="acronym">GNU</abbr> tar: an archiver tool</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h2 class="appendix" id="Changes-1">Appendix A Changes</h2>
+
+<p>This appendix lists some important user-visible changes between
+various versions of <abbr class="acronym">GNU</abbr> <code class="command">tar</code>. An up-to-date version of this document
+is available at
+<a class="uref" href="http://www.gnu.org/software/tar/manual/changes.html">the
+<abbr class="acronym">GNU</abbr> <code class="command">tar</code> documentation page</a>.
+</p>
+<dl class="table">
+<dt>Use of globbing patterns when listing and extracting.</dt>
+<dd>
+<p>Previous versions of GNU tar assumed shell-style globbing when
+extracting from or listing an archive.  For example:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar xf foo.tar '*.c'</kbd>
+</pre></div>
+
+<p>would extract all files whose names end in &lsquo;<samp class="samp">.c</samp>&rsquo;.  This behavior
+was not documented and was incompatible with traditional tar
+implementations.  Therefore, starting from version 1.15.91, GNU tar
+no longer uses globbing by default.  For example, the above invocation
+is now interpreted as a request to extract from the archive the file
+named <samp class="file">*.c</samp>.
+</p>
+<p>To facilitate transition to the new behavior for those users who got
+used to the previous incorrect one, <code class="command">tar</code> will print a warning
+if it finds out that a requested member was not found in the archive
+and its name looks like a globbing pattern.  For example:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar xf foo.tar  '*.c'</kbd>
+tar: Pattern matching characters used in file names. Please,
+tar: use --wildcards to enable pattern matching, or --no-wildcards to
+tar: suppress this warning.
+tar: *.c: Not found in archive
+tar: Error exit delayed from previous errors
+</pre></div>
+
+<p>To treat member names as globbing patterns, use the <samp class="option">--wildcards</samp> option.
+If you want to tar to mimic the behavior of versions prior to 1.15.91,
+add this option to your <code class="env">TAR_OPTIONS</code> variable.
+</p>
+<p>See <a class="xref" href="wildcards.html">Wildcards Patterns and Matching</a>, for the detailed discussion of the use of globbing
+patterns by <abbr class="acronym">GNU</abbr> <code class="command">tar</code>.
+</p>
+</dd>
+<dt>Use of short option <samp class="option">-o</samp>.</dt>
+<dd>
+<p>Earlier versions of <abbr class="acronym">GNU</abbr> <code class="command">tar</code> understood <samp class="option">-o</samp> command line
+option as a synonym for <samp class="option">--old-archive</samp>.
+</p>
+<p><abbr class="acronym">GNU</abbr> <code class="command">tar</code> starting from version 1.13.90 understands this option as
+a synonym for <samp class="option">--no-same-owner</samp>.  This is compatible with
+UNIX98 <code class="command">tar</code> implementations.
+</p>
+<p>However, to facilitate transition, <samp class="option">-o</samp> option retains its
+old semantics when it is used with one of archive-creation commands.
+Users are encouraged to use <samp class="option">--format=oldgnu</samp> instead.
+</p>
+<p>It is especially important, since versions of <abbr class="acronym">GNU</abbr> Automake
+up to and including 1.8.4 invoke tar with this option to produce
+distribution tarballs.  See <a class="xref" href="Formats.html">v7</a>, for the detailed discussion
+of this issue and its implications.
+</p>
+<p>See <a data-manual="automake" href="https://www.gnu.org/software/automake/manual/html_node/Options.html#Options">Changing Automake&rsquo;s Behavior</a> in <cite class="cite">GNU Automake</cite>, for a description on how to use various
+archive formats with <code class="command">automake</code>.
+</p>
+<p>Future versions of <abbr class="acronym">GNU</abbr> <code class="command">tar</code> will understand <samp class="option">-o</samp> only as a
+synonym for <samp class="option">--no-same-owner</samp>.
+</p>
+</dd>
+<dt>Use of short option <samp class="option">-l</samp></dt>
+<dd>
+<p>Earlier versions of <abbr class="acronym">GNU</abbr> <code class="command">tar</code> understood <samp class="option">-l</samp> option as a
+synonym for <samp class="option">--one-file-system</samp>.  Since such usage contradicted
+to UNIX98 specification and harmed compatibility with other
+implementations, it was declared deprecated in version 1.14.  However,
+to facilitate transition to its new semantics, it was supported by
+versions 1.15 and 1.15.90.  The present use of <samp class="option">-l</samp> as a short
+variant of <samp class="option">--check-links</samp> was introduced in version 1.15.91.
+</p>
+</dd>
+<dt>Use of options <samp class="option">--portability</samp> and <samp class="option">--old-archive</samp></dt>
+<dd>
+<p>These options are deprecated.  Please use <samp class="option">--format=v7</samp> instead.
+</p>
+</dd>
+<dt>Use of option <samp class="option">--posix</samp></dt>
+<dd>
+<p>This option is deprecated.  Please use <samp class="option">--format=posix</samp> instead.
+</p></dd>
+</dl>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Recipes.html">Recipes</a>, Previous: <a href="Reliability-and-security.html">Reliability and Security</a>, Up: <a href="index.html"><abbr class="acronym">GNU</abbr> tar: an archiver tool</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

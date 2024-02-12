@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Backup Parameters (GNU tar 1.34)</title>
+
+<meta name="description" content="Backup Parameters (GNU tar 1.34)">
+<meta name="keywords" content="Backup Parameters (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Backups.html" rel="up" title="Backups">
+<link href="Scripted-Backups.html" rel="next" title="Scripted Backups">
+<link href="Backup-Levels.html" rel="prev" title="Backup Levels">
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Backup-Parameters">
+<div class="nav-panel">
+<p>
+Next: <a href="Scripted-Backups.html" accesskey="n" rel="next">Using the Backup Scripts</a>, Previous: <a href="Backup-Levels.html" accesskey="p" rel="prev">Levels of Backups</a>, Up: <a href="Backups.html" accesskey="u" rel="up">Performing Backups and Restoring Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Setting-Parameters-for-Backups-and-Restoration">5.4 Setting Parameters for Backups and Restoration</h3>
+
+<p>The file <samp class="file">backup-specs</samp> specifies backup parameters for the
+backup and restoration scripts provided with <code class="command">tar</code>.  You must
+edit <samp class="file">backup-specs</samp> to fit your system configuration and schedule
+before using these scripts.
+</p>
+<p>Syntactically, <samp class="file">backup-specs</samp> is a shell script, containing
+mainly variable assignments.  However, any valid shell construct
+is allowed in this file.  Particularly, you may wish to define
+functions within that script (e.g., see <code class="code">RESTORE_BEGIN</code> below).
+For more information about shell script syntax, please refer to
+<a class="url" href="http://www.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#ta%0ag_02">the definition of the Shell Command Language</a>.  See also
+<a data-manual="bashref" href="../bashref_html/index.html#Top">Bash Features</a> in <cite class="cite">Bash Reference Manual</cite>.
+</p>
+<p>The shell variables controlling behavior of <code class="code">backup</code> and
+<code class="code">restore</code> are described in the following subsections.
+</p>
+
+<ul class="mini-toc">
+<li><a href="General_002dPurpose-Variables.html" accesskey="1">General-Purpose Variables</a></li>
+<li><a href="Magnetic-Tape-Control.html" accesskey="2">Magnetic Tape Control</a></li>
+<li><a href="User-Hooks.html" accesskey="3">User Hooks</a></li>
+<li><a href="backup_002dspecs-example.html" accesskey="4">An Example Text of <samp class="file">Backup-specs</samp></a></li>
+</ul>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Reading (GNU tar 1.34)</title>
+
+<meta name="description" content="Reading (GNU tar 1.34)">
+<meta name="keywords" content="Reading (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="extract-options.html" rel="up" title="extract options">
+<link href="Writing.html" rel="next" title="Writing">
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="Reading">
+<div class="nav-panel">
+<p>
+Next: <a href="Writing.html" accesskey="n" rel="next">Changing How <code class="command">tar</code> Writes Files</a>, Up: <a href="extract-options.html" accesskey="u" rel="up">Options Used by <samp class="option">--extract</samp></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="Options-to-Help-Read-Archives">4.4.1 Options to Help Read Archives</h4>
+<a class="index-entry-id" id="index-Options-when-reading-archives"></a>
+
+<a class="index-entry-id" id="index-Reading-incomplete-records"></a>
+<a class="index-entry-id" id="index-Records_002c-incomplete"></a>
+<a class="index-entry-id" id="index-read_002dfull_002drecords"></a>
+<p>Normally, <code class="command">tar</code> will request data in full record increments from
+an archive storage device.  If the device cannot return a full record,
+<code class="command">tar</code> will report an error.  However, some devices do not always
+return full records, or do not require the last record of an archive to
+be padded out to the next record boundary.  To keep reading until you
+obtain a full record, or to accept an incomplete record if it contains
+an end-of-archive marker, specify the <samp class="option">--read-full-records</samp> (<samp class="option">-B</samp>) option
+in conjunction with the <samp class="option">--extract</samp> or <samp class="option">--list</samp> operations.
+See <a class="xref" href="Blocking.html">Blocking</a>.
+</p>
+<p>The <samp class="option">--read-full-records</samp> (<samp class="option">-B</samp>) option is turned on by default when
+<code class="command">tar</code> reads an archive from standard input, or from a remote
+machine.  This is because on <abbr class="acronym">BSD</abbr> Unix systems, attempting to read a
+pipe returns however much happens to be in the pipe, even if it is
+less than was requested.  If this option were not enabled, <code class="command">tar</code>
+would fail as soon as it read an incomplete record from the pipe.
+</p>
+<p>If you&rsquo;re not sure of the blocking factor of an archive, you can
+read the archive by specifying <samp class="option">--read-full-records</samp> (<samp class="option">-B</samp>) and
+<samp class="option">--blocking-factor=<var class="var">512-size</var></samp> (<samp class="option">-b
+<var class="var">512-size</var></samp>), using a blocking factor larger than what the archive
+uses.  This lets you avoid having to determine the blocking factor
+of an archive.  See <a class="xref" href="Blocking-Factor.html">The Blocking Factor of an Archive</a>.
+</p>
+
+<ul class="mini-toc">
+<li><a href="read-full-records.html" accesskey="1">Reading Full Records</a></li>
+<li><a href="Ignore-Zeros.html" accesskey="2">Ignoring Blocks of Zeros</a></li>
+</ul>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Writing.html">Changing How <code class="command">tar</code> Writes Files</a>, Up: <a href="extract-options.html">Options Used by <samp class="option">--extract</samp></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

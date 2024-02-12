@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Overwrite Old Files (GNU tar 1.34)</title>
+
+<meta name="description" content="Overwrite Old Files (GNU tar 1.34)">
+<meta name="keywords" content="Overwrite Old Files (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Writing.html" rel="up" title="Writing">
+<link href="Keep-Old-Files.html" rel="next" title="Keep Old Files">
+<link href="Dealing-with-Old-Files.html" rel="prev" title="Dealing with Old Files">
+
+
+</head>
+
+<body lang="en">
+<div class="unnumberedsubsubsec-level-extent" id="Overwrite-Old-Files">
+<div class="nav-panel">
+<p>
+Next: <a href="Keep-Old-Files.html" accesskey="n" rel="next">Keep Old Files</a>, Previous: <a href="Dealing-with-Old-Files.html" accesskey="p" rel="prev">Options Controlling the Overwriting of Existing Files</a>, Up: <a href="Writing.html" accesskey="u" rel="up">Changing How <code class="command">tar</code> Writes Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="unnumberedsubsubsec" id="Overwrite-Old-Files-1">Overwrite Old Files</h4>
+
+<dl class="table">
+<dd><a class="index-entry-id" id="index-overwrite"></a>
+</dd>
+<dt><samp class="option">--overwrite</samp></dt>
+<dd><p>Overwrite existing files and directory metadata when extracting files
+from an archive.
+</p>
+<p>This causes <code class="command">tar</code> to write extracted files into the file system without
+regard to the files already on the system; i.e., files with the same
+names as archive members are overwritten when the archive is extracted.
+It also causes <code class="command">tar</code> to extract the ownership, permissions,
+and time stamps onto any preexisting files or directories.
+If the name of a corresponding file name is a symbolic link, the file
+pointed to by the symbolic link will be overwritten instead of the
+symbolic link itself (if this is possible).  Moreover, special devices,
+empty directories and even symbolic links are automatically removed if
+they are in the way of extraction.
+</p>
+<p>Be careful when using the <samp class="option">--overwrite</samp> option, particularly when
+combined with the <samp class="option">--absolute-names</samp> (<samp class="option">-P</samp>) option, as this combination
+can change the contents, ownership or permissions of any file on your
+system.  Also, many systems do not take kindly to overwriting files that
+are currently being executed.
+</p>
+<a class="index-entry-id" id="index-overwrite_002ddir"></a>
+</dd>
+<dt><samp class="option">--overwrite-dir</samp></dt>
+<dd><p>Overwrite the metadata of directories when extracting files from an
+archive, but remove other files before extracting.
+</p></dd>
+</dl>
+
+</div>
+
+
+
+</body>
+</html>

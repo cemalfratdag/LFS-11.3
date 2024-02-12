@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>Known Build Problems (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="Known Build Problems (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="Installing-GMP.html" rel="up" title="Installing GMP">
+<link href="Performance-optimization.html" rel="next" title="Performance optimization">
+<link href="Notes-for-Particular-Systems.html" rel="prev" title="Notes for Particular Systems">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Known-Build-Problems">
+<div class="nav-panel">
+<p>
+Next: <a href="Performance-optimization.html" accesskey="n" rel="next">Performance optimization</a>, Previous: <a href="Notes-for-Particular-Systems.html" accesskey="p" rel="prev">Notes for Particular Systems</a>, Up: <a href="Installing-GMP.html" accesskey="u" rel="up">Installing GMP</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Known-Build-Problems-1">2.5 Known Build Problems</h3>
+<a class="index-entry-id" id="index-Build-problems-known"></a>
+
+
+<p>You might find more up-to-date information at <a class="uref" href="https://gmplib.org/">https://gmplib.org/</a>.
+</p>
+<dl class="table">
+<dt>Compiler link options</dt>
+<dd><p>The version of libtool currently in use rather aggressively strips compiler
+options when linking a shared library.  This will hopefully be relaxed in the
+future, but for now if this is a problem the suggestion is to create a little
+script to hide them, and for instance configure with
+</p>
+<div class="example">
+<pre class="example-preformatted">./configure CC=gcc-with-my-options
+</pre></div>
+
+</dd>
+<dt id='index-DJGPP-1'><span>DJGPP (&lsquo;<samp class="samp">*-*-msdosdjgpp*</samp>&rsquo;)<a class="copiable-link" href='#index-DJGPP-1'> &para;</a></span></dt>
+<dd><p>The DJGPP port of <code class="command">bash</code> 2.03 is unable to run the &lsquo;<samp class="samp">configure</samp>&rsquo;
+script, it exits silently, having died writing a preamble to
+<samp class="file">config.log</samp>.  Use <code class="command">bash</code> 2.04 or higher.
+</p>
+<p>&lsquo;<samp class="samp">make all</samp>&rsquo; was found to run out of memory during the final
+<samp class="file">libgmp.la</samp> link on one system tested, despite having 64Mb available.
+Running &lsquo;<samp class="samp">make libgmp.la</samp>&rsquo; directly helped, perhaps recursing into the
+various subdirectories uses up memory.
+</p>
+</dd>
+<dt id='index-Stripped-libraries'><span>GNU binutils <code class="command">strip</code> prior to 2.12<a class="copiable-link" href='#index-Stripped-libraries'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Binutils-strip"></a>
+<a class="index-entry-id" id="index-GNU-strip"></a>
+<p><code class="command">strip</code> from GNU binutils 2.11 and earlier should not be used on the
+static libraries <samp class="file">libgmp.a</samp> and <samp class="file">libmp.a</samp> since it will discard all
+but the last of multiple archive members with the same name, like the three
+versions of <samp class="file">init.o</samp> in <samp class="file">libgmp.a</samp>.  Binutils 2.12 or higher can be
+used successfully.
+</p>
+<p>The shared libraries <samp class="file">libgmp.so</samp> and <samp class="file">libmp.so</samp> are not affected by
+this and any version of <code class="command">strip</code> can be used on them.
+</p>
+</dd>
+<dt id='index-SCO'><span><code class="command">make</code> syntax error<a class="copiable-link" href='#index-SCO'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-IRIX-1"></a>
+<p>On certain versions of SCO OpenServer 5 and IRIX 6.5 the native <code class="command">make</code>
+is unable to handle the long dependencies list for <samp class="file">libgmp.la</samp>.  The
+symptom is a &ldquo;syntax error&rdquo; on the following line of the top-level
+<samp class="file">Makefile</samp>.
+</p>
+<div class="example">
+<pre class="example-preformatted">libgmp.la: $(libgmp_la_OBJECTS) $(libgmp_la_DEPENDENCIES)
+</pre></div>
+
+<p>Either use GNU Make, or as a workaround remove
+<code class="code">$(libgmp_la_DEPENDENCIES)</code> from that line (which will make the initial
+build work, but if any recompiling is done <samp class="file">libgmp.la</samp> might not be
+rebuilt).
+</p>
+</dd>
+<dt id='index-MacOS-X'><span>MacOS X (&lsquo;<samp class="samp">*-*-darwin*</samp>&rsquo;)<a class="copiable-link" href='#index-MacOS-X'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Darwin"></a>
+<p>Libtool currently only knows how to create shared libraries on MacOS X using
+the native <code class="command">cc</code> (which is a modified GCC), not a plain GCC.  A
+static-only build should work though (&lsquo;<samp class="samp">--disable-shared</samp>&rsquo;).
+</p>
+</dd>
+<dt id='index-NeXT'><span>NeXT prior to 3.3<a class="copiable-link" href='#index-NeXT'> &para;</a></span></dt>
+<dd><p>The system compiler on old versions of NeXT was a massacred and old GCC, even
+if it called itself <samp class="file">cc</samp>.  This compiler cannot be used to build GMP, you
+need to get a real GCC, and install that.  (NeXT may have fixed this in
+release 3.3 of their system.)
+</p>
+</dd>
+<dt id='index-Power_002fPowerPC-1'><span>POWER and PowerPC<a class="copiable-link" href='#index-Power_002fPowerPC-1'> &para;</a></span></dt>
+<dd><p>Bugs in GCC 2.7.2 (and 2.6.3) mean it can&rsquo;t be used to compile GMP on POWER or
+PowerPC.  If you want to use GCC for these machines, get GCC 2.7.2.1 (or
+later).
+</p>
+</dd>
+<dt id='index-Sequent-Symmetry'><span>Sequent Symmetry<a class="copiable-link" href='#index-Sequent-Symmetry'> &para;</a></span></dt>
+<dd><p>Use the GNU assembler instead of the system assembler, since the latter has
+serious bugs.
+</p>
+</dd>
+<dt id='index-Solaris-1'><span>Solaris 2.6<a class="copiable-link" href='#index-Solaris-1'> &para;</a></span></dt>
+<dd><p>The system <code class="command">sed</code> prints an error &ldquo;Output line too long&rdquo; when libtool
+builds <samp class="file">libgmp.la</samp>.  This doesn&rsquo;t seem to cause any obvious ill effects,
+but GNU <code class="command">sed</code> is recommended, to avoid any doubt.
+</p>
+</dd>
+<dt id='index-Solaris-2'><span>Sparc Solaris 2.7 with gcc 2.95.2 in &lsquo;<samp class="samp">ABI=32</samp>&rsquo;<a class="copiable-link" href='#index-Solaris-2'> &para;</a></span></dt>
+<dd><p>A shared library build of GMP seems to fail in this combination, it builds but
+then fails the tests, apparently due to some incorrect data relocations within
+<code class="code">gmp_randinit_lc_2exp_size</code>.  The exact cause is unknown,
+&lsquo;<samp class="samp">--disable-shared</samp>&rsquo; is recommended.
+</p></dd>
+</dl>
+
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Performance-optimization.html">Performance optimization</a>, Previous: <a href="Notes-for-Particular-Systems.html">Notes for Particular Systems</a>, Up: <a href="Installing-GMP.html">Installing GMP</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

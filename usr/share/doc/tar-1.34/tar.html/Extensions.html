@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Extensions (GNU tar 1.34)</title>
+
+<meta name="description" content="Extensions (GNU tar 1.34)">
+<meta name="keywords" content="Extensions (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tar-Internals.html" rel="up" title="Tar Internals">
+<link href="Sparse-Formats.html" rel="next" title="Sparse Formats">
+<link href="Standard.html" rel="prev" title="Standard">
+
+
+</head>
+
+<body lang="en">
+<div class="unnumberedsec-level-extent" id="Extensions">
+<div class="nav-panel">
+<p>
+Next: <a href="Sparse-Formats.html" accesskey="n" rel="next">Storing Sparse Files</a>, Previous: <a href="Standard.html" accesskey="p" rel="prev">Basic Tar Format</a>, Up: <a href="Tar-Internals.html" accesskey="u" rel="up">Tar Internals</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="unnumberedsec" id="GNU-Extensions-to-the-Archive-Format"><abbr class="acronym">GNU</abbr> Extensions to the Archive Format</h3>
+<blockquote class="quotation">
+<p><em class="emph">(This message will disappear, once this node revised.)</em>
+</p></blockquote>
+
+<p>The <abbr class="acronym">GNU</abbr> format uses additional file types to describe new types of
+files in an archive.  These are listed below.
+</p>
+<dl class="table">
+<dt><code class="code">GNUTYPE_DUMPDIR</code></dt>
+<dt><code class="code">'D'</code></dt>
+<dd><p>This represents a directory and a list of files created by the
+<samp class="option">--incremental</samp> (<samp class="option">-G</samp>) option.  The <code class="code">size</code> field gives the total
+size of the associated list of files.  Each file name is preceded by
+either a &lsquo;<samp class="samp">Y</samp>&rsquo; (the file should be in this archive) or an &lsquo;<samp class="samp">N</samp>&rsquo;.
+(The file is a directory, or is not stored in the archive.)  Each file
+name is terminated by a null.  There is an additional null after the
+last file name.
+</p>
+</dd>
+<dt><code class="code">GNUTYPE_MULTIVOL</code></dt>
+<dt><code class="code">'M'</code></dt>
+<dd><p>This represents a file continued from another volume of a multi-volume
+archive created with the <samp class="option">--multi-volume</samp> (<samp class="option">-M</samp>) option.  The original
+type of the file is not given here.  The <code class="code">size</code> field gives the
+maximum size of this piece of the file (assuming the volume does
+not end before the file is written out).  The <code class="code">offset</code> field
+gives the offset from the beginning of the file where this part of
+the file begins.  Thus <code class="code">size</code> plus <code class="code">offset</code> should equal
+the original size of the file.
+</p>
+</dd>
+<dt><code class="code">GNUTYPE_SPARSE</code></dt>
+<dt><code class="code">'S'</code></dt>
+<dd><p>This flag indicates that we are dealing with a sparse file.  Note
+that archiving a sparse file requires special operations to find
+holes in the file, which mark the positions of these holes, along
+with the number of bytes of data to be found after the hole.
+</p>
+</dd>
+<dt><code class="code">GNUTYPE_VOLHDR</code></dt>
+<dt><code class="code">'V'</code></dt>
+<dd><p>This file type is used to mark the volume header that was given with
+the <samp class="option">--label=<var class="var">archive-label</var></samp> (<samp class="option">-V <var class="var">archive-label</var></samp>) option when the archive was created.  The <code class="code">name</code>
+field contains the <code class="code">name</code> given after the <samp class="option">--label=<var class="var">archive-label</var></samp> (<samp class="option">-V <var class="var">archive-label</var></samp>) option.
+The <code class="code">size</code> field is zero.  Only the first file in each volume
+of an archive should have this type.
+</p>
+</dd>
+</dl>
+
+<p>For fields containing numbers or timestamps that are out of range for
+the basic format, the <abbr class="acronym">GNU</abbr> format uses a base-256
+representation instead of an ASCII octal number.  If the leading byte
+is 0xff (255), all the bytes of the field (including the leading byte)
+are concatenated in big-endian order, with the result being a negative
+number expressed in two&rsquo;s complement form.  If the leading byte is
+0x80 (128), the non-leading bytes of the field are concatenated in
+big-endian order, with the result being a positive number expressed in
+binary form.  Leading bytes other than 0xff, 0x80 and ASCII octal
+digits are reserved for future use, as are base-256 representations of
+values that would be in range for the basic format.
+</p>
+<p>You may have trouble reading a <abbr class="acronym">GNU</abbr> format archive on a
+non-<abbr class="acronym">GNU</abbr> system if the options <samp class="option">--incremental</samp> (<samp class="option">-G</samp>),
+<samp class="option">--multi-volume</samp> (<samp class="option">-M</samp>), <samp class="option">--sparse</samp> (<samp class="option">-S</samp>), or <samp class="option">--label=<var class="var">archive-label</var></samp> (<samp class="option">-V <var class="var">archive-label</var></samp>) were
+used when writing the archive.  In general, if <code class="command">tar</code> does not
+use the <abbr class="acronym">GNU</abbr>-added fields of the header, other versions of
+<code class="command">tar</code> should be able to read the archive.  Otherwise, the
+<code class="command">tar</code> program will give an error, the most likely one being a
+checksum error.
+</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Sparse-Formats.html">Storing Sparse Files</a>, Previous: <a href="Standard.html">Basic Tar Format</a>, Up: <a href="Tar-Internals.html">Tar Internals</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

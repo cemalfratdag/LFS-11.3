@@ -1,0 +1,59 @@
+'\" -*- coding: UTF-8 -*-
+.\" Copyright (C) 1998-2003 Miquel van Smoorenburg.
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; if not, write to the Free Software
+.\" Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+.\"
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH WALL 1 "15. April 2003" "sysvinit " "Dienstprogramme für Benutzer"
+
+.SH BEZEICHNUNG
+wall \- eine Nachricht an die Terminals aller Benutzer senden
+
+.SH ÜBERSICHT
+\fBwall\fP [\fB\-n\fP] [\fINachricht\fP]
+
+.SH BESCHREIBUNG
+\fBWall\fP sends a message to everybody logged in with their \fBmesg\fP(1)
+permission set to \fByes\fP.  The message can be given as an argument to
+\fBwall\fP, or it can be sent to \fBwall\fP's standard input.  When using the
+standard input from a terminal, the message should be terminated with the
+\fBEOF\fP key (usually Control\-D).
+.PP
+The length of the message is limited to 20 lines.  For every invocation of
+\fBwall\fP a notification will be written to syslog, with facility \fBLOG_USER\fP
+and level \fBLOG_INFO\fP.
+
+.SH OPTIONEN
+.IP \fB\-n\fP
+Suppresses the normal banner printed by \fBwall\fP, changing it to "Remote
+broadcast message".  This option is only available for root if \fBwall\fP is
+installed set\-group\-id, and is used by \fBrpc.walld\fP(8).
+.PP
+
+.SH UMGEBUNGSVARIABLEN
+\fBwall\fP ignoriert die Umgebungsvariable \fBTZ\fP \- die im Banner ausgegebene
+Zeit basiert auf der lokalen Zeit des Systems.
+
+.SH "SIEHE AUCH"
+\fBmesg\fP(1), \fBrpc.rwalld\fP(8)
+
+.SH AUTOR
+.MT miquels@\:cistron\:.nl
+Miquel van Smoorenburg
+.ME

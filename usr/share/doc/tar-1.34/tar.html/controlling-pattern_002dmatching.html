@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>controlling pattern-matching (GNU tar 1.34)</title>
+
+<meta name="description" content="controlling pattern-matching (GNU tar 1.34)">
+<meta name="keywords" content="controlling pattern-matching (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="wildcards.html" rel="up" title="wildcards">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="unnumberedsubsec-level-extent" id="controlling-pattern_002dmatching">
+<div class="nav-panel">
+<p>
+Up: <a href="wildcards.html" accesskey="u" rel="up">Wildcards Patterns and Matching</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="unnumberedsubsec" id="Controlling-Pattern_002dMatching">Controlling Pattern-Matching</h4>
+
+<p>For the purposes of this section, we call <em class="dfn">exclusion members</em> all
+member names obtained while processing <samp class="option">--exclude</samp> and
+<samp class="option">--exclude-from</samp> options, and <em class="dfn">inclusion members</em> those
+member names that were given in the command line or read from the file
+specified with <samp class="option">--files-from</samp> option.
+</p>
+<p>These two pairs of member lists are used in the following operations:
+<samp class="option">--diff</samp>, <samp class="option">--extract</samp>, <samp class="option">--list</samp>,
+<samp class="option">--update</samp>.
+</p>
+<p>There are no inclusion members in create mode (<samp class="option">--create</samp> and
+<samp class="option">--append</samp>), since in this mode the names obtained from the
+command line refer to <em class="emph">files</em>, not archive members.
+</p>
+<p>By default, inclusion members are compared with archive members
+literally <a class="footnote" id="DOCF18" href="#FOOT18"><sup>18</sup></a> and exclusion members are
+treated as globbing patterns.  For example:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">$ <kbd class="kbd">tar tf foo.tar</kbd>
+a.c
+b.c
+a.txt
+[remarks]
+# <i class="i">Member names are used verbatim:</i>
+$ <kbd class="kbd">tar -xf foo.tar -v '[remarks]'</kbd>
+[remarks]
+# <i class="i">Exclude member names are globbed:</i>
+$ <kbd class="kbd">tar -xf foo.tar -v --exclude '*.c'</kbd>
+a.txt
+[remarks]
+</pre></div></div>
+
+<p>This behavior can be altered by using the following options:
+</p>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-wildcards"></a>
+</dd>
+<dt><samp class="option">--wildcards</samp></dt>
+<dd><p>Treat all member names as wildcards.
+</p>
+<a class="index-entry-id" id="index-no_002dwildcards"></a>
+</dd>
+<dt><samp class="option">--no-wildcards</samp></dt>
+<dd><p>Treat all member names as literal strings.
+</p></dd>
+</dl>
+
+<p>Thus, to extract files whose names end in &lsquo;<samp class="samp">.c</samp>&rsquo;, you can use:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar -xf foo.tar -v --wildcards '*.c'</kbd>
+a.c
+b.c
+</pre></div>
+
+<p>Notice quoting of the pattern to prevent the shell from interpreting
+it.
+</p>
+<p>The effect of <samp class="option">--wildcards</samp> option is canceled by
+<samp class="option">--no-wildcards</samp>.  This can be used to pass part of
+the command line arguments verbatim and other part as globbing
+patterns.  For example, the following invocation:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar -xf foo.tar --wildcards '*.txt' --no-wildcards '[remarks]'</kbd>
+</pre></div>
+
+<p>instructs <code class="command">tar</code> to extract from <samp class="file">foo.tar</samp> all files whose
+names end in &lsquo;<samp class="samp">.txt</samp>&rsquo; and the file named <samp class="file">[remarks]</samp>.
+</p>
+<p>Normally, a pattern matches a name if an initial subsequence of the
+name&rsquo;s components matches the pattern, where &lsquo;<samp class="samp">*</samp>&rsquo;, &lsquo;<samp class="samp">?</samp>&rsquo;, and
+&lsquo;<samp class="samp">[...]</samp>&rsquo; are the usual shell wildcards, &lsquo;<samp class="samp">\</samp>&rsquo; escapes wildcards,
+and wildcards can match &lsquo;<samp class="samp">/</samp>&rsquo;.
+</p>
+<p>Other than optionally stripping leading &lsquo;<samp class="samp">/</samp>&rsquo; from names
+(see <a class="pxref" href="absolute.html">Absolute File Names</a>), patterns and names are used as-is.  For
+example, trailing &lsquo;<samp class="samp">/</samp>&rsquo; is not trimmed from a user-specified name
+before deciding whether to exclude it.
+</p>
+<p>However, this matching procedure can be altered by the options listed
+below.  These options accumulate.  For example:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">--ignore-case --exclude='makefile' --no-ignore-case ---exclude='readme'
+</pre></div>
+
+<p>ignores case when excluding &lsquo;<samp class="samp">makefile</samp>&rsquo;, but not when excluding
+&lsquo;<samp class="samp">readme</samp>&rsquo;.
+</p>
+<dl class="table">
+<dd><a class="anchor" id="anchored-patterns"></a><a class="index-entry-id" id="index-anchored"></a>
+<a class="index-entry-id" id="index-no_002danchored"></a>
+</dd>
+<dt><samp class="option">--anchored</samp></dt>
+<dt><samp class="option">--no-anchored</samp></dt>
+<dd><p>If anchored, a pattern must match an initial subsequence
+of the name&rsquo;s components.  Otherwise, the pattern can match any
+subsequence.  Default is <samp class="option">--no-anchored</samp> for exclusion members
+and <samp class="option">--anchored</samp> inclusion members.
+</p>
+<a class="anchor" id="case_002dinsensitive-matches"></a><a class="index-entry-id" id="index-ignore_002dcase"></a>
+<a class="index-entry-id" id="index-no_002dignore_002dcase"></a>
+</dd>
+<dt><samp class="option">--ignore-case</samp></dt>
+<dt><samp class="option">--no-ignore-case</samp></dt>
+<dd><p>When ignoring case, upper-case patterns match lower-case names and vice versa.
+When not ignoring case (the default), matching is case-sensitive.
+</p>
+<a class="index-entry-id" id="index-wildcards_002dmatch_002dslash"></a>
+<a class="index-entry-id" id="index-no_002dwildcards_002dmatch_002dslash"></a>
+</dd>
+<dt><samp class="option">--wildcards-match-slash</samp></dt>
+<dt><samp class="option">--no-wildcards-match-slash</samp></dt>
+<dd><p>When wildcards match slash (the default for exclusion members), a
+wildcard like &lsquo;<samp class="samp">*</samp>&rsquo; in the pattern can match a &lsquo;<samp class="samp">/</samp>&rsquo; in the
+name.  Otherwise, &lsquo;<samp class="samp">/</samp>&rsquo; is matched only by &lsquo;<samp class="samp">/</samp>&rsquo;.
+</p>
+</dd>
+</dl>
+
+<p>The <samp class="option">--recursion</samp> and <samp class="option">--no-recursion</samp> options
+(see <a class="pxref" href="recurse.html">Descending into Directories</a>) also affect how member patterns are interpreted.  If
+recursion is in effect, a pattern matches a name if it matches any of
+the name&rsquo;s parent directories.
+</p>
+<p>The following table summarizes pattern-matching default values:
+</p>
+<table class="multitable">
+<thead><tr><th width="30%">Members</th><th width="70%">Default settings</th></tr></thead>
+<tbody><tr><td width="30%">Inclusion</td><td width="70%"><samp class="option">--no-wildcards --anchored --no-wildcards-match-slash</samp></td></tr>
+<tr><td width="30%">Exclusion</td><td width="70%"><samp class="option">--wildcards --no-anchored --wildcards-match-slash</samp></td></tr>
+</tbody>
+</table>
+
+</div>
+<div class="footnotes-segment">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h5 class="footnote-body-heading"><a id="FOOT18" href="#DOCF18">(18)</a></h5>
+<p>Notice that earlier <abbr class="acronym">GNU</abbr> <code class="command">tar</code> versions used
+globbing for inclusion members, which contradicted to UNIX98
+specification and was not documented. See <a class="xref" href="Changes.html">Changes</a>, for more
+information on this and other changes.</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Up: <a href="wildcards.html">Wildcards Patterns and Matching</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

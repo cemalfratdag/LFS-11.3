@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual documents how to install and use the Multiple Precision
+Floating-Point Reliable Library, version 4.2.0.
+
+Copyright 1991, 1993-2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.2 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the
+license is included in GNU Free Documentation License. -->
+<title>Exception Related Functions (GNU MPFR 4.2.0)</title>
+
+<meta name="description" content="How to install and use GNU MPFR, a library for reliable multiple precision
+floating-point arithmetic, version 4.2.0.">
+<meta name="keywords" content="Exception Related Functions (GNU MPFR 4.2.0)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="MPFR-Interface.html" rel="up" title="MPFR Interface">
+<link href="Memory-Handling-Functions.html" rel="next" title="Memory Handling Functions">
+<link href="Miscellaneous-Functions.html" rel="prev" title="Miscellaneous Functions">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Exception-Related-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Memory-Handling-Functions.html" accesskey="n" rel="next">Memory Handling Functions</a>, Previous: <a href="Miscellaneous-Functions.html" accesskey="p" rel="prev">Miscellaneous Functions</a>, Up: <a href="MPFR-Interface.html" accesskey="u" rel="up">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a class="index-entry-id" id="index-Exception-related-functions"></a>
+<h3 class="section" id="Exception-Related-Functions-1">5.13 Exception Related Functions</h3>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005femin"><span class="category-def">Function: </span><span><code class="def-type">mpfr_exp_t</code> <strong class="def-name">mpfr_get_emin</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fget_005femin'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005femax"><span class="category-def">Function: </span><span><code class="def-type">mpfr_exp_t</code> <strong class="def-name">mpfr_get_emax</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fget_005femax'> ¶</a></span></dt>
+<dd><p>Return the (current) smallest and largest exponents allowed for a
+floating-point variable. The smallest positive value of a floating-point
+variable is one half times 2 raised to the
+smallest exponent and the largest value has the form (1 − epsilon) times 2 raised to the largest
+exponent, where epsilon depends on the precision of the
+considered variable.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fset_005femin"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_set_emin</strong> <code class="def-code-arguments">(mpfr_exp_t <var class="var">exp</var>)</code><a class="copiable-link" href='#index-mpfr_005fset_005femin'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fset_005femax"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_set_emax</strong> <code class="def-code-arguments">(mpfr_exp_t <var class="var">exp</var>)</code><a class="copiable-link" href='#index-mpfr_005fset_005femax'> ¶</a></span></dt>
+<dd><p>Set the smallest and largest exponents allowed for a floating-point variable.
+Return a non-zero value when <var class="var">exp</var> is not in the range accepted by the
+implementation (in that case the smallest or largest exponent is not changed),
+and zero otherwise.
+</p>
+<p>For the subsequent operations, it is the user’s responsibility to check
+that any floating-point value used as an input is in the new exponent range
+(for example using <code class="code">mpfr_check_range</code>). If a floating-point value
+outside the new exponent range is used as an input, the default behavior
+is undefined, in the sense of the ISO C standard; the behavior may also be
+explicitly documented, such as for <code class="code">mpfr_check_range</code>.
+</p>
+<p>Note: Caches may still have values outside the current exponent range.
+This is not an issue as the user cannot use these caches directly via
+the API (MPFR extends the exponent range internally when need be).
+</p>
+<p>If <var class="var">emin</var> &gt; <var class="var">emax</var><!-- /@w --> and a floating-point value needs to
+be produced as output, the behavior is undefined (<code class="code">mpfr_set_emin</code>
+and <code class="code">mpfr_set_emax</code> do not check this condition as it might occur
+between successive calls to these two functions).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005femin_005fmin"><span class="category-def">Function: </span><span><code class="def-type">mpfr_exp_t</code> <strong class="def-name">mpfr_get_emin_min</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fget_005femin_005fmin'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005femin_005fmax"><span class="category-def">Function: </span><span><code class="def-type">mpfr_exp_t</code> <strong class="def-name">mpfr_get_emin_max</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fget_005femin_005fmax'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005femax_005fmin"><span class="category-def">Function: </span><span><code class="def-type">mpfr_exp_t</code> <strong class="def-name">mpfr_get_emax_min</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fget_005femax_005fmin'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005femax_005fmax"><span class="category-def">Function: </span><span><code class="def-type">mpfr_exp_t</code> <strong class="def-name">mpfr_get_emax_max</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fget_005femax_005fmax'> ¶</a></span></dt>
+<dd><p>Return the minimum and maximum of the exponents
+allowed for <code class="code">mpfr_set_emin</code> and <code class="code">mpfr_set_emax</code> respectively.
+These values are implementation dependent, thus a program using
+<code class="code">mpfr_set_emax(mpfr_get_emax_max())</code>
+or <code class="code">mpfr_set_emin(mpfr_get_emin_min())</code> may not be portable.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcheck_005frange"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_check_range</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>, int <var class="var">t</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fcheck_005frange'> ¶</a></span></dt>
+<dd><p>This function assumes that <var class="var">x</var> is the correctly rounded value of some
+real value <var class="var">y</var> in the direction <var class="var">rnd</var> and some extended exponent
+range, and that <var class="var">t</var> is the corresponding <a class="ref" href="Rounding.html#ternary-value">ternary value</a>.
+For example, one performed <code class="code">t = mpfr_log (x, u, rnd)</code>, and <var class="var">y</var> is the
+exact logarithm of <var class="var">u</var>.
+Thus <var class="var">t</var> is negative if <var class="var">x</var> is smaller than <var class="var">y</var>,
+positive if <var class="var">x</var> is larger than <var class="var">y</var>, and zero if <var class="var">x</var> equals <var class="var">y</var>.
+This function modifies <var class="var">x</var> if needed
+to be in the current range of acceptable values: It
+generates an underflow or an overflow if the exponent of <var class="var">x</var> is
+outside the current allowed range; the value of <var class="var">t</var> may be used
+to avoid a double rounding. This function returns zero if the new value of
+<var class="var">x</var> equals the exact one <var class="var">y</var>, a positive value if that new value
+is larger than <var class="var">y</var>, and a negative value if it is smaller than <var class="var">y</var>.
+Note that unlike most functions,
+the new result <var class="var">x</var> is compared to the (unknown) exact one <var class="var">y</var>,
+not the input value <var class="var">x</var>, i.e., the ternary value is propagated.
+</p>
+<p>Note: If <var class="var">x</var> is an infinity and <var class="var">t</var> is different from zero (i.e.,
+if the rounded result is an inexact infinity), then the overflow flag is
+set. This is useful because <code class="code">mpfr_check_range</code> is typically called
+(at least in MPFR functions) after restoring the flags that could have
+been set due to internal computations.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fsubnormalize"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_subnormalize</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>, int <var class="var">t</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fsubnormalize'> ¶</a></span></dt>
+<dd><p>This function rounds <var class="var">x</var> emulating subnormal number arithmetic:
+if <var class="var">x</var> is outside the subnormal exponent range of the emulated
+floating-point system, this function just propagates the
+<a class="ref" href="Rounding.html#ternary-value">ternary value</a> <var class="var">t</var>; otherwise, if EXP(<var class="var">x</var>)<!-- /@w -->
+denotes the exponent of <var class="var">x</var>, it rounds <var class="var">x</var> to precision
+EXP(<var class="var">x</var>)−<var class="var">emin</var>+1<!-- /@w --> according to rounding mode <var class="var">rnd</var>
+and previous ternary value <var class="var">t</var>, avoiding double rounding problems.
+More precisely in the subnormal domain, denoting by e<!-- /@w --> the value of
+<var class="var">emin</var>, <var class="var">x</var> is rounded in fixed-point arithmetic to an integer
+multiple of two to the power e − 1<!-- /@w -->; as a consequence,
+1.5 multiplied by two to the power e − 1<!-- /@w -->
+when <var class="var">t</var> is zero is rounded to two to the power e with rounding
+to nearest.
+</p>
+<p>The precision PREC(<var class="var">x</var>)<!-- /@w --> of <var class="var">x</var> is not modified by
+this function. <var class="var">rnd</var> and <var class="var">t</var> must be the rounding mode
+and the returned ternary value used when computing <var class="var">x</var>
+(as in <code class="code">mpfr_check_range</code>). The subnormal exponent range is
+from <var class="var">emin</var> to <var class="var">emin</var>+PREC(<var class="var">x</var>)−1<!-- /@w -->.
+If the result cannot be represented in the current exponent range of MPFR
+(due to a too small <var class="var">emax</var>), the behavior is undefined.
+Note that unlike most functions, the result is compared to the exact one,
+not the input value <var class="var">x</var>, i.e., the ternary value is propagated.
+</p>
+<p>As usual, if the returned ternary value is non zero, the inexact flag is set.
+Moreover, if a second rounding occurred (because the input <var class="var">x</var> was in the
+subnormal range), the underflow flag is set.
+</p>
+<p>Warning! If you change <var class="var">emin</var> (with <code class="code">mpfr_set_emin</code>) just before
+calling <code class="code">mpfr_subnormalize</code>, you need to make sure that the value is
+in the current exponent range of MPFR. But it is better to change
+<var class="var">emin</var> before any computation, if possible.
+</p></dd></dl>
+
+<p>This is an example of how to emulate binary64 IEEE 754 arithmetic
+(a.k.a. double precision) using MPFR:
+</p>
+<div class="example">
+<pre class="example-preformatted">{
+  mpfr_t xa, xb; int i; volatile double a, b;
+
+  mpfr_set_default_prec (53);
+  mpfr_set_emin (-1073); mpfr_set_emax (1024);
+
+  mpfr_init (xa); mpfr_init (xb);
+
+  b = 34.3; mpfr_set_d (xb, b, MPFR_RNDN);
+  a = 0x1.1235P-1021; mpfr_set_d (xa, a, MPFR_RNDN);
+
+  a /= b;
+  i = mpfr_div (xa, xa, xb, MPFR_RNDN);
+  i = mpfr_subnormalize (xa, i, MPFR_RNDN); /* new ternary value */
+
+  mpfr_clear (xa); mpfr_clear (xb);
+}
+</pre></div>
+
+<p>Note that <code class="code">mpfr_set_emin</code> and <code class="code">mpfr_set_emax</code> are called early
+enough in order to make sure that all computed values are in the current
+exponent range.
+Warning! This emulates a double IEEE 754 arithmetic with correct rounding
+in the subnormal range, which may not be the case for your hardware.
+</p>
+<p>Below is another example showing how to emulate fixed-point arithmetic
+in a specific case.
+Here we compute the sine of the integers 1 to 17 with a result in a
+fixed-point arithmetic rounded at two to the power −42
+(using the fact that the result is at most 1 in absolute value):
+</p>
+<div class="example">
+<pre class="example-preformatted">{
+  mpfr_t x; int i, inex;
+
+  mpfr_set_emin (-41);
+  mpfr_init2 (x, 42);
+  for (i = 1; i &lt;= 17; i++)
+    {
+      mpfr_set_ui (x, i, MPFR_RNDN);
+      inex = mpfr_sin (x, x, MPFR_RNDZ);
+      mpfr_subnormalize (x, inex, MPFR_RNDZ);
+      mpfr_dump (x);
+    }
+  mpfr_clear (x);
+}
+</pre></div>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fclear_005funderflow"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_clear_underflow</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fclear_005funderflow'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fclear_005foverflow"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_clear_overflow</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fclear_005foverflow'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fclear_005fdivby0"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_clear_divby0</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fclear_005fdivby0'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fclear_005fnanflag"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_clear_nanflag</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fclear_005fnanflag'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fclear_005finexflag"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_clear_inexflag</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fclear_005finexflag'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fclear_005ferangeflag"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_clear_erangeflag</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fclear_005ferangeflag'> ¶</a></span></dt>
+<dd><p>Clear (lower) the underflow, overflow, divide-by-zero, invalid,
+inexact and <em class="emph">erange</em> flags.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fclear_005fflags"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_clear_flags</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fclear_005fflags'> ¶</a></span></dt>
+<dd><p>Clear (lower) all global flags (underflow, overflow, divide-by-zero, invalid,
+inexact, <em class="emph">erange</em>). Note: a group of flags can be cleared by using
+<code class="code">mpfr_flags_clear</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fset_005funderflow"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_set_underflow</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fset_005funderflow'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fset_005foverflow"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_set_overflow</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fset_005foverflow'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fset_005fdivby0"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_set_divby0</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fset_005fdivby0'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fset_005fnanflag"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_set_nanflag</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fset_005fnanflag'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fset_005finexflag"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_set_inexflag</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fset_005finexflag'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fset_005ferangeflag"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_set_erangeflag</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fset_005ferangeflag'> ¶</a></span></dt>
+<dd><p>Set (raise) the underflow, overflow, divide-by-zero, invalid,
+inexact and <em class="emph">erange</em> flags.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005funderflow_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_underflow_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005funderflow_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005foverflow_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_overflow_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005foverflow_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fdivby0_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_divby0_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fdivby0_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fnanflag_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_nanflag_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fnanflag_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005finexflag_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_inexflag_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005finexflag_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ferangeflag_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_erangeflag_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005ferangeflag_005fp'> ¶</a></span></dt>
+<dd><p>Return the corresponding (underflow, overflow, divide-by-zero, invalid,
+inexact, <em class="emph">erange</em>) flag, which is non-zero iff the flag is set.
+</p></dd></dl>
+
+<p>The <code class="code">mpfr_flags_</code> functions below that take an argument <var class="var">mask</var>
+can operate on any subset of the exception flags: a flag is part of this
+subset (or group) if and only if the corresponding bit of the argument
+<var class="var">mask</var> is set.  The <code class="code">MPFR_FLAGS_</code> macros will normally be used
+to build this argument.  See <a class="xref" href="Exceptions.html">Exceptions</a>.
+</p>
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fflags_005fclear"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_flags_clear</strong> <code class="def-code-arguments">(mpfr_flags_t <var class="var">mask</var>)</code><a class="copiable-link" href='#index-mpfr_005fflags_005fclear'> ¶</a></span></dt>
+<dd><p>Clear (lower) the group of flags specified by <var class="var">mask</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fflags_005fset"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_flags_set</strong> <code class="def-code-arguments">(mpfr_flags_t <var class="var">mask</var>)</code><a class="copiable-link" href='#index-mpfr_005fflags_005fset'> ¶</a></span></dt>
+<dd><p>Set (raise) the group of flags specified by <var class="var">mask</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fflags_005ftest"><span class="category-def">Function: </span><span><code class="def-type">mpfr_flags_t</code> <strong class="def-name">mpfr_flags_test</strong> <code class="def-code-arguments">(mpfr_flags_t <var class="var">mask</var>)</code><a class="copiable-link" href='#index-mpfr_005fflags_005ftest'> ¶</a></span></dt>
+<dd><p>Return the flags specified by <var class="var">mask</var>.  To test whether any flag from
+<var class="var">mask</var> is set, compare the return value to 0.  You can also test
+individual flags by AND’ing the result with <code class="code">MPFR_FLAGS_</code> macros.
+Example:
+</p><div class="example">
+<pre class="example-preformatted">mpfr_flags_t t = mpfr_flags_test (MPFR_FLAGS_UNDERFLOW|
+                                  MPFR_FLAGS_OVERFLOW)
+…
+if (t)  /* underflow and/or overflow (unlikely) */
+  {
+    if (t &amp; MPFR_FLAGS_UNDERFLOW)  { /* handle underflow */ }
+    if (t &amp; MPFR_FLAGS_OVERFLOW)   { /* handle overflow  */ }
+  }
+</pre></div>
+</dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fflags_005fsave"><span class="category-def">Function: </span><span><code class="def-type">mpfr_flags_t</code> <strong class="def-name">mpfr_flags_save</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fflags_005fsave'> ¶</a></span></dt>
+<dd><p>Return all the flags. It is equivalent to
+<code class="code">mpfr_flags_test(MPFR_FLAGS_ALL)</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fflags_005frestore"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_flags_restore</strong> <code class="def-code-arguments">(mpfr_flags_t <var class="var">flags</var>, mpfr_flags_t <var class="var">mask</var>)</code><a class="copiable-link" href='#index-mpfr_005fflags_005frestore'> ¶</a></span></dt>
+<dd><p>Restore the flags specified by <var class="var">mask</var> to their state represented
+in <var class="var">flags</var>.
+</p></dd></dl>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Memory-Handling-Functions.html">Memory Handling Functions</a>, Previous: <a href="Miscellaneous-Functions.html">Miscellaneous Functions</a>, Up: <a href="MPFR-Interface.html">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

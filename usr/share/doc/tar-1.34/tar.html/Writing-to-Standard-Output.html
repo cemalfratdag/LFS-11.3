@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Writing to Standard Output (GNU tar 1.34)</title>
+
+<meta name="description" content="Writing to Standard Output (GNU tar 1.34)">
+<meta name="keywords" content="Writing to Standard Output (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Writing.html" rel="up" title="Writing">
+<link href="Writing-to-an-External-Program.html" rel="next" title="Writing to an External Program">
+<link href="Directory-Modification-Times-and-Permissions.html" rel="prev" title="Directory Modification Times and Permissions">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="unnumberedsubsubsec-level-extent" id="Writing-to-Standard-Output">
+<div class="nav-panel">
+<p>
+Next: <a href="Writing-to-an-External-Program.html" accesskey="n" rel="next">Writing to an External Program</a>, Previous: <a href="Directory-Modification-Times-and-Permissions.html" accesskey="p" rel="prev">Directory Modification Times and Permissions</a>, Up: <a href="Writing.html" accesskey="u" rel="up">Changing How <code class="command">tar</code> Writes Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="unnumberedsubsubsec" id="Writing-to-Standard-Output-1">Writing to Standard Output</h4>
+
+<a class="index-entry-id" id="index-Writing-extracted-files-to-standard-output"></a>
+<a class="index-entry-id" id="index-Standard-output_002c-writing-extracted-files-to"></a>
+<p>To write the extracted files to the standard output, instead of
+creating the files on the file system, use <samp class="option">--to-stdout</samp> (<samp class="option">-O</samp>) in
+conjunction with <samp class="option">--extract</samp> (<samp class="option">--get</samp>, <samp class="option">-x</samp>).  This option is useful if you are
+extracting files to send them through a pipe, and do not need to
+preserve them in the file system.  If you extract multiple members,
+they appear on standard output concatenated, in the order they are
+found in the archive.
+</p>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-to_002dstdout"></a>
+</dd>
+<dt><samp class="option">--to-stdout</samp></dt>
+<dt><samp class="option">-O</samp></dt>
+<dd><p>Writes files to the standard output.  Use only in conjunction with
+<samp class="option">--extract</samp> (<samp class="option">--get</samp>, <samp class="option">-x</samp>).  When this option is
+used, instead of creating the files specified, <code class="command">tar</code> writes
+the contents of the files extracted to its standard output.  This may
+be useful if you are only extracting the files in order to send them
+through a pipe.  This option is meaningless with <samp class="option">--list</samp>
+(<samp class="option">-t</samp>).
+</p></dd>
+</dl>
+
+<p>This can be useful, for example, if you have a tar archive containing
+a big file and don&rsquo;t want to store the file on disk before processing
+it.  You can use a command like this:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">tar -xOzf foo.tgz bigfile | process
+</pre></div>
+
+<p>or even like this if you want to process the concatenation of the files:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">tar -xOzf foo.tgz bigfile1 bigfile2 | process
+</pre></div>
+
+<p>However, <samp class="option">--to-command</samp> may be more convenient for use with
+multiple files. See the next section.
+</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Writing-to-an-External-Program.html">Writing to an External Program</a>, Previous: <a href="Directory-Modification-Times-and-Permissions.html">Directory Modification Times and Permissions</a>, Up: <a href="Writing.html">Changing How <code class="command">tar</code> Writes Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

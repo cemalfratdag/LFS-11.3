@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>Random Number Functions (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="Random Number Functions (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="index.html" rel="up" title="Top">
+<link href="Formatted-Output.html" rel="next" title="Formatted Output">
+<link href="Low_002dlevel-Functions.html" rel="prev" title="Low-level Functions">
+
+
+</head>
+
+<body lang="en">
+<div class="chapter-level-extent" id="Random-Number-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Formatted-Output.html" accesskey="n" rel="next">Formatted Output</a>, Previous: <a href="Low_002dlevel-Functions.html" accesskey="p" rel="prev">Low-level Functions</a>, Up: <a href="index.html" accesskey="u" rel="up">GNU MP</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h2 class="chapter" id="Random-Number-Functions-2">9 Random Number Functions</h2>
+<a class="index-entry-id" id="index-Random-number-functions-2"></a>
+
+<p>Sequences of pseudo-random numbers in GMP are generated using a variable of
+type <code class="code">gmp_randstate_t</code>, which holds an algorithm selection and a current
+state.  Such a variable must be initialized by a call to one of the
+<code class="code">gmp_randinit</code> functions, and can be seeded with one of the
+<code class="code">gmp_randseed</code> functions.
+</p>
+<p>The functions actually generating random numbers are described in <a class="ref" href="Integer-Random-Numbers.html">Random Number Functions</a>, and <a class="ref" href="Miscellaneous-Float-Functions.html">Miscellaneous Functions</a>.
+</p>
+<p>The older style random number functions don&rsquo;t accept a <code class="code">gmp_randstate_t</code>
+parameter but instead share a global variable of that type.  They use a
+default algorithm and are currently not seeded (though perhaps that will
+change in the future).  The new functions accepting a <code class="code">gmp_randstate_t</code>
+are recommended for applications that care about randomness.
+</p>
+
+<ul class="mini-toc">
+<li><a href="Random-State-Initialization.html" accesskey="1">Random State Initialization</a></li>
+<li><a href="Random-State-Seeding.html" accesskey="2">Random State Seeding</a></li>
+<li><a href="Random-State-Miscellaneous.html" accesskey="3">Random State Miscellaneous</a></li>
+</ul>
+</div>
+
+
+
+</body>
+</html>

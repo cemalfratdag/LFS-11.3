@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Magnetic Tape Control (GNU tar 1.34)</title>
+
+<meta name="description" content="Magnetic Tape Control (GNU tar 1.34)">
+<meta name="keywords" content="Magnetic Tape Control (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Backup-Parameters.html" rel="up" title="Backup Parameters">
+<link href="User-Hooks.html" rel="next" title="User Hooks">
+<link href="General_002dPurpose-Variables.html" rel="prev" title="General-Purpose Variables">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="Magnetic-Tape-Control">
+<div class="nav-panel">
+<p>
+Next: <a href="User-Hooks.html" accesskey="n" rel="next">User Hooks</a>, Previous: <a href="General_002dPurpose-Variables.html" accesskey="p" rel="prev">General-Purpose Variables</a>, Up: <a href="Backup-Parameters.html" accesskey="u" rel="up">Setting Parameters for Backups and Restoration</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="Magnetic-Tape-Control-1">5.4.2 Magnetic Tape Control</h4>
+
+<p>Backup scripts access tape device using special <em class="dfn">hook functions</em>.
+These functions take a single argument &mdash; the name of the tape
+device.  Their names are kept in the following variables:
+</p>
+<dl class="first-defvr">
+<dt class="defvr" id="index-MT_005fBEGIN"><span class="category-def">Backup variable: </span><span><strong class="def-name">MT_BEGIN</strong><a class="copiable-link" href='#index-MT_005fBEGIN'> &para;</a></span></dt>
+<dd><p>The name of <em class="dfn">begin</em> function.  This function is called before
+accessing the drive.  By default it retensions the tape:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">MT_BEGIN=mt_begin
+
+mt_begin() {
+    mt -f &quot;$1&quot; retension
+}
+</pre></div>
+</dd></dl>
+
+<dl class="first-defvr">
+<dt class="defvr" id="index-MT_005fREWIND"><span class="category-def">Backup variable: </span><span><strong class="def-name">MT_REWIND</strong><a class="copiable-link" href='#index-MT_005fREWIND'> &para;</a></span></dt>
+<dd><p>The name of <em class="dfn">rewind</em> function.  The default definition is as
+follows:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">MT_REWIND=mt_rewind
+
+mt_rewind() {
+    mt -f &quot;$1&quot; rewind
+}
+</pre></div>
+
+</dd></dl>
+
+<dl class="first-defvr">
+<dt class="defvr" id="index-MT_005fOFFLINE"><span class="category-def">Backup variable: </span><span><strong class="def-name">MT_OFFLINE</strong><a class="copiable-link" href='#index-MT_005fOFFLINE'> &para;</a></span></dt>
+<dd><p>The name of the function switching the tape off line.  By default
+it is defined as follows:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">MT_OFFLINE=mt_offline
+
+mt_offline() {
+    mt -f &quot;$1&quot; offl
+}
+</pre></div>
+</dd></dl>
+
+<dl class="first-defvr">
+<dt class="defvr" id="index-MT_005fSTATUS"><span class="category-def">Backup variable: </span><span><strong class="def-name">MT_STATUS</strong><a class="copiable-link" href='#index-MT_005fSTATUS'> &para;</a></span></dt>
+<dd><p>The name of the function used to obtain the status of the archive device,
+including error count.  Default definition:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">MT_STATUS=mt_status
+
+mt_status() {
+    mt -f &quot;$1&quot; status
+}
+</pre></div>
+</dd></dl>
+
+</div>
+
+
+
+</body>
+</html>

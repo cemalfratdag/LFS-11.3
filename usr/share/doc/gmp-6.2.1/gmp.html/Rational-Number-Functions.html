@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>Rational Number Functions (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="Rational Number Functions (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="index.html" rel="up" title="Top">
+<link href="Floating_002dpoint-Functions.html" rel="next" title="Floating-point Functions">
+<link href="Integer-Functions.html" rel="prev" title="Integer Functions">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="chapter-level-extent" id="Rational-Number-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Floating_002dpoint-Functions.html" accesskey="n" rel="next">Floating-point Functions</a>, Previous: <a href="Integer-Functions.html" accesskey="p" rel="prev">Integer Functions</a>, Up: <a href="index.html" accesskey="u" rel="up">GNU MP</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h2 class="chapter" id="Rational-Number-Functions-1">6 Rational Number Functions</h2>
+<a class="index-entry-id" id="index-Rational-number-functions"></a>
+
+<p>This chapter describes the GMP functions for performing arithmetic on rational
+numbers.  These functions start with the prefix <code class="code">mpq_</code>.
+</p>
+<p>Rational numbers are stored in objects of type <code class="code">mpq_t</code>.
+</p>
+<p>All rational arithmetic functions assume operands have a canonical form, and
+canonicalize their result.  The canonical form means that the denominator and
+the numerator have no common factors, and that the denominator is positive.
+Zero has the unique representation 0/1.
+</p>
+<p>Pure assignment functions do not canonicalize the assigned variable.  It is
+the responsibility of the user to canonicalize the assigned variable before
+any arithmetic operations are performed on that variable.
+</p>
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpq_005fcanonicalize"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpq_canonicalize</strong> <code class="def-code-arguments">(mpq_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpq_005fcanonicalize'> &para;</a></span></dt>
+<dd><p>Remove any factors that are common to the numerator and denominator of
+<var class="var">op</var>, and make the denominator positive.
+</p></dd></dl>
+
+
+<ul class="mini-toc">
+<li><a href="Initializing-Rationals.html" accesskey="1">Initialization and Assignment Functions</a></li>
+<li><a href="Rational-Conversions.html" accesskey="2">Conversion Functions</a></li>
+<li><a href="Rational-Arithmetic.html" accesskey="3">Arithmetic Functions</a></li>
+<li><a href="Comparing-Rationals.html" accesskey="4">Comparison Functions</a></li>
+<li><a href="Applying-Integer-Functions.html" accesskey="5">Applying Integer Functions to Rationals</a></li>
+<li><a href="I_002fO-of-Rationals.html" accesskey="6">Input and Output Functions</a></li>
+</ul>
+</div>
+
+
+
+</body>
+</html>

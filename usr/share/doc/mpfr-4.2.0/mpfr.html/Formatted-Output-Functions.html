@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual documents how to install and use the Multiple Precision
+Floating-Point Reliable Library, version 4.2.0.
+
+Copyright 1991, 1993-2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.2 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the
+license is included in GNU Free Documentation License. -->
+<title>Formatted Output Functions (GNU MPFR 4.2.0)</title>
+
+<meta name="description" content="How to install and use GNU MPFR, a library for reliable multiple precision
+floating-point arithmetic, version 4.2.0.">
+<meta name="keywords" content="Formatted Output Functions (GNU MPFR 4.2.0)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="MPFR-Interface.html" rel="up" title="MPFR Interface">
+<link href="Integer-and-Remainder-Related-Functions.html" rel="next" title="Integer and Remainder Related Functions">
+<link href="Input-and-Output-Functions.html" rel="prev" title="Input and Output Functions">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Formatted-Output-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Integer-and-Remainder-Related-Functions.html" accesskey="n" rel="next">Integer and Remainder Related Functions</a>, Previous: <a href="Input-and-Output-Functions.html" accesskey="p" rel="prev">Input and Output Functions</a>, Up: <a href="MPFR-Interface.html" accesskey="u" rel="up">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a class="index-entry-id" id="index-Output-functions-1"></a>
+<a class="index-entry-id" id="index-I_002fO-functions-1"></a>
+<h3 class="section" id="Formatted-Output-Functions-1">5.9 Formatted Output Functions</h3>
+
+<ul class="mini-toc">
+<li><a href="#Requirements" accesskey="1">Requirements</a></li>
+<li><a href="#Format-String" accesskey="2">Format String</a></li>
+<li><a href="#Functions" accesskey="3">Functions</a></li>
+</ul>
+<div class="subsection-level-extent" id="Requirements">
+<h4 class="subsection">5.9.1 Requirements</h4>
+<p>The class of <code class="code">mpfr_printf</code> functions provides formatted output in a
+similar manner as the standard C <code class="code">printf</code>. These functions are defined
+only if your system supports ISO C variadic functions and the corresponding
+argument access macros.
+</p>
+<p>When using any of these functions, you must include the <code class="code">&lt;stdio.h&gt;</code>
+standard header before <samp class="file">mpfr.h</samp>, to allow <samp class="file">mpfr.h</samp> to define
+prototypes for these functions.
+</p>
+</div>
+<div class="subsection-level-extent" id="Format-String">
+<h4 class="subsection">5.9.2 Format String</h4>
+<p>The format specification accepted by <code class="code">mpfr_printf</code> is an extension of
+the <code class="code">gmp_printf</code> one (itself, an extension of the <code class="code">printf</code> one).
+The conversion specification is of the form:
+</p>
+<div class="example">
+<pre class="example-preformatted">% [flags] [width] [.[precision]] [type] [rounding] conv
+</pre></div>
+
+<p>‘<samp class="samp">flags</samp>’, ‘<samp class="samp">width</samp>’, and ‘<samp class="samp">precision</samp>’ have the same meaning as for
+the standard <code class="code">printf</code> (in particular, notice that the precision is
+related to the number of digits displayed in the base chosen by ‘<samp class="samp">conv</samp>’
+and not related to the internal precision of the <code class="code">mpfr_t</code> variable), but
+note that for ‘<samp class="samp">Re</samp>’, the default precision is not the same as the one for
+‘<samp class="samp">e</samp>’.
+<code class="code">mpfr_printf</code> accepts the same ‘<samp class="samp">type</samp>’ specifiers as GMP (except the
+non-standard and deprecated ‘<samp class="samp">q</samp>’, use ‘<samp class="samp">ll</samp>’ instead), namely the
+length modifiers defined in the C standard:
+</p>
+<blockquote class="quotation">
+<table class="multitable">
+<tbody><tr><td>‘<samp class="samp">h</samp>’</td><td><code class="code">short</code></td></tr>
+<tr><td>‘<samp class="samp">hh</samp>’</td><td><code class="code">char</code></td></tr>
+<tr><td>‘<samp class="samp">j</samp>’</td><td><code class="code">intmax_t</code> or <code class="code">uintmax_t</code></td></tr>
+<tr><td>‘<samp class="samp">l</samp>’</td><td><code class="code">long</code> or <code class="code">wchar_t</code></td></tr>
+<tr><td>‘<samp class="samp">ll</samp>’</td><td><code class="code">long long</code></td></tr>
+<tr><td>‘<samp class="samp">L</samp>’</td><td><code class="code">long double</code></td></tr>
+<tr><td>‘<samp class="samp">t</samp>’</td><td><code class="code">ptrdiff_t</code></td></tr>
+<tr><td>‘<samp class="samp">z</samp>’</td><td><code class="code">size_t</code></td></tr>
+</tbody>
+</table>
+</blockquote>
+
+<p>and the ‘<samp class="samp">type</samp>’ specifiers defined in GMP, plus ‘<samp class="samp">R</samp>’ and ‘<samp class="samp">P</samp>’,
+which are specific to MPFR (the second column in the table below shows the
+type of the argument read in the argument list and the kind of ‘<samp class="samp">conv</samp>’
+specifier to use after the ‘<samp class="samp">type</samp>’ specifier):
+</p>
+<blockquote class="quotation">
+<table class="multitable">
+<tbody><tr><td>‘<samp class="samp">F</samp>’</td><td><code class="code">mpf_t</code>, float conversions</td></tr>
+<tr><td>‘<samp class="samp">Q</samp>’</td><td><code class="code">mpq_t</code>, integer conversions</td></tr>
+<tr><td>‘<samp class="samp">M</samp>’</td><td><code class="code">mp_limb_t</code>, integer conversions</td></tr>
+<tr><td>‘<samp class="samp">N</samp>’</td><td><code class="code">mp_limb_t</code> array, integer conversions</td></tr>
+<tr><td>‘<samp class="samp">Z</samp>’</td><td><code class="code">mpz_t</code>, integer conversions</td></tr>
+<tr><td>‘<samp class="samp">P</samp>’</td><td><code class="code">mpfr_prec_t</code>, integer conversions</td></tr>
+<tr><td>‘<samp class="samp">R</samp>’</td><td><code class="code">mpfr_t</code>, float conversions</td></tr>
+</tbody>
+</table>
+</blockquote>
+
+<p>The ‘<samp class="samp">type</samp>’ specifiers have the same restrictions as those
+mentioned in the GMP documentation:
+see Section “Formatted Output Strings” in <cite class="cite">GNU MP</cite>.
+In particular, the ‘<samp class="samp">type</samp>’ specifiers (except ‘<samp class="samp">R</samp>’ and ‘<samp class="samp">P</samp>’) are
+supported only if they are supported by <code class="code">gmp_printf</code> in your GMP build;
+this implies that the standard specifiers, such as ‘<samp class="samp">t</samp>’, must <em class="emph">also</em>
+be supported by your C library if you want to use them.
+</p>
+<p>The ‘<samp class="samp">rounding</samp>’ field is specific to <code class="code">mpfr_t</code> arguments and should
+not be used with other types.
+</p>
+<p>With conversion specification not involving ‘<samp class="samp">P</samp>’ and ‘<samp class="samp">R</samp>’ types,
+<code class="code">mpfr_printf</code> behaves exactly as <code class="code">gmp_printf</code>.
+</p>
+<p>Thus the ‘<samp class="samp">conv</samp>’ specifier ‘<samp class="samp">F</samp>’ is not supported (due to the use
+of ‘<samp class="samp">F</samp>’ as the ‘<samp class="samp">type</samp>’ specifier for <code class="code">mpf_t</code>), except for
+the ‘<samp class="samp">type</samp>’ specifier ‘<samp class="samp">R</samp>’ (i.e., for <code class="code">mpfr_t</code> arguments).
+</p>
+<p>The ‘<samp class="samp">P</samp>’ type specifies that a following ‘<samp class="samp">d</samp>’, ‘<samp class="samp">i</samp>’,
+‘<samp class="samp">o</samp>’, ‘<samp class="samp">u</samp>’, ‘<samp class="samp">x</samp>’, or ‘<samp class="samp">X</samp>’ conversion specifier applies
+to a <code class="code">mpfr_prec_t</code> argument.
+It is needed because the <code class="code">mpfr_prec_t</code> type does not necessarily
+correspond to an <code class="code">int</code> or any fixed standard type.
+The ‘<samp class="samp">precision</samp>’ value specifies the minimum number of digits to
+appear. The default precision is 1.
+For example:
+</p><div class="example">
+<pre class="example-preformatted">mpfr_t x;
+mpfr_prec_t p;
+mpfr_init (x);
+…
+p = mpfr_get_prec (x);
+mpfr_printf (&quot;variable x with %Pu bits&quot;, p);
+</pre></div>
+
+<p>The ‘<samp class="samp">R</samp>’ type specifies that a following ‘<samp class="samp">a</samp>’, ‘<samp class="samp">A</samp>’, ‘<samp class="samp">b</samp>’,
+‘<samp class="samp">e</samp>’, ‘<samp class="samp">E</samp>’, ‘<samp class="samp">f</samp>’, ‘<samp class="samp">F</samp>’, ‘<samp class="samp">g</samp>’, ‘<samp class="samp">G</samp>’, or ‘<samp class="samp">n</samp>’
+conversion specifier applies to a <code class="code">mpfr_t</code> argument.
+The ‘<samp class="samp">R</samp>’ type can be followed by a ‘<samp class="samp">rounding</samp>’ specifier denoted by
+one of the following characters:
+</p>
+<blockquote class="quotation">
+<table class="multitable">
+<tbody><tr><td>‘<samp class="samp">U</samp>’</td><td>round toward positive infinity</td></tr>
+<tr><td>‘<samp class="samp">D</samp>’</td><td>round toward negative infinity</td></tr>
+<tr><td>‘<samp class="samp">Y</samp>’</td><td>round away from zero</td></tr>
+<tr><td>‘<samp class="samp">Z</samp>’</td><td>round toward zero</td></tr>
+<tr><td>‘<samp class="samp">N</samp>’</td><td>round to nearest (with ties to even)</td></tr>
+<tr><td>‘<samp class="samp">*</samp>’</td><td>rounding mode indicated by the <code class="code">mpfr_rnd_t</code> argument
+just before the corresponding <code class="code">mpfr_t</code> variable.</td></tr>
+</tbody>
+</table>
+</blockquote>
+
+<p>The default rounding mode is rounding to nearest.
+The following three examples are equivalent:
+</p><div class="example">
+<pre class="example-preformatted">mpfr_t x;
+mpfr_init (x);
+…
+mpfr_printf (&quot;%.128Rf&quot;, x);
+mpfr_printf (&quot;%.128RNf&quot;, x);
+mpfr_printf (&quot;%.128R*f&quot;, MPFR_RNDN, x);
+</pre></div>
+
+<p>Note that the rounding away from zero mode is specified with ‘<samp class="samp">Y</samp>’
+because ISO C reserves the ‘<samp class="samp">A</samp>’ specifier for hexadecimal output (see
+below).
+</p>
+<p>The output ‘<samp class="samp">conv</samp>’ specifiers allowed with <code class="code">mpfr_t</code> parameter are:
+</p>
+<blockquote class="quotation">
+<table class="multitable">
+<tbody><tr><td>‘<samp class="samp">a</samp>’ ‘<samp class="samp">A</samp>’</td><td>hex float, C99 style</td></tr>
+<tr><td>‘<samp class="samp">b</samp>’</td><td>binary output</td></tr>
+<tr><td>‘<samp class="samp">e</samp>’ ‘<samp class="samp">E</samp>’</td><td>scientific-format float</td></tr>
+<tr><td>‘<samp class="samp">f</samp>’ ‘<samp class="samp">F</samp>’</td><td>fixed-point float</td></tr>
+<tr><td>‘<samp class="samp">g</samp>’ ‘<samp class="samp">G</samp>’</td><td>fixed-point or scientific float</td></tr>
+</tbody>
+</table>
+</blockquote>
+
+<p>The conversion specifier ‘<samp class="samp">b</samp>’, which displays the argument in binary, is
+specific to <code class="code">mpfr_t</code> arguments and should not be used with other types.
+Other conversion specifiers have the same meaning as for a <code class="code">double</code>
+argument.
+</p>
+<p>In case of non-decimal output, only the significand is written in the
+specified base, the exponent is always displayed in decimal.
+Special values are always displayed as ‘<samp class="samp">nan</samp>’, ‘<samp class="samp">-inf</samp>’, and ‘<samp class="samp">inf</samp>’
+for ‘<samp class="samp">a</samp>’, ‘<samp class="samp">b</samp>’, ‘<samp class="samp">e</samp>’, ‘<samp class="samp">f</samp>’, and ‘<samp class="samp">g</samp>’ specifiers and
+‘<samp class="samp">NAN</samp>’, ‘<samp class="samp">-INF</samp>’, and ‘<samp class="samp">INF</samp>’ for ‘<samp class="samp">A</samp>’, ‘<samp class="samp">E</samp>’, ‘<samp class="samp">F</samp>’, and
+‘<samp class="samp">G</samp>’ specifiers.
+</p>
+<p>The <code class="code">mpfr_t</code> number is rounded to the given precision in the direction
+specified by the rounding mode (see below if the precision is missing).
+Similarly to the native C types, the precision is the number of digits output
+after the decimal-point character, except for the ‘<samp class="samp">g</samp>’ and ‘<samp class="samp">G</samp>’
+conversion specifiers, where it is the number of significant digits
+(but trailing zeros of the fractional part are not output by default),
+or 1 if the precision is zero.
+If the precision is zero with rounding to nearest mode and one of the
+following conversion specifiers: ‘<samp class="samp">a</samp>’, ‘<samp class="samp">A</samp>’, ‘<samp class="samp">b</samp>’, ‘<samp class="samp">e</samp>’,
+‘<samp class="samp">E</samp>’, tie case is rounded to even when it lies between two consecutive
+values at the
+wanted precision which have the same exponent, otherwise, it is rounded away
+from zero.
+For instance, 85 is displayed as ‘<samp class="samp">8e+1</samp>’ and 95 is displayed as
+‘<samp class="samp">1e+2</samp>’ with the format specification <code class="code">&quot;%.0RNe&quot;</code>.
+This also applies when the ‘<samp class="samp">g</samp>’ (resp. ‘<samp class="samp">G</samp>’) conversion specifier
+uses the ‘<samp class="samp">e</samp>’ (resp. ‘<samp class="samp">E</samp>’) style.
+If the precision is set to a value greater than the maximum value for an
+<code class="code">int</code>, it will be silently reduced down to <code class="code">INT_MAX</code>.
+</p>
+<p>If the precision is missing, it is chosen as follows, depending on the
+conversion specifier.
+</p><ul class="itemize mark-bullet">
+<li>With ‘<samp class="samp">a</samp>’, ‘<samp class="samp">A</samp>’, and ‘<samp class="samp">b</samp>’, it is chosen to have
+an exact representation with no trailing zeros.
+</li><li>With ‘<samp class="samp">e</samp>’ and ‘<samp class="samp">E</samp>’, it is
+ceil(p times
+log(2)/log(10)),
+where p<!-- /@w --> is the precision of the input variable, matching the choice
+done for <code class="code">mpfr_get_str</code>; thus, if rounding to nearest is used,
+outputting the value with a missing precision and reading it back will
+yield the original value.
+</li><li>With ‘<samp class="samp">f</samp>’, ‘<samp class="samp">F</samp>’, ‘<samp class="samp">g</samp>’, and ‘<samp class="samp">G</samp>’, it is 6.
+</li></ul>
+
+
+</div>
+<div class="subsection-level-extent" id="Functions">
+<h4 class="subsection">5.9.3 Functions</h4>
+
+<p>For all the following functions, if the number of characters that ought to be
+written exceeds the maximum limit <code class="code">INT_MAX</code> for an <code class="code">int</code>, nothing is
+written in the stream (resp. to <code class="code">stdout</code>, to <var class="var">buf</var>, to <var class="var">str</var>),
+the function returns −1, sets the <em class="emph">erange</em> flag, and <code class="code">errno</code>
+is set to <code class="code">EOVERFLOW</code> if the <code class="code">EOVERFLOW</code> macro is defined (such as
+on POSIX systems). Note, however, that <code class="code">errno</code> might be changed to
+another value by some internal library call if another error occurs there
+(currently, this would come from the unallocation function).
+</p>
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005ffprintf"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_fprintf</strong> <code class="def-code-arguments">(FILE *<var class="var">stream</var>, const char *<var class="var">template</var>, …)</code><a class="copiable-link" href='#index-mpfr_005ffprintf'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fvfprintf"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_vfprintf</strong> <code class="def-code-arguments">(FILE *<var class="var">stream</var>, const char *<var class="var">template</var>, va_list <var class="var">ap</var>)</code><a class="copiable-link" href='#index-mpfr_005fvfprintf'> ¶</a></span></dt>
+<dd><p>Print to the stream <var class="var">stream</var> the optional arguments under the control of
+the template string <var class="var">template</var>.
+Return the number of characters written or a negative value if an error
+occurred.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fprintf"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_printf</strong> <code class="def-code-arguments">(const char *<var class="var">template</var>, …)</code><a class="copiable-link" href='#index-mpfr_005fprintf'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fvprintf"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_vprintf</strong> <code class="def-code-arguments">(const char *<var class="var">template</var>, va_list <var class="var">ap</var>)</code><a class="copiable-link" href='#index-mpfr_005fvprintf'> ¶</a></span></dt>
+<dd><p>Print to <code class="code">stdout</code> the optional arguments under the control of the
+template string <var class="var">template</var>.
+Return the number of characters written or a negative value if an error
+occurred.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fsprintf"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_sprintf</strong> <code class="def-code-arguments">(char *<var class="var">buf</var>, const char *<var class="var">template</var>, …)</code><a class="copiable-link" href='#index-mpfr_005fsprintf'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fvsprintf"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_vsprintf</strong> <code class="def-code-arguments">(char *<var class="var">buf</var>, const char *<var class="var">template</var>, va_list <var class="var">ap</var>)</code><a class="copiable-link" href='#index-mpfr_005fvsprintf'> ¶</a></span></dt>
+<dd><p>Form a null-terminated string corresponding to the optional arguments under
+the control of the template string <var class="var">template</var>, and print it in
+<var class="var">buf</var>. No overlap is permitted between
+<var class="var">buf</var> and the other arguments.
+Return the number of characters written in the array <var class="var">buf</var>
+<em class="emph">not counting</em>
+the terminating null character or a negative value if an error occurred.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fsnprintf"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_snprintf</strong> <code class="def-code-arguments">(char *<var class="var">buf</var>, size_t <var class="var">n</var>, const char *<var class="var">template</var>, …)</code><a class="copiable-link" href='#index-mpfr_005fsnprintf'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fvsnprintf"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_vsnprintf</strong> <code class="def-code-arguments">(char *<var class="var">buf</var>, size_t <var class="var">n</var>, const char *<var class="var">template</var>, va_list <var class="var">ap</var>)</code><a class="copiable-link" href='#index-mpfr_005fvsnprintf'> ¶</a></span></dt>
+<dd><p>Form a null-terminated string corresponding to the optional arguments under
+the control of the template string <var class="var">template</var>, and print it in
+<var class="var">buf</var>. If <var class="var">n</var> is zero, nothing is
+written and <var class="var">buf</var> may be a null pointer, otherwise, the first
+<var class="var">n</var> − 1<!-- /@w --> characters are written in <var class="var">buf</var> and the
+<var class="var">n</var>-th one is a null character.
+Return the number of characters that would have been written had <var class="var">n</var> been
+sufficiently large, <em class="emph">not counting</em>
+the terminating null character, or a negative value if an error occurred.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fasprintf"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_asprintf</strong> <code class="def-code-arguments">(char **<var class="var">str</var>, const char *<var class="var">template</var>, …)</code><a class="copiable-link" href='#index-mpfr_005fasprintf'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fvasprintf"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_vasprintf</strong> <code class="def-code-arguments">(char **<var class="var">str</var>, const char *<var class="var">template</var>, va_list <var class="var">ap</var>)</code><a class="copiable-link" href='#index-mpfr_005fvasprintf'> ¶</a></span></dt>
+<dd><p>Write their output as a null terminated string in a block of memory allocated
+using the allocation function (see <a class="pxref" href="Memory-Handling.html">Memory Handling</a>). A pointer to the
+block is stored in
+<var class="var">str</var>. The block of memory must be freed using <code class="code">mpfr_free_str</code>.
+The return value is the number of characters written in the string, excluding
+the null-terminator, or a negative value if an error occurred, in which case
+the contents of <var class="var">str</var> are undefined.
+</p></dd></dl>
+
+</div>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Integer-and-Remainder-Related-Functions.html">Integer and Remainder Related Functions</a>, Previous: <a href="Input-and-Output-Functions.html">Input and Output Functions</a>, Up: <a href="MPFR-Interface.html">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

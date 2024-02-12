@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Other Tars (GNU tar 1.34)</title>
+
+<meta name="description" content="Other Tars (GNU tar 1.34)">
+<meta name="keywords" content="Other Tars (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Portability.html" rel="up" title="Portability">
+<link href="Large-or-Negative-Values.html" rel="prev" title="Large or Negative Values">
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="Other-Tars">
+<div class="nav-panel">
+<p>
+Previous: <a href="Large-or-Negative-Values.html" accesskey="p" rel="prev">Large or Negative Values</a>, Up: <a href="Portability.html" accesskey="u" rel="up">Making <code class="command">tar</code> Archives More Portable</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="How-to-Extract-GNU_002dSpecific-Data-Using-Other-tar-Implementations">8.3.10 How to Extract GNU-Specific Data Using Other <code class="command">tar</code> Implementations</h4>
+
+<p>In previous sections you became acquainted with various quirks
+necessary to make your archives portable.  Sometimes you may need to
+extract archives containing GNU-specific members using some
+third-party <code class="command">tar</code> implementation or an older version of
+<abbr class="acronym">GNU</abbr> <code class="command">tar</code>.  Of course your best bet is to have <abbr class="acronym">GNU</abbr> <code class="command">tar</code> installed,
+but if it is for some reason impossible, this section will explain
+how to cope without it.
+</p>
+<p>When we speak about <em class="dfn">GNU-specific</em> members we mean two classes of
+them: members split between the volumes of a multi-volume archive and
+sparse members.  You will be able to always recover such members if
+the archive is in PAX format.  In addition split members can be
+recovered from archives in old GNU format.  The following subsections
+describe the required procedures in detail.
+</p>
+
+<ul class="mini-toc">
+<li><a href="Split-Recovery.html" accesskey="1">Extracting Members Split Between Volumes</a></li>
+<li><a href="Sparse-Recovery.html" accesskey="2">Extracting Sparse Members</a></li>
+</ul>
+</div>
+
+
+
+</body>
+</html>

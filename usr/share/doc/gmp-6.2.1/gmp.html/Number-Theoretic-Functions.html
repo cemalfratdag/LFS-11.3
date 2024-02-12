@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>Number Theoretic Functions (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="Number Theoretic Functions (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="Integer-Functions.html" rel="up" title="Integer Functions">
+<link href="Integer-Comparisons.html" rel="next" title="Integer Comparisons">
+<link href="Integer-Roots.html" rel="prev" title="Integer Roots">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Number-Theoretic-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Integer-Comparisons.html" accesskey="n" rel="next">Comparison Functions</a>, Previous: <a href="Integer-Roots.html" accesskey="p" rel="prev">Root Extraction Functions</a>, Up: <a href="Integer-Functions.html" accesskey="u" rel="up">Integer Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Number-Theoretic-Functions-1">5.9 Number Theoretic Functions</h3>
+<a class="index-entry-id" id="index-Number-theoretic-functions"></a>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fprobab_005fprime_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_probab_prime_p</strong> <code class="def-code-arguments">(const mpz_t <var class="var">n</var>, int <var class="var">reps</var>)</code><a class="copiable-link" href='#index-mpz_005fprobab_005fprime_005fp'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Prime-testing-functions"></a>
+<a class="index-entry-id" id="index-Probable-prime-testing-functions"></a>
+<p>Determine whether <var class="var">n</var> is prime.  Return 2 if <var class="var">n</var> is definitely prime,
+return 1 if <var class="var">n</var> is probably prime (without being certain), or return 0 if
+<var class="var">n</var> is definitely non-prime.
+</p>
+<p>This function performs some trial divisions, a Baillie-PSW probable prime
+test, then <var class="var">reps-24</var> Miller-Rabin probabilistic primality tests.  A
+higher <var class="var">reps</var> value will reduce the chances of a non-prime being
+identified as &ldquo;probably prime&rdquo;.  A composite number will be identified as a
+prime with an asymptotic probability of less than <em class="math">4^(-<var class="var">reps</var>)</em>.
+Reasonable values of <var class="var">reps</var> are between 15 and 50.
+</p>
+<p>GMP versions up to and including 6.1.2 did not use the Baillie-PSW
+primality test. In those older versions of GMP, this function performed
+<var class="var">reps</var> Miller-Rabin tests.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fnextprime"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_nextprime</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, const mpz_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005fnextprime'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Next-prime-function"></a>
+<p>Set <var class="var">rop</var> to the next prime greater than <var class="var">op</var>.
+</p>
+<p>This function uses a probabilistic algorithm to identify primes.  For
+practical purposes it&rsquo;s adequate, the chance of a composite passing will be
+extremely small.
+</p></dd></dl>
+
+
+
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fgcd"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_gcd</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, const mpz_t <var class="var">op1</var>, const mpz_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpz_005fgcd'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Greatest-common-divisor-functions"></a>
+<a class="index-entry-id" id="index-GCD-functions"></a>
+<p>Set <var class="var">rop</var> to the greatest common divisor of <var class="var">op1</var> and <var class="var">op2</var>.  The
+result is always positive even if one or both input operands are negative.
+Except if both inputs are zero; then this function defines <em class="math">gcd(0,0) = 0</em>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fgcd_005fui"><span class="category-def">Function: </span><span><code class="def-type">unsigned long int</code> <strong class="def-name">mpz_gcd_ui</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, const mpz_t <var class="var">op1</var>, unsigned long int <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpz_005fgcd_005fui'> &para;</a></span></dt>
+<dd><p>Compute the greatest common divisor of <var class="var">op1</var> and <var class="var">op2</var>.  If
+<var class="var">rop</var> is not <code class="code">NULL</code>, store the result there.
+</p>
+<p>If the result is small enough to fit in an <code class="code">unsigned long int</code>, it is
+returned.  If the result does not fit, 0 is returned, and the result is equal
+to the argument <var class="var">op1</var>.  Note that the result will always fit if <var class="var">op2</var>
+is non-zero.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fgcdext"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_gcdext</strong> <code class="def-code-arguments">(mpz_t <var class="var">g</var>, mpz_t <var class="var">s</var>, mpz_t <var class="var">t</var>, const mpz_t <var class="var">a</var>, const mpz_t <var class="var">b</var>)</code><a class="copiable-link" href='#index-mpz_005fgcdext'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Extended-GCD"></a>
+<a class="index-entry-id" id="index-GCD-extended"></a>
+<p>Set <var class="var">g</var> to the greatest common divisor of <var class="var">a</var> and <var class="var">b</var>, and in
+addition set <var class="var">s</var> and <var class="var">t</var> to coefficients satisfying
+<em class="math"><var class="var">a</var>*<var class="var">s</var> + <var class="var">b</var>*<var class="var">t</var> = <var class="var">g</var></em>.
+The value in <var class="var">g</var> is always positive, even if one or both of <var class="var">a</var> and
+<var class="var">b</var> are negative (or zero if both inputs are zero).  The values in <var class="var">s</var>
+and <var class="var">t</var> are chosen such that normally, <em class="math">abs(<var class="var">s</var>) &lt;
+abs(<var class="var">b</var>) / (2 <var class="var">g</var>)</em> and <em class="math">abs(<var class="var">t</var>) &lt; abs(<var class="var">a</var>)
+/ (2 <var class="var">g</var>)</em>, and these relations define <var class="var">s</var> and <var class="var">t</var> uniquely.  There
+are a few exceptional cases:
+</p>
+<p>If <em class="math">abs(<var class="var">a</var>) = abs(<var class="var">b</var>)</em>, then <em class="math"><var class="var">s</var> = 0</em>,
+<em class="math"><var class="var">t</var> = sgn(<var class="var">b</var>)</em>.
+</p>
+<p>Otherwise, <em class="math"><var class="var">s</var> = sgn(<var class="var">a</var>)</em> if <em class="math"><var class="var">b</var> = 0</em> or
+<em class="math">abs(<var class="var">b</var>) = 2 <var class="var">g</var></em>, and <em class="math"><var class="var">t</var> = sgn(<var class="var">b</var>)</em> if
+<em class="math"><var class="var">a</var> = 0</em> or <em class="math">abs(<var class="var">a</var>) = 2 <var class="var">g</var></em>.
+</p>
+<p>In all cases, <em class="math"><var class="var">s</var> = 0</em> if and only if <em class="math"><var class="var">g</var> =
+abs(<var class="var">b</var>)</em>, i.e., if <var class="var">b</var> divides <var class="var">a</var> or <em class="math"><var class="var">a</var> = <var class="var">b</var>
+= 0</em>.
+</p>
+<p>If <var class="var">t</var> or <var class="var">g</var> is <code class="code">NULL</code> then that value is not computed.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005flcm"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_lcm</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, const mpz_t <var class="var">op1</var>, const mpz_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpz_005flcm'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005flcm_005fui"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_lcm_ui</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, const mpz_t <var class="var">op1</var>, unsigned long <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpz_005flcm_005fui'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Least-common-multiple-functions"></a>
+<a class="index-entry-id" id="index-LCM-functions"></a>
+<p>Set <var class="var">rop</var> to the least common multiple of <var class="var">op1</var> and <var class="var">op2</var>.
+<var class="var">rop</var> is always positive, irrespective of the signs of <var class="var">op1</var> and
+<var class="var">op2</var>.  <var class="var">rop</var> will be zero if either <var class="var">op1</var> or <var class="var">op2</var> is zero.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005finvert"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_invert</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, const mpz_t <var class="var">op1</var>, const mpz_t <var class="var">op2</var>)</code><a class="copiable-link" href='#index-mpz_005finvert'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Modular-inverse-functions"></a>
+<a class="index-entry-id" id="index-Inverse-modulo-functions"></a>
+<p>Compute the inverse of <var class="var">op1</var> modulo <var class="var">op2</var> and put the result in
+<var class="var">rop</var>.  If the inverse exists, the return value is non-zero and <var class="var">rop</var>
+will satisfy <em class="math">0 &lt;= <var class="var">rop</var> &lt; abs(<var class="var">op2</var>)</em> (with <em class="math"><var class="var">rop</var>
+= 0</em> possible only when <em class="math">abs(<var class="var">op2</var>) = 1</em>, i.e., in the
+somewhat degenerate zero ring).  If an inverse doesn&rsquo;t
+exist the return value is zero and <var class="var">rop</var> is undefined.  The behaviour of
+this function is undefined when <var class="var">op2</var> is zero.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fjacobi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_jacobi</strong> <code class="def-code-arguments">(const mpz_t <var class="var">a</var>, const mpz_t <var class="var">b</var>)</code><a class="copiable-link" href='#index-mpz_005fjacobi'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Jacobi-symbol-functions"></a>
+<p>Calculate the Jacobi symbol <em class="math">(<var class="var">a</var>/<var class="var">b</var>)</em>.  This is defined only for <var class="var">b</var> odd.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005flegendre"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_legendre</strong> <code class="def-code-arguments">(const mpz_t <var class="var">a</var>, const mpz_t <var class="var">p</var>)</code><a class="copiable-link" href='#index-mpz_005flegendre'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Legendre-symbol-functions"></a>
+<p>Calculate the Legendre symbol <em class="math">(<var class="var">a</var>/<var class="var">p</var>)</em>.  This is defined only for <var class="var">p</var> an odd positive
+prime, and for such <var class="var">p</var> it&rsquo;s identical to the Jacobi symbol.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fkronecker"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_kronecker</strong> <code class="def-code-arguments">(const mpz_t <var class="var">a</var>, const mpz_t <var class="var">b</var>)</code><a class="copiable-link" href='#index-mpz_005fkronecker'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fkronecker_005fsi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_kronecker_si</strong> <code class="def-code-arguments">(const mpz_t <var class="var">a</var>, long <var class="var">b</var>)</code><a class="copiable-link" href='#index-mpz_005fkronecker_005fsi'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fkronecker_005fui"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_kronecker_ui</strong> <code class="def-code-arguments">(const mpz_t <var class="var">a</var>, unsigned long <var class="var">b</var>)</code><a class="copiable-link" href='#index-mpz_005fkronecker_005fui'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fsi_005fkronecker"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_si_kronecker</strong> <code class="def-code-arguments">(long <var class="var">a</var>, const mpz_t <var class="var">b</var>)</code><a class="copiable-link" href='#index-mpz_005fsi_005fkronecker'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fui_005fkronecker"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_ui_kronecker</strong> <code class="def-code-arguments">(unsigned long <var class="var">a</var>, const mpz_t <var class="var">b</var>)</code><a class="copiable-link" href='#index-mpz_005fui_005fkronecker'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Kronecker-symbol-functions"></a>
+<p>Calculate the Jacobi symbol <em class="math">(<var class="var">a</var>/<var class="var">b</var>)</em> with the Kronecker extension <em class="math">(a/2)=(2/a)</em> when <em class="math">a</em> odd, or
+<em class="math">(a/2)=0</em> when <em class="math">a</em> even.
+</p>
+<p>When <var class="var">b</var> is odd the Jacobi symbol and Kronecker symbol are
+identical, so <code class="code">mpz_kronecker_ui</code> etc can be used for mixed
+precision Jacobi symbols too.
+</p>
+<p>For more information see Henri Cohen section 1.4.2 (see <a class="pxref" href="References.html">References</a>),
+or any number theory textbook.  See also the example program
+<samp class="file">demos/qcn.c</samp> which uses <code class="code">mpz_kronecker_ui</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fremove"><span class="category-def">Function: </span><span><code class="def-type">mp_bitcnt_t</code> <strong class="def-name">mpz_remove</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, const mpz_t <var class="var">op</var>, const mpz_t <var class="var">f</var>)</code><a class="copiable-link" href='#index-mpz_005fremove'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Remove-factor-functions"></a>
+<a class="index-entry-id" id="index-Factor-removal-functions"></a>
+<p>Remove all occurrences of the factor <var class="var">f</var> from <var class="var">op</var> and store the
+result in <var class="var">rop</var>.  The return value is how many such occurrences were
+removed.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005ffac_005fui"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_fac_ui</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, unsigned long int <var class="var">n</var>)</code><a class="copiable-link" href='#index-mpz_005ffac_005fui'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005f2fac_005fui"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_2fac_ui</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, unsigned long int <var class="var">n</var>)</code><a class="copiable-link" href='#index-mpz_005f2fac_005fui'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fmfac_005fuiui"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_mfac_uiui</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, unsigned long int <var class="var">n</var>, unsigned long int <var class="var">m</var>)</code><a class="copiable-link" href='#index-mpz_005fmfac_005fuiui'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Factorial-functions"></a>
+<p>Set <var class="var">rop</var> to the factorial of <var class="var">n</var>: <code class="code">mpz_fac_ui</code> computes the plain factorial <var class="var">n</var>!,
+<code class="code">mpz_2fac_ui</code> computes the double-factorial <var class="var">n</var>!!, and <code class="code">mpz_mfac_uiui</code> the
+<var class="var">m</var>-multi-factorial <em class="math"><var class="var">n</var>!^(<var class="var">m</var>)</em>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fprimorial_005fui"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_primorial_ui</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, unsigned long int <var class="var">n</var>)</code><a class="copiable-link" href='#index-mpz_005fprimorial_005fui'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Primorial-functions"></a>
+<p>Set <var class="var">rop</var> to the primorial of <var class="var">n</var>, i.e. the product of all positive
+prime numbers <em class="math">&lt;=<var class="var">n</var></em>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fbin_005fui"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_bin_ui</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, const mpz_t <var class="var">n</var>, unsigned long int <var class="var">k</var>)</code><a class="copiable-link" href='#index-mpz_005fbin_005fui'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fbin_005fuiui"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_bin_uiui</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, unsigned long int <var class="var">n</var>, unsigned&nbsp;long&nbsp;int&nbsp;<var class="var">k</var><!-- /@w -->)</code><a class="copiable-link" href='#index-mpz_005fbin_005fuiui'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Binomial-coefficient-functions"></a>
+<p>Compute the binomial coefficient <em class="math"><var class="var">n</var> over
+<var class="var">k</var></em> and store the result in <var class="var">rop</var>.  Negative values of <var class="var">n</var> are
+supported by <code class="code">mpz_bin_ui</code>, using the identity
+<em class="math">bin(-n,k) = (-1)^k * bin(n+k-1,k)</em>, see Knuth volume 1 section 1.2.6
+part G.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005ffib_005fui"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_fib_ui</strong> <code class="def-code-arguments">(mpz_t <var class="var">fn</var>, unsigned long int <var class="var">n</var>)</code><a class="copiable-link" href='#index-mpz_005ffib_005fui'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005ffib2_005fui"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_fib2_ui</strong> <code class="def-code-arguments">(mpz_t <var class="var">fn</var>, mpz_t <var class="var">fnsub1</var>, unsigned long int <var class="var">n</var>)</code><a class="copiable-link" href='#index-mpz_005ffib2_005fui'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Fibonacci-sequence-functions"></a>
+<p><code class="code">mpz_fib_ui</code> sets <var class="var">fn</var> to to <em class="math">F[n]</em>, the <var class="var">n</var>&rsquo;th Fibonacci
+number.  <code class="code">mpz_fib2_ui</code> sets <var class="var">fn</var> to <em class="math">F[n]</em>, and <var class="var">fnsub1</var> to
+<em class="math">F[n-1]</em>.
+</p>
+<p>These functions are designed for calculating isolated Fibonacci numbers.  When
+a sequence of values is wanted it&rsquo;s best to start with <code class="code">mpz_fib2_ui</code> and
+iterate the defining <em class="math">F[n+1]=F[n]+F[n-1]</em> or
+similar.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005flucnum_005fui"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_lucnum_ui</strong> <code class="def-code-arguments">(mpz_t <var class="var">ln</var>, unsigned long int <var class="var">n</var>)</code><a class="copiable-link" href='#index-mpz_005flucnum_005fui'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005flucnum2_005fui"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_lucnum2_ui</strong> <code class="def-code-arguments">(mpz_t <var class="var">ln</var>, mpz_t <var class="var">lnsub1</var>, unsigned long int <var class="var">n</var>)</code><a class="copiable-link" href='#index-mpz_005flucnum2_005fui'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Lucas-number-functions"></a>
+<p><code class="code">mpz_lucnum_ui</code> sets <var class="var">ln</var> to to <em class="math">L[n]</em>, the <var class="var">n</var>&rsquo;th Lucas
+number.  <code class="code">mpz_lucnum2_ui</code> sets <var class="var">ln</var> to <em class="math">L[n]</em>, and <var class="var">lnsub1</var>
+to <em class="math">L[n-1]</em>.
+</p>
+<p>These functions are designed for calculating isolated Lucas numbers.  When a
+sequence of values is wanted it&rsquo;s best to start with <code class="code">mpz_lucnum2_ui</code> and
+iterate the defining <em class="math">L[n+1]=L[n]+L[n-1]</em> or
+similar.
+</p>
+<p>The Fibonacci numbers and Lucas numbers are related sequences, so it&rsquo;s never
+necessary to call both <code class="code">mpz_fib2_ui</code> and <code class="code">mpz_lucnum2_ui</code>.  The
+formulas for going from Fibonacci to Lucas can be found in <a class="ref" href="Lucas-Numbers-Algorithm.html">Lucas Numbers</a>, the reverse is straightforward too.
+</p></dd></dl>
+
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Integer-Comparisons.html">Comparison Functions</a>, Previous: <a href="Integer-Roots.html">Root Extraction Functions</a>, Up: <a href="Integer-Functions.html">Integer Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

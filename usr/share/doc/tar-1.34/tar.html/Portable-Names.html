@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Portable Names (GNU tar 1.34)</title>
+
+<meta name="description" content="Portable Names (GNU tar 1.34)">
+<meta name="keywords" content="Portable Names (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Portability.html" rel="up" title="Portability">
+<link href="dereference.html" rel="next" title="dereference">
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="Portable-Names">
+<div class="nav-panel">
+<p>
+Next: <a href="dereference.html" accesskey="n" rel="next">Symbolic Links</a>, Up: <a href="Portability.html" accesskey="u" rel="up">Making <code class="command">tar</code> Archives More Portable</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="Portable-Names-1">8.3.1 Portable Names</h4>
+
+<p>Use portable file and member names.  A name is portable if it contains
+only <abbr class="acronym">ASCII</abbr> letters and digits, &lsquo;<samp class="samp">/</samp>&rsquo;, &lsquo;<samp class="samp">.</samp>&rsquo;, &lsquo;<samp class="samp">_</samp>&rsquo;, and
+&lsquo;<samp class="samp">-</samp>&rsquo;; it cannot be empty, start with &lsquo;<samp class="samp">-</samp>&rsquo; or &lsquo;<samp class="samp">//</samp>&rsquo;, or
+contain &lsquo;<samp class="samp">/-</samp>&rsquo;.  Avoid deep directory nesting.  For portability to
+old Unix hosts, limit your file name components to 14 characters or
+less.
+</p>
+<p>If you intend to have your <code class="command">tar</code> archives to be read under
+MSDOS, you should not rely on case distinction for file names, and you
+might use the <abbr class="acronym">GNU</abbr> <code class="command">doschk</code> program for helping you
+further diagnosing illegal MSDOS names, which are even more limited
+than System V&rsquo;s.
+</p>
+</div>
+
+
+
+</body>
+</html>

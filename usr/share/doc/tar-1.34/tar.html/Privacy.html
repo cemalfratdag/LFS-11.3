@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Privacy (GNU tar 1.34)</title>
+
+<meta name="description" content="Privacy (GNU tar 1.34)">
+<meta name="keywords" content="Privacy (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Security.html" rel="up" title="Security">
+<link href="Integrity.html" rel="next" title="Integrity">
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="Privacy">
+<div class="nav-panel">
+<p>
+Next: <a href="Integrity.html" accesskey="n" rel="next">Integrity</a>, Up: <a href="Security.html" accesskey="u" rel="up">Security</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="Privacy-1">10.2.1 Privacy</h4>
+
+<p>Standard privacy concerns apply when using <code class="command">tar</code>.  For
+example, suppose you are archiving your home directory into a file
+<samp class="file">/archive/myhome.tar</samp>.  Any secret information in your home
+directory, such as your SSH secret keys, are copied faithfully into
+the archive.  Therefore, if your home directory contains any file that
+should not be read by some other user, the archive itself should be
+not be readable by that user.  And even if the archive&rsquo;s data are
+inaccessible to untrusted users, its metadata (such as size or
+last-modified date) may reveal some information about your home
+directory; if the metadata are intended to be private, the archive&rsquo;s
+parent directory should also be inaccessible to untrusted users.
+</p>
+<p>One precaution is to create <samp class="file">/archive</samp> so that it is not
+accessible to any user, unless that user also has permission to access
+all the files in your home directory.
+</p>
+<p>Similarly, when extracting from an archive, take care that the
+permissions of the extracted files are not more generous than what you
+want.  Even if the archive itself is readable only to you, files
+extracted from it have their own permissions that may differ.
+</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>Memory Management (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="Memory Management (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="GMP-Basics.html" rel="up" title="GMP Basics">
+<link href="Reentrancy.html" rel="next" title="Reentrancy">
+<link href="Parameter-Conventions.html" rel="prev" title="Parameter Conventions">
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Memory-Management">
+<div class="nav-panel">
+<p>
+Next: <a href="Reentrancy.html" accesskey="n" rel="next">Reentrancy</a>, Previous: <a href="Parameter-Conventions.html" accesskey="p" rel="prev">Parameter Conventions</a>, Up: <a href="GMP-Basics.html" accesskey="u" rel="up">GMP Basics</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Memory-Management-1">3.6 Memory Management</h3>
+<a class="index-entry-id" id="index-Memory-management"></a>
+
+<p>The GMP types like <code class="code">mpz_t</code> are small, containing only a couple of sizes,
+and pointers to allocated data.  Once a variable is initialized, GMP takes
+care of all space allocation.  Additional space is allocated whenever a
+variable doesn&rsquo;t have enough.
+</p>
+<p><code class="code">mpz_t</code> and <code class="code">mpq_t</code> variables never reduce their allocated space.
+Normally this is the best policy, since it avoids frequent reallocation.
+Applications that need to return memory to the heap at some particular point
+can use <code class="code">mpz_realloc2</code>, or clear variables no longer needed.
+</p>
+<p><code class="code">mpf_t</code> variables, in the current implementation, use a fixed amount of
+space, determined by the chosen precision and allocated at initialization, so
+their size doesn&rsquo;t change.
+</p>
+<p>All memory is allocated using <code class="code">malloc</code> and friends by default, but this
+can be changed, see <a class="ref" href="Custom-Allocation.html">Custom Allocation</a>.  Temporary memory on the stack is
+also used (via <code class="code">alloca</code>), but this can be changed at build-time if
+desired, see <a class="ref" href="Build-Options.html">Build Options</a>.
+</p>
+
+</div>
+
+
+
+</body>
+</html>

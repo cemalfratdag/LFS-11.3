@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>Miscellaneous Float Functions (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="Miscellaneous Float Functions (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="Floating_002dpoint-Functions.html" rel="up" title="Floating-point Functions">
+<link href="I_002fO-of-Floats.html" rel="prev" title="I/O of Floats">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Miscellaneous-Float-Functions">
+<div class="nav-panel">
+<p>
+Previous: <a href="I_002fO-of-Floats.html" accesskey="p" rel="prev">Input and Output Functions</a>, Up: <a href="Floating_002dpoint-Functions.html" accesskey="u" rel="up">Floating-point Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Miscellaneous-Functions-1">7.8 Miscellaneous Functions</h3>
+<a class="index-entry-id" id="index-Miscellaneous-float-functions"></a>
+<a class="index-entry-id" id="index-Float-miscellaneous-functions"></a>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fceil"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_ceil</strong> <code class="def-code-arguments">(mpf_t <var class="var">rop</var>, const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005fceil'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005ffloor"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_floor</strong> <code class="def-code-arguments">(mpf_t <var class="var">rop</var>, const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005ffloor'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005ftrunc"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_trunc</strong> <code class="def-code-arguments">(mpf_t <var class="var">rop</var>, const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005ftrunc'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Rounding-functions"></a>
+<a class="index-entry-id" id="index-Float-rounding-functions"></a>
+<p>Set <var class="var">rop</var> to <var class="var">op</var> rounded to an integer.  <code class="code">mpf_ceil</code> rounds to the
+next higher integer, <code class="code">mpf_floor</code> to the next lower, and <code class="code">mpf_trunc</code>
+to the integer towards zero.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005finteger_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpf_integer_p</strong> <code class="def-code-arguments">(const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005finteger_005fp'> &para;</a></span></dt>
+<dd><p>Return non-zero if <var class="var">op</var> is an integer.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005ffits_005fulong_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpf_fits_ulong_p</strong> <code class="def-code-arguments">(const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005ffits_005fulong_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005ffits_005fslong_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpf_fits_slong_p</strong> <code class="def-code-arguments">(const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005ffits_005fslong_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005ffits_005fuint_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpf_fits_uint_p</strong> <code class="def-code-arguments">(const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005ffits_005fuint_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005ffits_005fsint_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpf_fits_sint_p</strong> <code class="def-code-arguments">(const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005ffits_005fsint_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005ffits_005fushort_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpf_fits_ushort_p</strong> <code class="def-code-arguments">(const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005ffits_005fushort_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005ffits_005fsshort_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpf_fits_sshort_p</strong> <code class="def-code-arguments">(const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005ffits_005fsshort_005fp'> &para;</a></span></dt>
+<dd><p>Return non-zero if <var class="var">op</var> would fit in the respective C data type, when
+truncated to an integer.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005furandomb"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_urandomb</strong> <code class="def-code-arguments">(mpf_t <var class="var">rop</var>, gmp_randstate_t <var class="var">state</var>, mp_bitcnt_t <var class="var">nbits</var>)</code><a class="copiable-link" href='#index-mpf_005furandomb'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Random-number-functions-1"></a>
+<a class="index-entry-id" id="index-Float-random-number-functions"></a>
+<p>Generate a uniformly distributed random float in <var class="var">rop</var>, such that <em class="math">0
+&lt;= <var class="var">rop</var> &lt; 1</em>, with <var class="var">nbits</var> significant bits in the mantissa or
+less if the precision of <var class="var">rop</var> is smaller.
+</p>
+<p>The variable <var class="var">state</var> must be initialized by calling one of the
+<code class="code">gmp_randinit</code> functions (<a class="ref" href="Random-State-Initialization.html">Random State Initialization</a>) before
+invoking this function.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005frandom2"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_random2</strong> <code class="def-code-arguments">(mpf_t <var class="var">rop</var>, mp_size_t <var class="var">max_size</var>, mp_exp_t <var class="var">exp</var>)</code><a class="copiable-link" href='#index-mpf_005frandom2'> &para;</a></span></dt>
+<dd><p>Generate a random float of at most <var class="var">max_size</var> limbs, with long strings of
+zeros and ones in the binary representation.  The exponent of the number is in
+the interval &minus;<var class="var">exp</var> to <var class="var">exp</var> (in limbs).  This function is
+useful for testing functions and algorithms, since these kind of random
+numbers have proven to be more likely to trigger corner-case bugs.  Negative
+random numbers are generated when <var class="var">max_size</var> is negative.
+</p></dd></dl>
+
+
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Previous: <a href="I_002fO-of-Floats.html">Input and Output Functions</a>, Up: <a href="Floating_002dpoint-Functions.html">Floating-point Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+'\" -*- coding: UTF-8 -*-
+.\" Copyright (C) 1998-2004 Miquel van Smoorenburg.
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; if not, write to the Free Software
+.\" Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+.\"
+.\"*******************************************************************
+.\"
+.\" This file was generated with po4a. Translate the source file.
+.\"
+.\"*******************************************************************
+.TH MOUNTPOINT 1 "15. Mai 2004" "sysvinit " "Dienstprogramme für Benutzer"
+.SH BEZEICHNUNG
+mountpoint \- überprüfen, ob ein Verzeichnis ein Einhängepunkt ist
+.SH ÜBERSICHT
+\fBmountpoint\fP [\fB\-q\fP] [\fB\-d\fP] \fI/Pfad/zum/Verzeichnis\fP
+.br
+\fBmountpoint\fP \fB\-x\fP \fI/dev/Gerät\fP
+.SH BESCHREIBUNG
+\fBmountpoint\fP überprüft, ob ein Verzeichnis ein Einhängepunkt ist.
+
+.SH OPTIONEN
+.IP \fB\-q\fP
+unterdrückt die Ausgaben.
+.IP \fB\-d\fP
+zeigt die Major/Minor\-Gerätenummern des Dateisystems in der Standardausgabe
+an.
+.IP \fB\-p\fP
+Check Linux's \fI/proc/mounts\fP file to try to detect circular mount points.
+.IP \fB\-x\fP
+zeigt die Major/Minor\-Gerätenummer des angegebenen blockorientierten Geräts
+in der Standardausgabe an.
+.SH EXIT\-STATUS
+Null, falls das Verzeichnis ein Einhängepunkt ist, nicht Null, wenn nicht.
+.SH ANMERKUNGEN
+Symbolischen Links wird nur gefolgt, wenn die Option \fB\-x\fP angegeben
+wird. Um das Verfolgen von symbolischen Links zu erzwingen, hängen Sie einen
+Schrägstrich an den Pfad zum Verzeichnis an.
+.PP
+Der Name des Befehls ist irreführend, wenn die Option \fB\-x\fP verwendet wird,
+aber diese Option ist nützlich beim Vergleichen, ob ein Verzeichnis und ein
+Gerät zusammengehören. Es gibt keinen anderen Befehl, der dies so einfach
+ausgeben kann.
+.PP
+The mountpoint command fails when a directory is binded to one of its
+grandparents.  For example, if /a/b/c/d is a mount point for /a/b then
+mountpoint will report /a/b/c/d is not a valid mount point. This is because
+both the original directory and its new mount point share the same inode and
+device number.
+.PP
+The circular mount problem can be worked around on Linux systems by using
+the\fB\-p\fP flag to check the \fI/proc/mounts\fP file for references to the
+circular mount bind.  When using the \fB\-p\fP flag, make sure to specify the
+full path (ie \fI/home/user/mp\fP and not just \fImp\fP). Also, \fBmountpoint\fP may
+still fail if there are spaces in the mount point's path, even when using
+the \fB\-p\fP flag because of the way \fB/proc/mounts\fP mangles the spaces in the
+path name. Of course, if the admin is using circular mount points with
+spaces in the name, there are bigger concerns.
+.SH AUTOR
+.MT miquels@\:cistron\:.nl
+Miquel van Smoorenburg
+.ME
+.SH "SIEHE AUCH"
+\fBstat\fP(1)

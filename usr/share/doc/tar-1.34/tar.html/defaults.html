@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>defaults (GNU tar 1.34)</title>
+
+<meta name="description" content="defaults (GNU tar 1.34)">
+<meta name="keywords" content="defaults (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="tar-invocation.html" rel="up" title="tar invocation">
+<link href="verbose.html" rel="next" title="verbose">
+<link href="help.html" rel="prev" title="help">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="defaults">
+<div class="nav-panel">
+<p>
+Next: <a href="verbose.html" accesskey="n" rel="next">Checking <code class="command">tar</code> progress</a>, Previous: <a href="help.html" accesskey="p" rel="prev"><abbr class="acronym">GNU</abbr> <code class="command">tar</code> documentation</a>, Up: <a href="tar-invocation.html" accesskey="u" rel="up">Invoking <abbr class="acronym">GNU</abbr> <code class="command">tar</code></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Obtaining-GNU-tar-default-values">3.6 Obtaining <abbr class="acronym">GNU</abbr> <code class="command">tar</code> default values</h3>
+
+<a class="index-entry-id" id="index-show_002ddefaults"></a>
+<p><abbr class="acronym">GNU</abbr> <code class="command">tar</code> has some predefined defaults that are used when you do not
+explicitly specify another values.  To obtain a list of such
+defaults, use <samp class="option">--show-defaults</samp> option.  This will output the
+values in the form of <code class="command">tar</code> command line options:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">$ <kbd class="kbd">tar --show-defaults</kbd>
+--format=gnu -f- -b20 --quoting-style=escape
+--rmt-command=/etc/rmt --rsh-command=/usr/bin/rsh
+</pre></div></div>
+
+<p>Notice, that this option outputs only one line.  The example output above
+has been split to fit page boundaries.
+</p>
+<p>The above output shows that this version of <abbr class="acronym">GNU</abbr> <code class="command">tar</code> defaults to
+using &lsquo;<samp class="samp">gnu</samp>&rsquo; archive format (see <a class="pxref" href="Formats.html">Controlling the Archive Format</a>), it uses standard
+output as the archive, if no <samp class="option">--file</samp> option has been given
+(see <a class="pxref" href="file-tutorial.html">The <samp class="option">--file</samp> Option</a>), the default blocking factor is 20
+(see <a class="pxref" href="Blocking-Factor.html">The Blocking Factor of an Archive</a>).  It also shows the default locations where
+<code class="command">tar</code> will look for <code class="command">rmt</code> and <code class="command">rsh</code> binaries.
+</p>
+</div>
+
+
+
+</body>
+</html>

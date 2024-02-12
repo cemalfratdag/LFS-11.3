@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>Miscellaneous Integer Functions (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="Miscellaneous Integer Functions (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="Integer-Functions.html" rel="up" title="Integer Functions">
+<link href="Integer-Special-Functions.html" rel="next" title="Integer Special Functions">
+<link href="Integer-Import-and-Export.html" rel="prev" title="Integer Import and Export">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Miscellaneous-Integer-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Integer-Special-Functions.html" accesskey="n" rel="next">Special Functions</a>, Previous: <a href="Integer-Import-and-Export.html" accesskey="p" rel="prev">Integer Import and Export</a>, Up: <a href="Integer-Functions.html" accesskey="u" rel="up">Integer Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Miscellaneous-Functions">5.15 Miscellaneous Functions</h3>
+<a class="index-entry-id" id="index-Miscellaneous-integer-functions"></a>
+<a class="index-entry-id" id="index-Integer-miscellaneous-functions"></a>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005ffits_005fulong_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_fits_ulong_p</strong> <code class="def-code-arguments">(const mpz_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005ffits_005fulong_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005ffits_005fslong_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_fits_slong_p</strong> <code class="def-code-arguments">(const mpz_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005ffits_005fslong_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005ffits_005fuint_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_fits_uint_p</strong> <code class="def-code-arguments">(const mpz_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005ffits_005fuint_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005ffits_005fsint_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_fits_sint_p</strong> <code class="def-code-arguments">(const mpz_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005ffits_005fsint_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005ffits_005fushort_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_fits_ushort_p</strong> <code class="def-code-arguments">(const mpz_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005ffits_005fushort_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005ffits_005fsshort_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_fits_sshort_p</strong> <code class="def-code-arguments">(const mpz_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005ffits_005fsshort_005fp'> &para;</a></span></dt>
+<dd><p>Return non-zero iff the value of <var class="var">op</var> fits in an <code class="code">unsigned long int</code>,
+<code class="code">signed long int</code>, <code class="code">unsigned int</code>, <code class="code">signed int</code>, <code class="code">unsigned
+short int</code>, or <code class="code">signed short int</code>, respectively.  Otherwise, return zero.
+</p></dd></dl>
+
+<dl class="first-deftypefn">
+<dt class="deftypefn" id="index-mpz_005fodd_005fp"><span class="category-def">Macro: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_odd_p</strong> <code class="def-code-arguments">(const mpz_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005fodd_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx def-cmd-deftypefn" id="index-mpz_005feven_005fp"><span class="category-def">Macro: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_even_p</strong> <code class="def-code-arguments">(const mpz_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005feven_005fp'> &para;</a></span></dt>
+<dd><p>Determine whether <var class="var">op</var> is odd or even, respectively.  Return non-zero if
+yes, zero if no.  These macros evaluate their argument more than once.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fsizeinbase"><span class="category-def">Function: </span><span><code class="def-type">size_t</code> <strong class="def-name">mpz_sizeinbase</strong> <code class="def-code-arguments">(const mpz_t <var class="var">op</var>, int <var class="var">base</var>)</code><a class="copiable-link" href='#index-mpz_005fsizeinbase'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Size-in-digits"></a>
+<a class="index-entry-id" id="index-Digits-in-an-integer"></a>
+<p>Return the size of <var class="var">op</var> measured in number of digits in the given
+<var class="var">base</var>.  <var class="var">base</var> can vary from 2 to 62.  The sign of <var class="var">op</var> is
+ignored, just the absolute value is used.  The result will be either exact or
+1 too big.  If <var class="var">base</var> is a power of 2, the result is always exact.  If
+<var class="var">op</var> is zero the return value is always 1.
+</p>
+<p>This function can be used to determine the space required when converting
+<var class="var">op</var> to a string.  The right amount of allocation is normally two more
+than the value returned by <code class="code">mpz_sizeinbase</code>, one extra for a minus sign
+and one for the null-terminator.
+</p>
+<a class="index-entry-id" id="index-Most-significant-bit"></a>
+<p>It will be noted that <code class="code">mpz_sizeinbase(<var class="var">op</var>,2)</code> can be used to locate
+the most significant 1 bit in <var class="var">op</var>, counting from 1.  (Unlike the bitwise
+functions which start from 0, See <a class="xref" href="Integer-Logic-and-Bit-Fiddling.html">Logical
+and Bit Manipulation Functions</a>.)
+</p></dd></dl>
+
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Integer-Special-Functions.html">Special Functions</a>, Previous: <a href="Integer-Import-and-Export.html">Integer Import and Export</a>, Up: <a href="Integer-Functions.html">Integer Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

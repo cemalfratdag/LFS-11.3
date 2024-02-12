@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Exec Mode (GNU tar 1.34)</title>
+
+<meta name="description" content="Exec Mode (GNU tar 1.34)">
+<meta name="keywords" content="Exec Mode (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Genfile.html" rel="up" title="Genfile">
+<link href="Status-Mode.html" rel="prev" title="Status Mode">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="appendixsec-level-extent" id="Exec-Mode">
+<div class="nav-panel">
+<p>
+Previous: <a href="Status-Mode.html" accesskey="p" rel="prev">Status Mode</a>, Up: <a href="Genfile.html" accesskey="u" rel="up">Genfile</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="appendixsec" id="Exec-Mode-1">F.3 Exec Mode</h3>
+
+<a class="index-entry-id" id="index-Exec-Mode_002c-genfile"></a>
+<p>This mode is designed for testing the behavior of <code class="code">paxutils</code>
+commands when some of the files change during archiving. It supposes
+that the command being executed supports <samp class="option">--checkpoint</samp> and
+<samp class="option">--checkpoint-action</samp> options (see <a data-manual="tar" href="https://www.gnu.org/software/tar/manual/html_node/checkpoints.html#checkpoints">Checkpoints</a> in <cite class="cite">GNU tar</cite>).
+</p>
+<p>The &lsquo;<samp class="samp">Exec Mode</samp>&rsquo; is enabled by <samp class="option">--run</samp> command line
+option (or its alias <samp class="option">-r</samp>). The non-optional arguments
+supply the command line to be executed. <code class="command">Genfile</code> modifies
+this command line by inserting the following options between the
+command name and first argument:
+</p>
+<div class="example">
+<pre class="example-preformatted">--checkpoint=<var class="var">n</var>
+--checkpoint-action &quot;echo=genfile checkpoint %u&quot;
+--checkpoint-action &quot;wait=SIGUSR1&quot;
+</pre></div>
+
+<p>Here, <var class="var">n</var> stands for the checkpoint granularity (for GNU
+<code class="command">tar</code>, it is the number of archive records read or written
+between each pair of checkpoints).  The default value is 1.  This
+value can be changed using the optional argument to the <samp class="option">--run</samp>
+option.  For example, to run actions on each 10th checkpoint:
+</p>
+<div class="example">
+<pre class="example-preformatted">genfile --run=10 ...
+</pre></div>
+
+<p>If the command line contains options, it must be preceded by a
+double-dash (&lsquo;<samp class="samp">--</samp>&rsquo;), which will prevent these options from being
+interpreted by <code class="command">genfile</code> itself.  For example:
+</p>
+<div class="example">
+<pre class="example-preformatted">genfile --run --checkpoint=2 --truncate foo -- tar -c -f a.tar .
+</pre></div>
+
+<p>Notice also, that when running <code class="command">tar</code>, its command line may
+not contain traditional options (cluster of letters without dash).    
+</p>
+<p>A set of options is provided for defining checkpoint values and
+actions to be executed upon reaching them. Checkpoint values are
+introduced with the <samp class="option">--checkpoint</samp> command line
+option. Argument to this option is the number of checkpoint in decimal.
+</p>
+<p>Any number of <em class="dfn">actions</em> may be specified after a
+checkpoint. Available actions are
+</p>
+<dl class="table">
+<dt><samp class="option">--cut <var class="var">file</var></samp></dt>
+<dt><samp class="option">--truncate <var class="var">file</var></samp></dt>
+<dd><p>Truncate <var class="var">file</var> to the size specified by previous
+<samp class="option">--length</samp> option (or 0, if it is not given).
+</p>
+</dd>
+<dt><samp class="option">--append <var class="var">file</var></samp></dt>
+<dd><p>Append data to <var class="var">file</var>. The size of data and its pattern are
+given by previous <samp class="option">--length</samp> and <samp class="option">pattern</samp> options.
+</p>
+</dd>
+<dt><samp class="option">--touch <var class="var">file</var></samp></dt>
+<dd><p>Update the access and modification times of <var class="var">file</var>. These
+timestamps are changed to the current time, unless <samp class="option">--date</samp>
+option was given, in which case they are changed to the specified
+time. Argument to <samp class="option">--date</samp> option is a date specification in
+an almost arbitrary format (see <a class="pxref" href="Date-input-formats.html">Date input formats</a>).
+</p>
+</dd>
+<dt><samp class="option">--exec <var class="var">command</var></samp></dt>
+<dd><p>Execute given shell command.
+</p>
+</dd>
+<dt><samp class="option">--delete <var class="var">file</var></samp></dt>
+<dt><samp class="option">--unlink <var class="var">file</var></samp></dt>
+<dd><p>Delete the named file or directory.  If deleting the directory, it
+must be empty.    
+</p></dd>
+</dl>
+
+<p>Option <samp class="option">--verbose</samp> instructs <code class="command">genfile</code> to print on
+standard output notifications about checkpoints being executed and to
+verbosely describe exit status of the command.
+</p>
+<p>While the command is being executed its standard output remains
+connected to descriptor 1. All messages it prints to file descriptor
+2, except checkpoint notifications, are forwarded to standard
+error.
+</p>
+<p>In exec mode, <code class="command">genfile</code> exits with the exit status of the
+executed command.
+</p>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Previous: <a href="Status-Mode.html">Status Mode</a>, Up: <a href="Genfile.html">Genfile</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

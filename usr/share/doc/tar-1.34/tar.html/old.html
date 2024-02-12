@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>old (GNU tar 1.34)</title>
+
+<meta name="description" content="old (GNU tar 1.34)">
+<meta name="keywords" content="old (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Portability.html" rel="up" title="Portability">
+<link href="ustar.html" rel="next" title="ustar">
+<link href="hard-links.html" rel="prev" title="hard links">
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="old">
+<div class="nav-panel">
+<p>
+Next: <a href="ustar.html" accesskey="n" rel="next">Ustar Archive Format</a>, Previous: <a href="hard-links.html" accesskey="p" rel="prev">Hard Links</a>, Up: <a href="Portability.html" accesskey="u" rel="up">Making <code class="command">tar</code> Archives More Portable</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="Old-V7-Archives">8.3.4 Old V7 Archives</h4>
+<a class="index-entry-id" id="index-Format_002c-old-style"></a>
+<a class="index-entry-id" id="index-Old-style-format"></a>
+<a class="index-entry-id" id="index-Old-style-archives"></a>
+<a class="index-entry-id" id="index-v7-archive-format"></a>
+
+<p>Certain old versions of <code class="command">tar</code> cannot handle additional
+information recorded by newer <code class="command">tar</code> programs.  To create an
+archive in V7 format (not ANSI), which can be read by these old
+versions, specify the <samp class="option">--format=v7</samp> option in
+conjunction with the <samp class="option">--create</samp> (<samp class="option">-c</samp>) (<code class="command">tar</code> also
+accepts <samp class="option">--portability</samp> or <samp class="option">--old-archive</samp> for this
+option).  When you specify it,
+<code class="command">tar</code> leaves out information about directories, pipes, fifos,
+contiguous files, and device files, and specifies file ownership by
+group and user IDs instead of group and user names.
+</p>
+<p>When updating an archive, do not use <samp class="option">--format=v7</samp>
+unless the archive was created using this option.
+</p>
+<p>In most cases, a <em class="emph">new</em> format archive can be read by an <em class="emph">old</em>
+<code class="command">tar</code> program without serious trouble, so this option should
+seldom be needed.  On the other hand, most modern <code class="command">tar</code>s are
+able to read old format archives, so it might be safer for you to
+always use <samp class="option">--format=v7</samp> for your distributions.  Notice,
+however, that &lsquo;<samp class="samp">ustar</samp>&rsquo; format is a better alternative, as it is
+free from many of &lsquo;<samp class="samp">v7</samp>&rsquo;&rsquo;s drawbacks.
+</p>
+</div>
+
+
+
+</body>
+</html>

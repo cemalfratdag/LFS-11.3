@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual is for GNU MPC, a library for multiple precision complex arithmetic,
+version 1.3.1 of December 2022.
+
+Copyright © 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016, 2018, 2020, 2022 INRIA
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections. A copy of the license is included in the section
+entitled "GNU Free Documentation License." -->
+<title>Trigonometric Functions (GNU MPC 1.3.1)</title>
+
+<meta name="description" content="Trigonometric Functions (GNU MPC 1.3.1)">
+<meta name="keywords" content="Trigonometric Functions (GNU MPC 1.3.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="Complex-Functions.html" rel="up" title="Complex Functions">
+<link href="Modular-Functions.html" rel="next" title="Modular Functions">
+<link href="Power-Functions-and-Logarithm.html" rel="prev" title="Power Functions and Logarithm">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Trigonometric-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Modular-Functions.html" accesskey="n" rel="next">Modular Functions</a>, Previous: <a href="Power-Functions-and-Logarithm.html" accesskey="p" rel="prev">Power Functions and Logarithm</a>, Up: <a href="Complex-Functions.html" accesskey="u" rel="up">Complex Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Trigonometric-Functions-1">5.9 Trigonometric Functions</h3>
+<a class="index-entry-id" id="index-Trigonometric-functions"></a>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpc_005fsin"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_sin</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005fsin'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpc_005fcos"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_cos</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005fcos'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpc_005ftan"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_tan</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005ftan'> &para;</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the sine, cosine, tangent of <var class="var">op</var>,
+rounded according to <var class="var">rnd</var> with the precision of <var class="var">rop</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpc_005fsin_005fcos"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_sin_cos</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop_sin</var>, mpc_t <var class="var">rop_cos</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd_sin</var>, mpc_rnd_t <var class="var">rnd_cos</var>)</code><a class="copiable-link" href='#index-mpc_005fsin_005fcos'> &para;</a></span></dt>
+<dd><p>Set <var class="var">rop_sin</var> to the sine of <var class="var">op</var>,
+rounded according to <var class="var">rnd_sin</var> with the precision of <var class="var">rop_sin</var>,
+and <var class="var">rop_cos</var> to the cosine of <var class="var">op</var>,
+rounded according to <var class="var">rnd_cos</var> with the precision of <var class="var">rop_cos</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpc_005fsinh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_sinh</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005fsinh'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpc_005fcosh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_cosh</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005fcosh'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpc_005ftanh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_tanh</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005ftanh'> &para;</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the hyperbolic sine, hyperbolic cosine, hyperbolic tangent of <var class="var">op</var>,
+rounded according to <var class="var">rnd</var> with the precision of <var class="var">rop</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpc_005fasin"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_asin</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005fasin'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpc_005facos"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_acos</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005facos'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpc_005fatan"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_atan</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005fatan'> &para;</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the inverse sine, inverse cosine, inverse tangent of <var class="var">op</var>,
+rounded according to <var class="var">rnd</var> with the precision of <var class="var">rop</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpc_005fasinh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_asinh</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005fasinh'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpc_005facosh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_acosh</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005facosh'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpc_005fatanh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_atanh</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005fatanh'> &para;</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the inverse hyperbolic sine, inverse hyperbolic cosine,
+inverse hyperbolic tangent of <var class="var">op</var>,
+rounded according to <var class="var">rnd</var> with the precision of <var class="var">rop</var>.
+The branch cut of <code class="code">mpc_acosh</code> is
+(-Inf, 1)
+</p></dd></dl>
+
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Modular-Functions.html">Modular Functions</a>, Previous: <a href="Power-Functions-and-Logarithm.html">Power Functions and Logarithm</a>, Up: <a href="Complex-Functions.html">Complex Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

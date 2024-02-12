@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>create dir (GNU tar 1.34)</title>
+
+<meta name="description" content="create dir (GNU tar 1.34)">
+<meta name="keywords" content="create dir (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="create.html" rel="up" title="create">
+<link href="short-create.html" rel="prev" title="short create">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="create-dir">
+<div class="nav-panel">
+<p>
+Previous: <a href="short-create.html" accesskey="p" rel="prev">Short Forms with &lsquo;<samp class="samp">create</samp>&rsquo;</a>, Up: <a href="create.html" accesskey="u" rel="up">How to Create Archives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="Archiving-Directories">2.6.5 Archiving Directories</h4>
+
+<a class="index-entry-id" id="index-Archiving-Directories"></a>
+<a class="index-entry-id" id="index-Directories_002c-Archiving"></a>
+<p>You can archive a directory by specifying its directory name as a
+file name argument to <code class="command">tar</code>.  The files in the directory will be
+archived relative to the working directory, and the directory will be
+re-created along with its contents when the archive is extracted.
+</p>
+<p>To archive a directory, first move to its superior directory.  If you
+have followed the previous instructions in this tutorial, you should
+type:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">cd ..</kbd>
+$
+</pre></div>
+
+<p>This will put you into the directory which contains <samp class="file">practice</samp>,
+i.e., your home directory.  Once in the superior directory, you can
+specify the subdirectory, <samp class="file">practice</samp>, as a file name argument.  To
+store <samp class="file">practice</samp> in the new archive file <samp class="file">music.tar</samp>, type:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar --create --verbose --file=music.tar practice</kbd>
+</pre></div>
+
+<p><code class="command">tar</code> should output:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">practice/
+practice/blues
+practice/folk
+practice/jazz
+practice/collection.tar
+</pre></div>
+
+<p>Note that the archive thus created is not in the subdirectory
+<samp class="file">practice</samp>, but rather in the current working directory&mdash;the
+directory from which <code class="command">tar</code> was invoked.  Before trying to archive a
+directory from its superior directory, you should make sure you have
+write access to the superior directory itself, not only the directory
+you are trying archive with <code class="command">tar</code>.  For example, you will probably
+not be able to store your home directory in an archive by invoking
+<code class="command">tar</code> from the root directory; See <a class="xref" href="absolute.html">Absolute File Names</a>.  (Note
+also that <samp class="file">collection.tar</samp>, the original archive file, has itself
+been archived.  <code class="command">tar</code> will accept any file as a file to be
+archived, regardless of its content.  When <samp class="file">music.tar</samp> is
+extracted, the archive file <samp class="file">collection.tar</samp> will be re-written
+into the file system).
+</p>
+<p>If you give <code class="command">tar</code> a command such as
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar --create --file=foo.tar .</kbd>
+</pre></div>
+
+<p><code class="command">tar</code> will report &lsquo;<samp class="samp">tar: ./foo.tar is the archive; not
+dumped</samp>&rsquo;.  This happens because <code class="command">tar</code> creates the archive
+<samp class="file">foo.tar</samp> in the current directory before putting any files into
+it.  Then, when <code class="command">tar</code> attempts to add all the files in the
+directory <samp class="file">.</samp> to the archive, it notices that the file
+<samp class="file">./foo.tar</samp> is the same as the archive <samp class="file">foo.tar</samp>, and skips
+it.  (It makes no sense to put an archive into itself.)  <abbr class="acronym">GNU</abbr> <code class="command">tar</code>
+will continue in this case, and create the archive
+normally, except for the exclusion of that one file.  (<em class="emph">Please
+note:</em> Other implementations of <code class="command">tar</code> may not be so clever;
+they will enter an infinite loop when this happens, so you should not
+depend on this behavior unless you are certain you are running
+<abbr class="acronym">GNU</abbr> <code class="command">tar</code>.  In general, it is wise to always place the archive outside
+of the directory being dumped.)
+</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Previous: <a href="short-create.html">Short Forms with &lsquo;<samp class="samp">create</samp>&rsquo;</a>, Up: <a href="create.html">How to Create Archives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

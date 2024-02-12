@@ -1,0 +1,147 @@
+Feb 09 17:07:11 +03:00 (none)  Mounting virtual file systems: /run /proc /sys /dev/shm OK
+Feb 09 17:07:11 +03:00 (none)  Bringing up the loopback interface... OK
+Feb 09 17:07:11 +03:00 (none)  Setting hostname to lfs113... OK
+Feb 09 17:07:11 +03:00 lfs113  Populating /dev with device nodes...  OK
+Feb 09 17:07:08 +03:00 lfs113  Activating all swap files/partitions... OK
+Feb 09 17:07:08 +03:00 lfs113  Mounting root file system in read-only mode...  OK
+Feb 09 17:07:08 +03:00 lfs113  Checking file systems... OK
+Feb 09 17:07:08 +03:00 lfs113  Remounting root file system in read-write mode... OK
+Feb 09 17:07:08 +03:00 lfs113  Mounting remaining file systems... OK
+Feb 09 17:07:08 +03:00 lfs113  Cleaning file systems: /tmp OK
+Feb 09 17:07:08 +03:00 lfs113  Retrying failed uevents, if any... OK
+Feb 09 17:07:09 +03:00 lfs113   FAIL
+Feb 09 17:07:09 +03:00 lfs113  FAILURE:
+
+You should not be reading this error message.
+
+It means that an unforeseen error took place in
+/etc/rc.d/rcS.d/S70console,
+which exited with a return value of 2.
+If you're able to track this error down to a bug in one of
+the files provided by the LFS book,
+please be so kind to inform us at lfs-dev@lists.linuxfromscratch.org (Registration required).
+ FAIL
+Feb 09 17:07:09 +03:00 lfs113  Press Enter to continue...Feb 09 17:07:24 +03:00 lfs113  Starting system log daemon... OK
+Feb 09 17:07:24 +03:00 lfs113  Starting kernel log daemon... OK
+Feb 09 17:07:25 +03:00 lfs113  Bringing up the enp0s3 interface... OK
+Feb 09 17:07:25 +03:00 lfs113  Adding IPv4 address 10.0.2.15 to the enp0s3 interface... OK
+Feb 09 17:07:25 +03:00 lfs113  Adding default gateway 10.0.0.2 to the enp0s3 interface...FAIL
+--------
+Feb 12 09:19:27 +03:00 (none)  Mounting virtual file systems: /run /proc /sys /dev/shm OK
+Feb 12 09:19:27 +03:00 (none)  Bringing up the loopback interface... OK
+Feb 12 09:19:27 +03:00 (none)  Setting hostname to lfs113... OK
+Feb 12 09:19:27 +03:00 lfs113  Populating /dev with device nodes...  OK
+Feb 12 09:19:28 +03:00 lfs113  Activating all swap files/partitions... OK
+Feb 12 09:19:28 +03:00 lfs113  Mounting root file system in read-only mode...  OK
+Feb 12 09:19:28 +03:00 lfs113  Checking file systems... OK
+Feb 12 09:19:28 +03:00 lfs113  Remounting root file system in read-write mode... OK
+Feb 12 09:19:28 +03:00 lfs113  Mounting remaining file systems... OK
+Feb 12 09:19:28 +03:00 lfs113  Cleaning file systems: /tmp OK
+Feb 12 09:19:28 +03:00 lfs113  Retrying failed uevents, if any... OK
+Feb 12 09:19:30 +03:00 lfs113   FAIL
+Feb 12 09:19:30 +03:00 lfs113  FAILURE:
+
+You should not be reading this error message.
+
+It means that an unforeseen error took place in
+/etc/rc.d/rcS.d/S70console,
+which exited with a return value of 2.
+If you're able to track this error down to a bug in one of
+the files provided by the LFS book,
+please be so kind to inform us at lfs-dev@lists.linuxfromscratch.org (Registration required).
+ FAIL
+Feb 12 09:19:30 +03:00 lfs113  Press Enter to continue...Feb 12 09:19:45 +03:00 lfs113  Starting system log daemon... OK
+Feb 12 09:19:45 +03:00 lfs113  Starting kernel log daemon... OK
+Feb 12 09:19:45 +03:00 lfs113  Bringing up the enp0s3 interface... OK
+Feb 12 09:19:45 +03:00 lfs113  Adding IPv4 address 10.0.2.15 to the enp0s3 interface... OK
+Feb 12 09:19:45 +03:00 lfs113  Adding default gateway 10.0.0.2 to the enp0s3 interface...FAIL
+--------
+Feb 12 10:37:42 +03:00 (none)  Mounting virtual file systems: /run /proc /sys /dev/shm OK
+Feb 12 10:37:42 +03:00 (none)  Bringing up the loopback interface... OK
+Feb 12 10:37:42 +03:00 (none)  Setting hostname to lfs113... OK
+Feb 12 10:37:42 +03:00 lfs113  Populating /dev with device nodes...  OK
+Feb 12 10:37:45 +03:00 lfs113  Activating all swap files/partitions... OK
+Feb 12 10:37:45 +03:00 lfs113  Mounting root file system in read-only mode...  OK
+Feb 12 10:37:45 +03:00 lfs113  Checking file systems... OK
+Feb 12 10:37:45 +03:00 lfs113  Remounting root file system in read-write mode... OK
+Feb 12 10:37:45 +03:00 lfs113  Mounting remaining file systems... OK
+Feb 12 10:37:45 +03:00 lfs113  Cleaning file systems: /tmp OK
+Feb 12 10:37:45 +03:00 lfs113  Retrying failed uevents, if any... OK
+Feb 12 10:37:46 +03:00 lfs113   FAIL
+Feb 12 10:37:46 +03:00 lfs113  FAILURE:
+
+You should not be reading this error message.
+
+It means that an unforeseen error took place in
+/etc/rc.d/rcS.d/S70console,
+which exited with a return value of 2.
+If you're able to track this error down to a bug in one of
+the files provided by the LFS book,
+please be so kind to inform us at lfs-dev@lists.linuxfromscratch.org (Registration required).
+ FAIL
+Feb 12 10:37:46 +03:00 lfs113  Press Enter to continue...Feb 12 10:38:01 +03:00 lfs113  Starting system log daemon... OK
+Feb 12 10:38:01 +03:00 lfs113  Starting kernel log daemon... OK
+Feb 12 10:38:01 +03:00 lfs113  Bringing up the enp0s3 interface... OK
+Feb 12 10:38:01 +03:00 lfs113  Adding IPv4 address 10.52.0.22 to the enp0s3 interface... OK
+Feb 12 10:38:01 +03:00 lfs113  Adding default gateway 10.0.2.2 to the enp0s3 interface...FAIL
+--------
+Feb 12 10:51:40 +03:00 (none)  Mounting virtual file systems: /run /proc /sys /dev/shm OK
+Feb 12 10:51:41 +03:00 (none)  Bringing up the loopback interface... OK
+Feb 12 10:51:41 +03:00 (none)  Setting hostname to lfs113... OK
+Feb 12 10:51:41 +03:00 lfs113  Populating /dev with device nodes...  OK
+Feb 12 10:51:40 +03:00 lfs113  Activating all swap files/partitions... OK
+Feb 12 10:51:40 +03:00 lfs113  Mounting root file system in read-only mode...  OK
+Feb 12 10:51:40 +03:00 lfs113  Checking file systems... OK
+Feb 12 10:51:40 +03:00 lfs113  Remounting root file system in read-write mode... OK
+Feb 12 10:51:40 +03:00 lfs113  Mounting remaining file systems... OK
+Feb 12 10:51:40 +03:00 lfs113  Cleaning file systems: /tmp OK
+Feb 12 10:51:40 +03:00 lfs113  Retrying failed uevents, if any... OK
+Feb 12 10:51:41 +03:00 lfs113   FAIL
+Feb 12 10:51:41 +03:00 lfs113  FAILURE:
+
+You should not be reading this error message.
+
+It means that an unforeseen error took place in
+/etc/rc.d/rcS.d/S70console,
+which exited with a return value of 2.
+If you're able to track this error down to a bug in one of
+the files provided by the LFS book,
+please be so kind to inform us at lfs-dev@lists.linuxfromscratch.org (Registration required).
+ FAIL
+Feb 12 10:51:41 +03:00 lfs113  Press Enter to continue...Feb 12 10:52:09 +03:00 lfs113  Starting system log daemon... OK
+Feb 12 10:52:09 +03:00 lfs113  Starting kernel log daemon... OK
+Feb 12 10:52:09 +03:00 lfs113  Bringing up the enp0s3 interface... OK
+Feb 12 10:52:09 +03:00 lfs113  
+Unable to process /etc/sysconfig/ifconfig.enp0s3.  Either the SERVICE 'ipv4-auto was not present or cannot be executed. FAIL
+--------
+Feb 12 11:33:12 +03:00 (none)  Mounting virtual file systems: /run /proc /sys /dev/shm OK
+Feb 12 11:33:12 +03:00 (none)  Bringing up the loopback interface... OK
+Feb 12 11:33:12 +03:00 (none)  Setting hostname to lfs113... OK
+Feb 12 11:33:12 +03:00 lfs113  Populating /dev with device nodes...  OK
+Feb 12 11:33:15 +03:00 lfs113  Activating all swap files/partitions... OK
+Feb 12 11:33:15 +03:00 lfs113  Mounting root file system in read-only mode...  OK
+Feb 12 11:33:15 +03:00 lfs113  Checking file systems... OK
+Feb 12 11:33:15 +03:00 lfs113  Remounting root file system in read-write mode... OK
+Feb 12 11:33:15 +03:00 lfs113  Mounting remaining file systems... OK
+Feb 12 11:33:15 +03:00 lfs113  Cleaning file systems: /tmp OK
+Feb 12 11:33:15 +03:00 lfs113  Retrying failed uevents, if any... OK
+Feb 12 11:33:16 +03:00 lfs113   FAIL
+Feb 12 11:33:16 +03:00 lfs113  FAILURE:
+
+You should not be reading this error message.
+
+It means that an unforeseen error took place in
+/etc/rc.d/rcS.d/S70console,
+which exited with a return value of 2.
+If you're able to track this error down to a bug in one of
+the files provided by the LFS book,
+please be so kind to inform us at lfs-dev@lists.linuxfromscratch.org (Registration required).
+ FAIL
+Feb 12 11:33:16 +03:00 lfs113  Press Enter to continue...Feb 12 11:33:20 +03:00 lfs113  Starting system log daemon... OK
+Feb 12 11:33:20 +03:00 lfs113  Starting kernel log daemon... OK
+Feb 12 11:33:20 +03:00 lfs113  Bringing up the enp0s3 interface... OK
+Feb 12 11:33:21 +03:00 lfs113  
+PREFIX variable missing from /etc/sysconfig/ifconfig.enp0s3, assuming 24. WARN
+Feb 12 11:33:21 +03:00 lfs113  Adding IPv4 address 192.168.227.208 to the enp0s3 interface... OK
+Feb 12 11:33:21 +03:00 lfs113  Adding default gateway 192.168.227.249 to the enp0s3 interface... OK
+--------

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>lbzip2 (GNU tar 1.34)</title>
+
+<meta name="description" content="lbzip2 (GNU tar 1.34)">
+<meta name="keywords" content="lbzip2 (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="gzip.html" rel="up" title="gzip">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsubsection-level-extent" id="lbzip2">
+<div class="nav-panel">
+<p>
+Up: <a href="gzip.html" accesskey="u" rel="up">Creating and Reading Compressed Archives</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsubsection" id="Using-lbzip2-with-GNU-tar_002e">8.1.1.1 Using lbzip2 with <abbr class="acronym">GNU</abbr> <code class="command">tar</code>.</h4>
+<a class="index-entry-id" id="index-lbzip2"></a>
+<a class="index-entry-id" id="index-Laszlo-Ersek"></a>
+<p><code class="command">Lbzip2</code> is a multithreaded utility for handling
+&lsquo;<samp class="samp">bzip2</samp>&rsquo; compression, written by Laszlo Ersek.  It makes use of
+multiple processors to speed up its operation and in general works
+considerably faster than <code class="command">bzip2</code>.  For a detailed description
+of <code class="command">lbzip2</code> see <a class="uref" href="http://freshmeat.net/projects/lbzip2">http://freshmeat.net/projects/lbzip2</a> and
+<a class="uref" href="http://www.linuxinsight.com/lbzip2-parallel-bzip2-utility.html">lbzip2: parallel bzip2 utility</a>.
+</p>
+<p>Recent versions of <code class="command">lbzip2</code> are mostly command line compatible
+with <code class="command">bzip2</code>, which makes it possible to automatically invoke
+it via the <samp class="option">--bzip2</samp> <abbr class="acronym">GNU</abbr> <code class="command">tar</code> command line option.  To do so,
+<abbr class="acronym">GNU</abbr> <code class="command">tar</code> must be configured with the <samp class="option">--with-bzip2</samp> command
+line option, like this:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">./configure --with-bzip2=lbzip2 [<var class="var">other-options</var>]</kbd>
+</pre></div>
+
+<p>Once configured and compiled this way, <code class="command">tar --help</code> will show the
+following:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">$ <kbd class="kbd">tar --help | grep -- --bzip2</kbd>
+  -j, --bzip2                filter the archive through lbzip2
+</pre></div></div>
+
+<p>which means that running <code class="command">tar --bzip2</code> will invoke <code class="command">lbzip2</code>.
+</p>
+</div>
+
+
+
+</body>
+</html>

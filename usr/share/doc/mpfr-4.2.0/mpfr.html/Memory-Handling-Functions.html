@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual documents how to install and use the Multiple Precision
+Floating-Point Reliable Library, version 4.2.0.
+
+Copyright 1991, 1993-2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.2 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the
+license is included in GNU Free Documentation License. -->
+<title>Memory Handling Functions (GNU MPFR 4.2.0)</title>
+
+<meta name="description" content="How to install and use GNU MPFR, a library for reliable multiple precision
+floating-point arithmetic, version 4.2.0.">
+<meta name="keywords" content="Memory Handling Functions (GNU MPFR 4.2.0)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="MPFR-Interface.html" rel="up" title="MPFR Interface">
+<link href="Compatibility-with-MPF.html" rel="next" title="Compatibility with MPF">
+<link href="Exception-Related-Functions.html" rel="prev" title="Exception Related Functions">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Memory-Handling-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Compatibility-with-MPF.html" accesskey="n" rel="next">Compatibility With MPF</a>, Previous: <a href="Exception-Related-Functions.html" accesskey="p" rel="prev">Exception Related Functions</a>, Up: <a href="MPFR-Interface.html" accesskey="u" rel="up">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a class="index-entry-id" id="index-Memory-handling-functions"></a>
+<h3 class="section" id="Memory-Handling-Functions-1">5.14 Memory Handling Functions</h3>
+
+<p>These are general functions concerning memory handling
+(see <a class="pxref" href="Memory-Handling.html">Memory Handling</a>, for more information).
+</p>
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005ffree_005fcache"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_free_cache</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005ffree_005fcache'> ¶</a></span></dt>
+<dd><p>Free all caches and pools used by MPFR internally (those local to the
+current thread and those shared by all threads).
+You should call this function before terminating a thread, even if you did
+not call <code class="code">mpfr_const_*</code> functions directly (they could have been called
+internally).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005ffree_005fcache2"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_free_cache2</strong> <code class="def-code-arguments">(mpfr_free_cache_t <var class="var">way</var>)</code><a class="copiable-link" href='#index-mpfr_005ffree_005fcache2'> ¶</a></span></dt>
+<dd><p>Free various caches and pools used by MPFR internally,
+as specified by <var class="var">way</var>, which is a set of flags:
+</p><ul class="itemize mark-bullet">
+<li>those local to the current thread if flag <code class="code">MPFR_FREE_LOCAL_CACHE</code>
+is set;
+</li><li>those shared by all threads if flag <code class="code">MPFR_FREE_GLOBAL_CACHE</code>
+is set.
+</li></ul>
+<p>The other bits of <var class="var">way</var> are currently ignored and are reserved for
+future use; they should be zero.
+</p>
+<p>Note: <code class="code">mpfr_free_cache2 (MPFR_FREE_LOCAL_CACHE | MPFR_FREE_GLOBAL_CACHE)</code>
+is currently equivalent to <code class="code">mpfr_free_cache()</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005ffree_005fpool"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_free_pool</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005ffree_005fpool'> ¶</a></span></dt>
+<dd><p>Free the pools used by MPFR internally.
+Note: This function is automatically called after the thread-local caches
+are freed (with <code class="code">mpfr_free_cache</code> or <code class="code">mpfr_free_cache2</code>).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fmp_005fmemory_005fcleanup"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_mp_memory_cleanup</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fmp_005fmemory_005fcleanup'> ¶</a></span></dt>
+<dd><p>This function should be called before calling <code class="code">mp_set_memory_functions</code>.
+See <a class="xref" href="Memory-Handling.html">Memory Handling</a>, for more information.
+Zero is returned in case of success, non-zero in case of error.
+Errors are currently not possible, but checking the return value
+is recommended for future compatibility.
+</p></dd></dl>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Compatibility-with-MPF.html">Compatibility With MPF</a>, Previous: <a href="Exception-Related-Functions.html">Exception Related Functions</a>, Up: <a href="MPFR-Interface.html">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

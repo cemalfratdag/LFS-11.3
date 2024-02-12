@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>mt (GNU tar 1.34)</title>
+
+<meta name="description" content="mt (GNU tar 1.34)">
+<meta name="keywords" content="mt (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Many.html" rel="up" title="Many">
+<link href="Tape-Positioning.html" rel="prev" title="Tape Positioning">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="mt">
+<div class="nav-panel">
+<p>
+Previous: <a href="Tape-Positioning.html" accesskey="p" rel="prev">Tape Positions and Tape Marks</a>, Up: <a href="Many.html" accesskey="u" rel="up">Many Archives on One Tape</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="The-mt-Utility">9.5.2 The <code class="command">mt</code> Utility</h4>
+<blockquote class="quotation">
+<p><em class="emph">(This message will disappear, once this node revised.)</em>
+</p></blockquote>
+
+
+<p>See <a class="xref" href="Blocking-Factor.html">The Blocking Factor of an Archive</a>.
+</p>
+<p>You can use the <code class="command">mt</code> utility to advance or rewind a tape past a
+specified number of archive files on the tape.  This will allow you
+to move to the beginning of an archive before extracting or reading
+it, or to the end of all the archives before writing a new one.
+</p>
+
+<p>The syntax of the <code class="command">mt</code> command is:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted"><kbd class="kbd">mt [-f <var class="var">tapename</var>] <var class="var">operation</var> [<var class="var">number</var>]</kbd>
+</pre></div>
+
+<p>where <var class="var">tapename</var> is the name of the tape device, <var class="var">number</var> is
+the number of times an operation is performed (with a default of one),
+and <var class="var">operation</var> is one of the following:
+</p>
+
+
+<dl class="table">
+<dt><samp class="option">eof</samp></dt>
+<dt><samp class="option">weof</samp></dt>
+<dd><p>Writes <var class="var">number</var> tape marks at the current position on the tape.
+</p>
+</dd>
+<dt><samp class="option">fsf</samp></dt>
+<dd><p>Moves tape position forward <var class="var">number</var> files.
+</p>
+</dd>
+<dt><samp class="option">bsf</samp></dt>
+<dd><p>Moves tape position back <var class="var">number</var> files.
+</p>
+</dd>
+<dt><samp class="option">rewind</samp></dt>
+<dd><p>Rewinds the tape.  (Ignores <var class="var">number</var>.)
+</p>
+</dd>
+<dt><samp class="option">offline</samp></dt>
+<dt><samp class="option">rewoff1</samp></dt>
+<dd><p>Rewinds the tape and takes the tape device off-line.  (Ignores <var class="var">number</var>.)
+</p>
+</dd>
+<dt><samp class="option">status</samp></dt>
+<dd><p>Prints status information about the tape unit.
+</p>
+</dd>
+</dl>
+
+<p>If you don&rsquo;t specify a <var class="var">tapename</var>, <code class="command">mt</code> uses the environment
+variable <code class="env">TAPE</code>; if <code class="env">TAPE</code> is not set, <code class="command">mt</code> will use
+the default device specified in your <samp class="file">sys/mtio.h</samp> file
+(<code class="code">DEFTAPE</code> variable).  If this is not defined, the program will
+display a descriptive error message and exit with code 1.
+</p>
+<p><code class="command">mt</code> returns a 0 exit status when the operation(s) were
+successful, 1 if the command was unrecognized, and 2 if an operation
+failed.
+</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Previous: <a href="Tape-Positioning.html">Tape Positions and Tape Marks</a>, Up: <a href="Many.html">Many Archives on One Tape</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

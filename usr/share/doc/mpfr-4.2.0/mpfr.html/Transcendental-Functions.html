@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual documents how to install and use the Multiple Precision
+Floating-Point Reliable Library, version 4.2.0.
+
+Copyright 1991, 1993-2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.2 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the
+license is included in GNU Free Documentation License. -->
+<title>Transcendental Functions (GNU MPFR 4.2.0)</title>
+
+<meta name="description" content="How to install and use GNU MPFR, a library for reliable multiple precision
+floating-point arithmetic, version 4.2.0.">
+<meta name="keywords" content="Transcendental Functions (GNU MPFR 4.2.0)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="MPFR-Interface.html" rel="up" title="MPFR Interface">
+<link href="Input-and-Output-Functions.html" rel="next" title="Input and Output Functions">
+<link href="Comparison-Functions.html" rel="prev" title="Comparison Functions">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span.w-nolinebreak-text {white-space: nowrap}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Transcendental-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Input-and-Output-Functions.html" accesskey="n" rel="next">Input and Output Functions</a>, Previous: <a href="Comparison-Functions.html" accesskey="p" rel="prev">Comparison Functions</a>, Up: <a href="MPFR-Interface.html" accesskey="u" rel="up">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a class="index-entry-id" id="index-Transcendental-functions"></a>
+<h3 class="section" id="Transcendental-Functions-1">5.7 Transcendental Functions</h3>
+
+<p>All those functions, except explicitly stated (for example
+<code class="code">mpfr_sin_cos</code>), return a <a class="ref" href="Rounding.html#ternary-value">ternary value</a>, i.e., zero for an
+exact return value, a positive value for a return value larger than the
+exact result, and a negative value otherwise.
+</p>
+<p>Important note: In some domains, computing transcendental functions
+(even more with correct rounding) is expensive, even in small precision,
+for example the trigonometric and Bessel functions with a large argument.
+For some functions, the algorithm complexity and memory usage does not
+depend only on the output precision: for instance, the memory usage of
+<code class="code">mpfr_rootn_ui</code> is also linear in the argument <var class="var">k</var>, and the
+memory usage of the incomplete Gamma function also depends on the
+precision of the input <var class="var">op</var>. It is also theoretically possible that
+some functions on some particular inputs might be very hard to round
+(i.e. the Table Maker’s Dilemma occurs in much larger precisions than
+normally expected from the context), meaning that the internal precision
+needs to be increased even more; but it is conjectured that the needed
+precision has a reasonable bound (and in particular, that potentially
+exact cases are known and can be detected efficiently).
+</p>
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005flog"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_log</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005flog'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005flog_005fui"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_log_ui</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, unsigned long int <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005flog_005fui'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005flog2"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_log2</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005flog2'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005flog10"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_log10</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005flog10'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the natural logarithm of <var class="var">op</var>,
+log2(<var class="var">op</var>) or
+log10(<var class="var">op</var>), respectively,
+rounded in the direction <var class="var">rnd</var>.
+Set <var class="var">rop</var> to +0 if <var class="var">op</var> is 1 (in all rounding modes),
+for consistency with the ISO C99 and IEEE 754 standards.
+Set <var class="var">rop</var> to −Inf if <var class="var">op</var> is ±0
+(i.e., the sign of the zero has no influence on the result).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005flog1p"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_log1p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005flog1p'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005flog2p1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_log2p1</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005flog2p1'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005flog10p1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_log10p1</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005flog10p1'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the logarithm of one plus <var class="var">op</var> (in radix two for
+<code class="code">mpfr_log2p1</code>, and in radix ten for <code class="code">mpfr_log10p1</code>), rounded in the
+direction <var class="var">rnd</var>.
+Set <var class="var">rop</var> to −Inf if <var class="var">op</var> is −1.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fexp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_exp</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fexp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fexp2"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_exp2</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fexp2'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fexp10"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_exp10</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fexp10'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the exponential of <var class="var">op</var>,
+ to 2 power of <var class="var">op</var>
+or to 10 power of <var class="var">op</var>, respectively,
+rounded in the direction <var class="var">rnd</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fexpm1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_expm1</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fexpm1'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fexp2m1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_exp2m1</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fexp2m1'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fexp10m1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_exp10m1</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fexp10m1'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the exponential of <var class="var">op</var> followed by a
+subtraction by one
+(resp. 2 power of <var class="var">op</var> followed by a
+subtraction by one,
+and 10 power of <var class="var">op</var> followed by a subtraction by one),
+rounded in the direction <var class="var">rnd</var>.
+</p></dd></dl>
+
+<a class="anchor" id="mpfr_005fpow"></a><dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fpow"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_pow</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fpow'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fpowr"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_powr</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fpowr'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fpow_005fui"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_pow_ui</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, unsigned long int <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fpow_005fui'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fpow_005fsi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_pow_si</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, long int <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fpow_005fsi'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fpow_005fuj"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_pow_uj</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, uintmax_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fpow_005fuj'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fpow_005fsj"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_pow_sj</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, intmax_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fpow_005fsj'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fpown"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_pown</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, intmax_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fpown'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fpow_005fz"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_pow_z</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, mpz_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fpow_005fz'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fui_005fpow_005fui"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_ui_pow_ui</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, unsigned long int <var class="var">op1</var>, unsigned long int <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fui_005fpow_005fui'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fui_005fpow"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_ui_pow</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, unsigned long int <var class="var">op1</var>, mpfr_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fui_005fpow'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to <var class="var">op1</var> raised to <var class="var">op2</var>,
+rounded in the direction <var class="var">rnd</var>.
+The <code class="code">mpfr_powr</code> function corresponds to the <code class="code">powr</code> function
+from IEEE 754, i.e., it computes the exponential of
+<var class="var">op2</var> multiplied by the logarithm of <var class="var">op1</var>.
+The <code class="code">mpfr_pown</code> function is just an alias for <code class="code">mpfr_pow_sj</code>
+(defined with <code class="code">#define mpfr_pown mpfr_pow_sj</code>), to follow the
+C2x function <code class="code">pown</code>.
+Special values are handled as described in the ISO C99 and IEEE 754
+standards for the <code class="code">pow</code> function:
+</p><ul class="itemize mark-bullet">
+<li><code class="code">pow(±0, <var class="var">y</var>)</code> returns ±Inf for <var class="var">y</var> a negative odd integer.
+</li><li><code class="code">pow(±0, <var class="var">y</var>)</code> returns +Inf for <var class="var">y</var> negative and not an odd integer.
+</li><li><code class="code">pow(±0, <var class="var">y</var>)</code> returns ±0 for <var class="var">y</var> a positive odd integer.
+</li><li><code class="code">pow(±0, <var class="var">y</var>)</code> returns +0 for <var class="var">y</var> positive and not an odd integer.
+</li><li><code class="code">pow(-1, ±Inf)</code> returns 1.
+</li><li><code class="code">pow(+1, <var class="var">y</var>)</code> returns 1 for any <var class="var">y</var>, even a NaN.
+</li><li><code class="code">pow(<var class="var">x</var>, ±0)</code> returns 1 for any <var class="var">x</var>, even a NaN.
+</li><li><code class="code">pow(<var class="var">x</var>, <var class="var">y</var>)</code> returns NaN for finite negative <var class="var">x</var> and finite non-integer <var class="var">y</var>.
+</li><li><code class="code">pow(<var class="var">x</var>, -Inf)</code> returns +Inf for 0 &lt; abs(x) &lt; 1<!-- /@w -->, and +0 for abs(x) &gt; 1<!-- /@w -->.
+</li><li><code class="code">pow(<var class="var">x</var>, +Inf)</code> returns +0 for 0 &lt; abs(x) &lt; 1<!-- /@w -->, and +Inf for abs(x) &gt; 1<!-- /@w -->.
+</li><li><code class="code">pow(-Inf, <var class="var">y</var>)</code> returns −0 for <var class="var">y</var> a negative odd integer.
+</li><li><code class="code">pow(-Inf, <var class="var">y</var>)</code> returns +0 for <var class="var">y</var> negative and not an odd integer.
+</li><li><code class="code">pow(-Inf, <var class="var">y</var>)</code> returns −Inf for <var class="var">y</var> a positive odd integer.
+</li><li><code class="code">pow(-Inf, <var class="var">y</var>)</code> returns +Inf for <var class="var">y</var> positive and not an odd integer.
+</li><li><code class="code">pow(+Inf, <var class="var">y</var>)</code> returns +0 for <var class="var">y</var> negative, and +Inf for <var class="var">y</var> positive.
+</li></ul>
+<p>Note: When 0 is of integer type, it is regarded as +0 by these functions.
+We do not use the usual limit rules in this case, as these rules are not
+used for <code class="code">pow</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcompound_005fsi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_compound_si</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, long int <var class="var">n</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fcompound_005fsi'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the power <var class="var">n</var> of one plus <var class="var">op</var>,
+following IEEE 754 for the special cases and exceptions.
+When <var class="var">n</var> is zero and <var class="var">op</var> is NaN or greater or equal to −1,
+<var class="var">rop</var> is set to 1.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcos"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cos</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fcos'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fsin"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_sin</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fsin'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ftan"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_tan</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ftan'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the cosine of <var class="var">op</var>, sine of <var class="var">op</var>,
+tangent of <var class="var">op</var>, rounded in the direction <var class="var">rnd</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcosu"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cosu</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, unsigned long int <var class="var">u</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fcosu'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fsinu"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_sinu</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, unsigned long int <var class="var">u</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fsinu'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ftanu"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_tanu</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, unsigned long int <var class="var">u</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ftanu'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the cosine (resp. sine and tangent) of
+<var class="var">op</var> multiplied by 2 Pi and divided
+by <var class="var">u</var>. For example, if <var class="var">u</var> equals 360, one gets the cosine
+(resp. sine and tangent) for <var class="var">op</var> in degrees. For <code class="code">mpfr_cosu</code>, when
+<var class="var">op</var> multiplied by 2 and divided by <var class="var">u</var>
+is a half-integer, the result is +0, following IEEE 754 (cosPi),
+so that the function is even. For <code class="code">mpfr_sinu</code>, when
+<var class="var">op</var> multiplied by 2 and divided by <var class="var">u</var>
+is an integer, the result is zero with the same sign as <var class="var">op</var>, following
+IEEE 754 (sinPi), so that the function is odd.
+Similarly, the function <code class="code">mpfr_tanu</code> follows IEEE 754 (tanPi).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcospi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cospi</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fcospi'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fsinpi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_sinpi</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fsinpi'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ftanpi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_tanpi</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ftanpi'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the cosine (resp. sine and tangent) of
+<var class="var">op</var> multiplied by Pi. See the description of
+<code class="code">mpfr_sinu</code>, <code class="code">mpfr_cosu</code> and <code class="code">mpfr_tanu</code> for special values.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fsin_005fcos"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_sin_cos</strong> <code class="def-code-arguments">(mpfr_t <var class="var">sop</var>, mpfr_t <var class="var">cop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fsin_005fcos'> ¶</a></span></dt>
+<dd><p>Set simultaneously <var class="var">sop</var> to the sine of <var class="var">op</var> and <var class="var">cop</var> to the
+cosine of <var class="var">op</var>, rounded in the direction <var class="var">rnd</var> with the corresponding
+precisions of <var class="var">sop</var> and <var class="var">cop</var>, which must be different variables.
+Return 0 iff both results are exact, more precisely it returns s + 4c<!-- /@w -->
+where s = 0<!-- /@w --> if <var class="var">sop</var> is exact, s = 1<!-- /@w --> if <var class="var">sop</var> is larger
+than the sine of <var class="var">op</var>, s = 2<!-- /@w --> if <var class="var">sop</var> is smaller than the sine
+of <var class="var">op</var>, and similarly for c<!-- /@w --> and the cosine of <var class="var">op</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fsec"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_sec</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fsec'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcsc"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_csc</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fcsc'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcot"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cot</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fcot'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the secant of <var class="var">op</var>, cosecant of <var class="var">op</var>,
+cotangent of <var class="var">op</var>, rounded in the direction <var class="var">rnd</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005facos"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_acos</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005facos'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fasin"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_asin</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fasin'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fatan"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_atan</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fatan'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the arc-cosine, arc-sine or arc-tangent of <var class="var">op</var>,
+rounded in the direction <var class="var">rnd</var>.
+Note that since <code class="code">acos(-1)</code> returns the floating-point number closest to
+Pi according to the given rounding mode, this number might not be
+in the output range 0 &lt;= <var class="var">rop</var> &lt; Pi
+of the arc-cosine function;
+still, the result lies in the image of the output range
+by the rounding function.
+The same holds for <code class="code">asin(-1)</code>, <code class="code">asin(1)</code>, <code class="code">atan(-Inf)</code>,
+<code class="code">atan(+Inf)</code> or for <code class="code">atan(<var class="var">op</var>)</code> with large <var class="var">op</var> and
+small precision of <var class="var">rop</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005facosu"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_acosu</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, unsigned long int <var class="var">u</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005facosu'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fasinu"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_asinu</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, unsigned long int <var class="var">u</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fasinu'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fatanu"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_atanu</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, unsigned long int <var class="var">u</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fatanu'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to <var class="var">a</var> multiplied
+by <var class="var">u</var> and divided by 2 Pi, where <var class="var">a</var> is the arc-cosine
+(resp. arc-sine and arc-tangent) of <var class="var">op</var>.
+For example, if <var class="var">u</var> equals 360, <code class="code">mpfr_acosu</code> yields the arc-cosine in
+degrees.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005facospi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_acospi</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005facospi'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fasinpi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_asinpi</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fasinpi'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fatanpi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_atanpi</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fatanpi'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to <code class="code">acos(<var class="var">op</var>)</code> (resp. <code class="code">asin(<var class="var">op</var>)</code> and
+<code class="code">atan(<var class="var">op</var>)</code>) divided by Pi.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fatan2"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_atan2</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">y</var>, mpfr_t <var class="var">x</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fatan2'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fatan2u"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_atan2u</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">y</var>, mpfr_t <var class="var">x</var>, unsigned long int <var class="var">u</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fatan2u'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fatan2pi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_atan2pi</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">y</var>, mpfr_t <var class="var">x</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fatan2pi'> ¶</a></span></dt>
+<dd><p>For <code class="code">mpfr_atan2</code>, set <var class="var">rop</var> to the arc-tangent2 of <var class="var">y</var> and
+<var class="var">x</var>, rounded in the direction <var class="var">rnd</var>:
+if <var class="var">x</var> &gt; 0<!-- /@w -->, then <code class="code">atan2(<var class="var">y</var>, <var class="var">x</var>)</code> returns
+atan(<var class="var">y</var>/<var class="var">x</var>)<!-- /@w -->;
+if <var class="var">x</var> &lt; 0<!-- /@w -->, then <code class="code">atan2(<var class="var">y</var>, <var class="var">x</var>)</code> returns
+the sign
+of <var class="var">y</var> multiplied by Pi − atan(abs(<var class="var">y</var>/<var class="var">x</var>))<!-- /@w -->,
+thus a number from −Pi to Pi.
+As for <code class="code">atan</code>, in case the exact mathematical result is +Pi or
+−Pi,
+its rounded result might be outside the function output range.
+The function <code class="code">mpfr_atan2u</code> behaves similarly, except the result is
+multiplied by <var class="var">u</var> and divided by 2 Pi; and
+<code class="code">mpfr_atan2pi</code> is the same as <code class="code">mpfr_atan2u</code> with <var class="var">u</var> = 2<!-- /@w -->.
+For example, if <var class="var">u</var> equals 360, <code class="code">mpfr_atan2u</code> returns the
+arc-tangent in degrees, with values from −180 to 180.
+</p>
+<p><code class="code">atan2(<var class="var">y</var>, 0)</code> does not raise any floating-point exception.
+Special values are handled as described in the ISO C99 and IEEE 754
+standards for the <code class="code">atan2</code> function:
+</p><ul class="itemize mark-bullet">
+<li><code class="code">atan2(+0, -0)</code> returns +Pi.
+</li><li><code class="code">atan2(-0, -0)</code> returns −Pi.
+</li><li><code class="code">atan2(+0, +0)</code> returns +0.
+</li><li><code class="code">atan2(-0, +0)</code> returns −0.
+</li><li><code class="code">atan2(+0, <var class="var">x</var>)</code> returns +Pi for <var class="var">x</var> &lt; 0<!-- /@w -->.
+</li><li><code class="code">atan2(-0, <var class="var">x</var>)</code> returns −Pi for <var class="var">x</var> &lt; 0<!-- /@w -->.
+</li><li><code class="code">atan2(+0, <var class="var">x</var>)</code> returns +0 for <var class="var">x</var> &gt; 0<!-- /@w -->.
+</li><li><code class="code">atan2(-0, <var class="var">x</var>)</code> returns −0 for <var class="var">x</var> &gt; 0<!-- /@w -->.
+</li><li><code class="code">atan2(<var class="var">y</var>, 0)</code> returns −Pi/2 for <var class="var">y</var> &lt; 0<!-- /@w -->.
+</li><li><code class="code">atan2(<var class="var">y</var>, 0)</code> returns +Pi/2 for <var class="var">y</var> &gt; 0<!-- /@w -->.
+</li><li><code class="code">atan2(+Inf, -Inf)</code> returns +3*Pi/4.
+</li><li><code class="code">atan2(-Inf, -Inf)</code> returns −3*Pi/4.
+</li><li><code class="code">atan2(+Inf, +Inf)</code> returns +Pi/4.
+</li><li><code class="code">atan2(-Inf, +Inf)</code> returns −Pi/4.
+</li><li><code class="code">atan2(+Inf, <var class="var">x</var>)</code> returns +Pi/2 for finite <var class="var">x</var><!-- /@w -->.
+</li><li><code class="code">atan2(-Inf, <var class="var">x</var>)</code> returns −Pi/2 for finite <var class="var">x</var><!-- /@w -->.
+</li><li><code class="code">atan2(<var class="var">y</var>, -Inf)</code> returns +Pi for finite <var class="var">y</var> &gt; 0<!-- /@w -->.
+</li><li><code class="code">atan2(<var class="var">y</var>, -Inf)</code> returns −Pi for finite <var class="var">y</var> &lt; 0<!-- /@w -->.
+</li><li><code class="code">atan2(<var class="var">y</var>, +Inf)</code> returns +0 for finite <var class="var">y</var> &gt; 0<!-- /@w -->.
+</li><li><code class="code">atan2(<var class="var">y</var>, +Inf)</code> returns −0 for finite <var class="var">y</var> &lt; 0<!-- /@w -->.
+</li></ul>
+</dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcosh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_cosh</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fcosh'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fsinh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_sinh</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fsinh'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ftanh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_tanh</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ftanh'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the hyperbolic cosine, sine or tangent of <var class="var">op</var>,
+rounded in the direction <var class="var">rnd</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fsinh_005fcosh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_sinh_cosh</strong> <code class="def-code-arguments">(mpfr_t <var class="var">sop</var>, mpfr_t <var class="var">cop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fsinh_005fcosh'> ¶</a></span></dt>
+<dd><p>Set simultaneously <var class="var">sop</var> to the hyperbolic sine of <var class="var">op</var> and
+<var class="var">cop</var> to the hyperbolic cosine of <var class="var">op</var>,
+rounded in the direction <var class="var">rnd</var> with the corresponding precision of
+<var class="var">sop</var> and <var class="var">cop</var>, which must be different variables.
+Return 0 iff both results are exact (see <code class="code">mpfr_sin_cos</code> for a more
+detailed description of the return value).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fsech"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_sech</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fsech'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcsch"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_csch</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fcsch'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fcoth"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_coth</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fcoth'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the hyperbolic secant of <var class="var">op</var>, cosecant of <var class="var">op</var>,
+cotangent of <var class="var">op</var>, rounded in the direction <var class="var">rnd</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005facosh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_acosh</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005facosh'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fasinh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_asinh</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fasinh'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fatanh"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_atanh</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fatanh'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the inverse hyperbolic cosine, sine or tangent of <var class="var">op</var>,
+rounded in the direction <var class="var">rnd</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005feint"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_eint</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005feint'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the exponential integral of <var class="var">op</var>,
+rounded in the direction <var class="var">rnd</var>.
+This is the sum of Euler’s constant, of the logarithm
+of the absolute value of <var class="var">op</var>, and of the sum for k<!-- /@w -->
+from 1 to infinity of <var class="var">op</var> to the power k, divided by k and the factorial of k.
+For positive <var class="var">op</var>, it corresponds to the Ei function at <var class="var">op</var>
+(see formula 5.1.10 from the Handbook of Mathematical Functions from
+Abramowitz and Stegun),
+and for negative <var class="var">op</var>, to the opposite of the
+E1 function (sometimes called eint1)
+at −<var class="var">op</var> (formula 5.1.1 from the same reference).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fli2"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_li2</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fli2'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to real part of the dilogarithm of <var class="var">op</var>, rounded in the
+direction <var class="var">rnd</var>. MPFR defines the dilogarithm function as
+the integral of
+−log(1−t)/t from 0 to <var class="var">op</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fgamma"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_gamma</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fgamma'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fgamma_005finc"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_gamma_inc</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fgamma_005finc'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the value of the Gamma function on <var class="var">op</var>, resp. the
+incomplete Gamma function on <var class="var">op</var> and <var class="var">op2</var>,
+rounded in the direction <var class="var">rnd</var>.
+(In the literature, <code class="code">mpfr_gamma_inc</code> is called upper
+incomplete Gamma function,
+or sometimes complementary incomplete Gamma function.)
+For <code class="code">mpfr_gamma</code> (and <code class="code">mpfr_gamma_inc</code> when <var class="var">op2</var> is zero),
+when <var class="var">op</var> is a negative integer, <var class="var">rop</var> is set to NaN.
+</p>
+<p>Note: the current implementation of <code class="code">mpfr_gamma_inc</code> is slow for
+large values of <var class="var">rop</var> or <var class="var">op</var>, in which case some internal overflow
+might also occur.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005flngamma"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_lngamma</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005flngamma'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the value of the logarithm of the Gamma function on <var class="var">op</var>,
+rounded in the direction <var class="var">rnd</var>.
+When <var class="var">op</var> is 1 or 2, set <var class="var">rop</var> to +0 (in all rounding modes).
+When <var class="var">op</var> is an infinity or a non-positive integer, set <var class="var">rop</var> to
++Inf, following the general rules on special values.
+When −2k − 1 &lt; <var class="var">op</var> &lt; −2k<!-- /@w -->,
+k<!-- /@w --> being a non-negative integer, set <var class="var">rop</var> to NaN.
+See also <code class="code">mpfr_lgamma</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005flgamma"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_lgamma</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, int *<var class="var">signp</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005flgamma'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the value of the logarithm of the absolute value of the
+Gamma function on <var class="var">op</var>, rounded in the direction <var class="var">rnd</var>. The sign
+(1 or −1) of Gamma(<var class="var">op</var>) is returned in the object pointed to
+by <var class="var">signp</var>.
+When <var class="var">op</var> is 1 or 2, set <var class="var">rop</var> to +0 (in all rounding modes).
+When <var class="var">op</var> is an infinity or a non-positive integer, set <var class="var">rop</var> to
++Inf.
+When <var class="var">op</var> is NaN, −Inf or a negative integer, *<var class="var">signp</var> is
+undefined, and when <var class="var">op</var> is ±0, *<var class="var">signp</var> is the sign of the zero.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fdigamma"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_digamma</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fdigamma'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the value of the Digamma (sometimes also called Psi)
+function on <var class="var">op</var>, rounded in the direction <var class="var">rnd</var>.
+When <var class="var">op</var> is a negative integer, set <var class="var">rop</var> to NaN.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fbeta"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_beta</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fbeta'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the value of the Beta function at arguments <var class="var">op1</var> and
+<var class="var">op2</var>.
+Note: the current code does not try to avoid internal overflow or underflow,
+and might use a huge internal precision in some cases.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fzeta"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_zeta</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fzeta'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fzeta_005fui"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_zeta_ui</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, unsigned long int <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fzeta_005fui'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the value of the Riemann Zeta function on <var class="var">op</var>,
+rounded in the direction <var class="var">rnd</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005ferf"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_erf</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ferf'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ferfc"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_erfc</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ferfc'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the value of the error function on <var class="var">op</var>
+(resp. the complementary error function on <var class="var">op</var>)
+rounded in the direction <var class="var">rnd</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fj0"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_j0</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fj0'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fj1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_j1</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fj1'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fjn"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_jn</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, long int <var class="var">n</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fjn'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the value of the first kind Bessel function of order 0,
+(resp. 1 and <var class="var">n</var>)
+on <var class="var">op</var>, rounded in the direction <var class="var">rnd</var>. When <var class="var">op</var> is NaN,
+<var class="var">rop</var> is always set to NaN. When <var class="var">op</var> is positive or negative infinity,
+<var class="var">rop</var> is set to +0. When <var class="var">op</var> is zero, and <var class="var">n</var> is not zero,
+<var class="var">rop</var> is set to +0 or −0 depending on the parity and sign of
+<var class="var">n</var>, and the sign of <var class="var">op</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fy0"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_y0</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fy0'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fy1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_y1</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fy1'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fyn"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_yn</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, long int <var class="var">n</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fyn'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the value of the second kind Bessel function of order 0
+(resp. 1 and <var class="var">n</var>)
+on <var class="var">op</var>, rounded in the direction <var class="var">rnd</var>. When <var class="var">op</var> is
+NaN or negative, <var class="var">rop</var> is always set to NaN. When <var class="var">op</var> is +Inf,
+<var class="var">rop</var> is set to +0. When <var class="var">op</var> is zero, <var class="var">rop</var> is set to
++Inf or −Inf depending on the parity and sign of <var class="var">n</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fagm"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_agm</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fagm'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the arithmetic-geometric mean of <var class="var">op1</var> and <var class="var">op2</var>,
+rounded in the direction <var class="var">rnd</var>.
+The arithmetic-geometric mean is the common limit of the sequences
+u_n and v_n, where <span class="w-nolinebreak-text">u_0</span> = <var class="var">op1</var><!-- /@w -->, <span class="w-nolinebreak-text">v_0</span> = <var class="var">op2</var><!-- /@w -->,
+u_(n+1) is the arithmetic mean of u_n and v_n, and
+v_(n+1) is the geometric mean of u_n and v_n.
+If any operand is negative and the other one is not zero,
+set <var class="var">rop</var> to NaN.
+If any operand is zero and the other one is finite (resp. infinite),
+set <var class="var">rop</var> to +0 (resp. NaN).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fai"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_ai</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">x</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fai'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the value of the Airy function Ai
+ on <var class="var">x</var>, rounded in the direction <var class="var">rnd</var>.
+When <var class="var">x</var> is
+NaN,
+<var class="var">rop</var> is always set to NaN. When <var class="var">x</var> is +Inf or −Inf,
+<var class="var">rop</var> is +0.
+The current implementation is not intended to be used with large arguments.
+It works with abs(<var class="var">x</var>) typically smaller than 500. For larger arguments,
+other methods should be used and will be implemented in a future version.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fconst_005flog2"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_const_log2</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fconst_005flog2'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fconst_005fpi"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_const_pi</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fconst_005fpi'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fconst_005feuler"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_const_euler</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fconst_005feuler'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fconst_005fcatalan"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_const_catalan</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fconst_005fcatalan'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the logarithm of 2, the value of Pi,
+of Euler’s constant 0.577…, of Catalan’s constant 0.915…,
+respectively, rounded in the direction
+<var class="var">rnd</var>. These functions cache the computed values to avoid other
+calculations if a lower or equal precision is requested. To free these caches,
+use <code class="code">mpfr_free_cache</code> or <code class="code">mpfr_free_cache2</code>.
+</p></dd></dl>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Input-and-Output-Functions.html">Input and Output Functions</a>, Previous: <a href="Comparison-Functions.html">Comparison Functions</a>, Up: <a href="MPFR-Interface.html">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

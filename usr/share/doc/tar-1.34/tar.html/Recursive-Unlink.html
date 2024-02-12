@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Recursive Unlink (GNU tar 1.34)</title>
+
+<meta name="description" content="Recursive Unlink (GNU tar 1.34)">
+<meta name="keywords" content="Recursive Unlink (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Writing.html" rel="up" title="Writing">
+<link href="Data-Modification-Times.html" rel="next" title="Data Modification Times">
+<link href="Unlink-First.html" rel="prev" title="Unlink First">
+
+
+</head>
+
+<body lang="en">
+<div class="unnumberedsubsubsec-level-extent" id="Recursive-Unlink">
+<div class="nav-panel">
+<p>
+Next: <a href="Data-Modification-Times.html" accesskey="n" rel="next">Setting Data Modification Times</a>, Previous: <a href="Unlink-First.html" accesskey="p" rel="prev">Unlink First</a>, Up: <a href="Writing.html" accesskey="u" rel="up">Changing How <code class="command">tar</code> Writes Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="unnumberedsubsubsec" id="Recursive-Unlink-1">Recursive Unlink</h4>
+
+<dl class="table">
+<dd><a class="index-entry-id" id="index-recursive_002dunlink"></a>
+</dd>
+<dt><samp class="option">--recursive-unlink</samp></dt>
+<dd><p>When this option is specified, try removing files and directory hierarchies
+before extracting over them.  <em class="emph">This is a dangerous option!</em>
+</p></dd>
+</dl>
+
+<p>If you specify the <samp class="option">--recursive-unlink</samp> option,
+<code class="command">tar</code> removes <em class="emph">anything</em> that keeps you from extracting a file
+as far as current permissions will allow it.  This could include removal
+of the contents of a full directory hierarchy.
+</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>sparse (GNU tar 1.34)</title>
+
+<meta name="description" content="sparse (GNU tar 1.34)">
+<meta name="keywords" content="sparse (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Compression.html" rel="up" title="Compression">
+<link href="gzip.html" rel="prev" title="gzip">
+<style type="text/css">
+<!--
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="sparse">
+<div class="nav-panel">
+<p>
+Previous: <a href="gzip.html" accesskey="p" rel="prev">Creating and Reading Compressed Archives</a>, Up: <a href="Compression.html" accesskey="u" rel="up">Using Less Space through Compression</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="Archiving-Sparse-Files">8.1.2 Archiving Sparse Files</h4>
+<a class="index-entry-id" id="index-Sparse-Files"></a>
+
+<p>Files in the file system occasionally have <em class="dfn">holes</em>.  A <em class="dfn">hole</em>
+in a file is a section of the file&rsquo;s contents which was never written.
+The contents of a hole reads as all zeros.  On many operating systems,
+actual disk storage is not allocated for holes, but they are counted
+in the length of the file.  If you archive such a file, <code class="command">tar</code>
+could create an archive longer than the original.  To have <code class="command">tar</code>
+attempt to recognize the holes in a file, use <samp class="option">--sparse</samp>
+(<samp class="option">-S</samp>).  When you use this option, then, for any file using
+less disk space than would be expected from its length, <code class="command">tar</code>
+searches the file for holes.  It then records in the archive for the file where
+the holes (consecutive stretches of zeros) are, and only archives the
+&ldquo;real contents&rdquo; of the file.  On extraction (using <samp class="option">--sparse</samp> is not
+needed on extraction) any such files have also holes created wherever the holes
+were found.  Thus, if you use <samp class="option">--sparse</samp>, <code class="command">tar</code> archives won&rsquo;t
+take more space than the original.
+</p>
+<p><abbr class="acronym">GNU</abbr> <code class="command">tar</code> uses two methods for detecting holes in sparse files.  These
+methods are described later in this subsection.
+</p>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-sparse"></a>
+</dd>
+<dt><samp class="option">-S</samp></dt>
+<dt><samp class="option">--sparse</samp></dt>
+<dd><p>This option instructs <code class="command">tar</code> to test each file for sparseness
+before attempting to archive it.  If the file is found to be sparse it
+is treated specially, thus allowing to decrease the amount of space
+used by its image in the archive.
+</p>
+<p>This option is meaningful only when creating or updating archives.  It
+has no effect on extraction.
+</p></dd>
+</dl>
+
+<p>Consider using <samp class="option">--sparse</samp> when performing file system backups,
+to avoid archiving the expanded forms of files stored sparsely in the
+system.
+</p>
+<p>Even if your system has no sparse files currently, some may be
+created in the future.  If you use <samp class="option">--sparse</samp> while making file
+system backups as a matter of course, you can be assured the archive
+will never take more space on the media than the files take on disk
+(otherwise, archiving a disk filled with sparse files might take
+hundreds of tapes).  See <a class="xref" href="Incremental-Dumps.html">Using <code class="command">tar</code> to Perform Incremental Dumps</a>.
+</p>
+<p>However, be aware that <samp class="option">--sparse</samp> option may present a serious
+drawback.  Namely, in order to determine the positions of holes in a file
+<code class="command">tar</code> may have to read it before trying to archive it, so in total
+the file may be read <strong class="strong">twice</strong>.  This may happen when your OS or your FS
+does not support <em class="dfn">SEEK_HOLE/SEEK_DATA</em> feature in <em class="dfn">lseek</em> (See
+<samp class="option">--hole-detection</samp>, below).
+</p>
+<a class="index-entry-id" id="index-sparse-formats_002c-defined"></a>
+<p>When using &lsquo;<samp class="samp">POSIX</samp>&rsquo; archive format, <abbr class="acronym">GNU</abbr> <code class="command">tar</code> is able to store
+sparse files using in three distinct ways, called <em class="dfn">sparse
+formats</em>.  A sparse format is identified by its <em class="dfn">number</em>,
+consisting, as usual of two decimal numbers, delimited by a dot.  By
+default, format &lsquo;<samp class="samp">1.0</samp>&rsquo; is used.  If, for some reason, you wish to
+use an earlier format, you can select it using
+<samp class="option">--sparse-version</samp> option.
+</p>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-sparse_002dversion"></a>
+</dd>
+<dt><samp class="option">--sparse-version=<var class="var">version</var></samp></dt>
+<dd><p>Select the format to store sparse files in.  Valid <var class="var">version</var> values
+are: &lsquo;<samp class="samp">0.0</samp>&rsquo;, &lsquo;<samp class="samp">0.1</samp>&rsquo; and &lsquo;<samp class="samp">1.0</samp>&rsquo;.  See <a class="xref" href="Sparse-Formats.html">Storing Sparse Files</a>,
+for a detailed description of each format.
+</p></dd>
+</dl>
+
+<p>Using <samp class="option">--sparse-format</samp> option implies <samp class="option">--sparse</samp>.
+</p>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-hole_002ddetection"></a>
+<a class="index-entry-id" id="index-hole-detection"></a>
+</dd>
+<dt><samp class="option">--hole-detection=<var class="var">method</var></samp></dt>
+<dd><p>Enforce concrete hole detection method.  Before the real contents of sparse
+file are stored, <code class="command">tar</code> needs to gather knowledge about file
+sparseness.  This is because it needs to have the file&rsquo;s map of holes
+stored into tar header before it starts archiving the file contents.
+Currently, two methods of hole detection are implemented:
+</p>
+<ul class="itemize mark-bullet">
+<li><samp class="option">--hole-detection=seek</samp>
+Seeking the file for data and holes.  It uses enhancement of the <code class="code">lseek</code>
+system call (<code class="code">SEEK_HOLE</code> and <code class="code">SEEK_DATA</code>) which is able to
+reuse file system knowledge about sparse file contents - so the
+detection is usually very fast.  To use this feature, your file system
+and operating system must support it.  At the time of this writing
+(2015) this feature, in spite of not being accepted by POSIX, is
+fairly widely supported by different operating systems.
+
+</li><li><samp class="option">--hole-detection=raw</samp>
+Reading byte-by-byte the whole sparse file before the archiving.  This
+method detects holes like consecutive stretches of zeroes.  Comparing to
+the previous method, it is usually much slower, although more
+portable.
+</li></ul>
+</dd>
+</dl>
+
+<p>When no <samp class="option">--hole-detection</samp> option is given, <code class="command">tar</code> uses
+the &lsquo;<samp class="samp">seek</samp>&rsquo;, if supported by the operating system.
+</p>
+<p>Using <samp class="option">--hole-detection</samp> option implies <samp class="option">--sparse</samp>.
+</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Previous: <a href="gzip.html">Creating and Reading Compressed Archives</a>, Up: <a href="Compression.html">Using Less Space through Compression</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+NAME="Linux From Scratch"
+VERSION="11.3"
+ID=lfs
+PRETTY_NAME="Linux From Scratch 11.3"
+VERSION_CODENAME="enpisko"

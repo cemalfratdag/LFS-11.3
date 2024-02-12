@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>interactive (GNU tar 1.34)</title>
+
+<meta name="description" content="interactive (GNU tar 1.34)">
+<meta name="keywords" content="interactive (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="tar-invocation.html" rel="up" title="tar invocation">
+<link href="external.html" rel="next" title="external">
+<link href="warnings.html" rel="prev" title="warnings">
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="interactive">
+<div class="nav-panel">
+<p>
+Next: <a href="external.html" accesskey="n" rel="next">Running External Commands</a>, Previous: <a href="warnings.html" accesskey="p" rel="prev">Controlling Warning Messages</a>, Up: <a href="tar-invocation.html" accesskey="u" rel="up">Invoking <abbr class="acronym">GNU</abbr> <code class="command">tar</code></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Asking-for-Confirmation-During-Operations">3.10 Asking for Confirmation During Operations</h3>
+<a class="index-entry-id" id="index-Interactive-operation"></a>
+
+<p>Typically, <code class="command">tar</code> carries out a command without stopping for
+further instructions.  In some situations however, you may want to
+exclude some files and archive members from the operation (for instance
+if disk or storage space is tight).  You can do this by excluding
+certain files automatically (see <a class="pxref" href="Choosing.html">Choosing Files and Names for <code class="command">tar</code></a>), or by performing
+an operation interactively, using the <samp class="option">--interactive</samp> (<samp class="option">-w</samp>) option.
+<code class="command">tar</code> also accepts <samp class="option">--confirmation</samp> for this option.
+</p>
+<a class="index-entry-id" id="index-interactive"></a>
+<p>When the <samp class="option">--interactive</samp> (<samp class="option">-w</samp>) option is specified, before
+reading, writing, or deleting files, <code class="command">tar</code> first prints a message
+for each such file, telling what operation it intends to take, then asks
+for confirmation on the terminal.  The actions which require
+confirmation include adding a file to the archive, extracting a file
+from the archive, deleting a file from the archive, and deleting a file
+from disk.  To confirm the action, you must type a line of input
+beginning with &lsquo;<samp class="samp">y</samp>&rsquo;.  If your input line begins with anything other
+than &lsquo;<samp class="samp">y</samp>&rsquo;, <code class="command">tar</code> skips that file.
+</p>
+<p>If <code class="command">tar</code> is reading the archive from the standard input,
+<code class="command">tar</code> opens the file <samp class="file">/dev/tty</samp> to support the interactive
+communications.
+</p>
+<p>Verbose output is normally sent to standard output, separate from
+other error messages.  However, if the archive is produced directly
+on standard output, then verbose output is mixed with errors on
+<code class="code">stderr</code>.  Producing the archive on standard output may be used
+as a way to avoid using disk space, when the archive is soon to be
+consumed by another process reading it, say.  Some people felt the need
+of producing an archive on stdout, still willing to segregate between
+verbose output and error output.  A possible approach would be using a
+named pipe to receive the archive, and having the consumer process to
+read from that named pipe.  This has the advantage of letting standard
+output free to receive verbose output, all separate from errors.
+</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="external.html">Running External Commands</a>, Previous: <a href="warnings.html">Controlling Warning Messages</a>, Up: <a href="tar-invocation.html">Invoking <abbr class="acronym">GNU</abbr> <code class="command">tar</code></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

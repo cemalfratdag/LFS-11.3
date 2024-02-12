@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Data corruption and repair (GNU tar 1.34)</title>
+
+<meta name="description" content="Data corruption and repair (GNU tar 1.34)">
+<meta name="keywords" content="Data corruption and repair (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Reliability.html" rel="up" title="Reliability">
+<link href="Race-conditions.html" rel="next" title="Race conditions">
+<link href="Permissions-problems.html" rel="prev" title="Permissions problems">
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="Data-corruption-and-repair">
+<div class="nav-panel">
+<p>
+Next: <a href="Race-conditions.html" accesskey="n" rel="next">Race conditions</a>, Previous: <a href="Permissions-problems.html" accesskey="p" rel="prev">Permissions Problems</a>, Up: <a href="Reliability.html" accesskey="u" rel="up">Reliability</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="Data-Corruption-and-Repair">10.1.2 Data Corruption and Repair</h4>
+
+<p>If an archive becomes corrupted by an I/O error, this may corrupt the
+data in an extracted file.  Worse, it may corrupt the file&rsquo;s metadata,
+which may cause later parts of the archive to become misinterpreted.
+An tar-format archive contains a checksum that most likely will detect
+errors in the metadata, but it will not detect errors in the data.
+</p>
+<p>If data corruption is a concern, you can compute and check your own
+checksums of an archive by using other programs, such as
+<code class="command">cksum</code>.
+</p>
+<p>When attempting to recover from a read error or data corruption in an
+archive, you may need to skip past the questionable data and read the
+rest of the archive.  This requires some expertise in the archive
+format and in other software tools.
+</p>
+</div>
+
+
+
+</body>
+</html>

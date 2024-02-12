@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>Initializing Integers (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="Initializing Integers (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="Integer-Functions.html" rel="up" title="Integer Functions">
+<link href="Assigning-Integers.html" rel="next" title="Assigning Integers">
+<link href="Integer-Functions.html" rel="prev" title="Integer Functions">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Initializing-Integers">
+<div class="nav-panel">
+<p>
+Next: <a href="Assigning-Integers.html" accesskey="n" rel="next">Assignment Functions</a>, Previous: <a href="Integer-Functions.html" accesskey="p" rel="prev">Integer Functions</a>, Up: <a href="Integer-Functions.html" accesskey="u" rel="up">Integer Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Initialization-Functions">5.1 Initialization Functions</h3>
+<a class="index-entry-id" id="index-Integer-initialization-functions"></a>
+<a class="index-entry-id" id="index-Initialization-functions"></a>
+
+<p>The functions for integer arithmetic assume that all integer objects are
+initialized.  You do that by calling the function <code class="code">mpz_init</code>.  For
+example,
+</p>
+<div class="example">
+<pre class="example-preformatted">{
+  mpz_t integ;
+  mpz_init (integ);
+  &hellip;
+  mpz_add (integ, &hellip;);
+  &hellip;
+  mpz_sub (integ, &hellip;);
+
+  /* Unless the program is about to exit, do ... */
+  mpz_clear (integ);
+}
+</pre></div>
+
+<p>As you can see, you can store new values any number of times, once an
+object is initialized.
+</p>
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005finit"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_init</strong> <code class="def-code-arguments">(mpz_t <var class="var">x</var>)</code><a class="copiable-link" href='#index-mpz_005finit'> &para;</a></span></dt>
+<dd><p>Initialize <var class="var">x</var>, and set its value to 0.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005finits"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_inits</strong> <code class="def-code-arguments">(mpz_t <var class="var">x</var>, ...)</code><a class="copiable-link" href='#index-mpz_005finits'> &para;</a></span></dt>
+<dd><p>Initialize a NULL-terminated list of <code class="code">mpz_t</code> variables, and set their
+values to 0.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005finit2"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_init2</strong> <code class="def-code-arguments">(mpz_t <var class="var">x</var>, mp_bitcnt_t <var class="var">n</var>)</code><a class="copiable-link" href='#index-mpz_005finit2'> &para;</a></span></dt>
+<dd><p>Initialize <var class="var">x</var>, with space for <var class="var">n</var>-bit numbers, and set its value to 0.
+Calling this function instead of <code class="code">mpz_init</code> or <code class="code">mpz_inits</code> is never
+necessary; reallocation is handled automatically by GMP when needed.
+</p>
+<p>While <var class="var">n</var> defines the initial space, <var class="var">x</var> will grow automatically in the
+normal way, if necessary, for subsequent values stored.  <code class="code">mpz_init2</code> makes
+it possible to avoid such reallocations if a maximum size is known in advance.
+</p>
+<p>In preparation for an operation, GMP often allocates one limb more than
+ultimately needed.  To make sure GMP will not perform reallocation for
+<var class="var">x</var>, you need to add the number of bits in <code class="code">mp_limb_t</code> to <var class="var">n</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fclear"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_clear</strong> <code class="def-code-arguments">(mpz_t <var class="var">x</var>)</code><a class="copiable-link" href='#index-mpz_005fclear'> &para;</a></span></dt>
+<dd><p>Free the space occupied by <var class="var">x</var>.  Call this function for all <code class="code">mpz_t</code>
+variables when you are done with them.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fclears"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_clears</strong> <code class="def-code-arguments">(mpz_t <var class="var">x</var>, ...)</code><a class="copiable-link" href='#index-mpz_005fclears'> &para;</a></span></dt>
+<dd><p>Free the space occupied by a NULL-terminated list of <code class="code">mpz_t</code> variables.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005frealloc2"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_realloc2</strong> <code class="def-code-arguments">(mpz_t <var class="var">x</var>, mp_bitcnt_t <var class="var">n</var>)</code><a class="copiable-link" href='#index-mpz_005frealloc2'> &para;</a></span></dt>
+<dd><p>Change the space allocated for <var class="var">x</var> to <var class="var">n</var> bits.  The value in <var class="var">x</var>
+is preserved if it fits, or is set to 0 if not.
+</p>
+<p>Calling this function is never necessary; reallocation is handled automatically
+by GMP when needed.  But this function can be used to increase the space for a
+variable in order to avoid repeated automatic reallocations, or to decrease it
+to give memory back to the heap.
+</p></dd></dl>
+
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Assigning-Integers.html">Assignment Functions</a>, Previous: <a href="Integer-Functions.html">Integer Functions</a>, Up: <a href="Integer-Functions.html">Integer Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

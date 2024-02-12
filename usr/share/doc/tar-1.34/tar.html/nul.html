@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>nul (GNU tar 1.34)</title>
+
+<meta name="description" content="nul (GNU tar 1.34)">
+<meta name="keywords" content="nul (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="files.html" rel="up" title="files">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+span.r {font-family: initial; font-weight: normal; font-style: normal}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="nul">
+<div class="nav-panel">
+<p>
+Up: <a href="files.html" accesskey="u" rel="up">Reading Names from a File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="NUL_002dTerminated-File-Names">6.3.1 <code class="code">NUL</code>-Terminated File Names</h4>
+
+<a class="index-entry-id" id="index-File-names_002c-terminated-by-NUL"></a>
+<a class="index-entry-id" id="index-NUL_002dterminated-file-names"></a>
+<p>The <samp class="option">--null</samp> option causes
+<samp class="option">--files-from=<var class="var">file-of-names</var></samp> (<samp class="option">-T <var class="var">file-of-names</var></samp>)
+to read file names terminated by a <code class="code">NUL</code> instead of a newline, so
+files whose names contain newlines can be archived using
+<samp class="option">--files-from</samp>.
+</p>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-null_002c-described"></a>
+</dd>
+<dt><samp class="option">--null</samp></dt>
+<dd><p>Only consider <code class="code">NUL</code>-terminated file names, instead of files that
+terminate in a newline.
+</p>
+<a class="index-entry-id" id="index-no_002dnull_002c-described"></a>
+</dd>
+<dt><samp class="option">--no-null</samp></dt>
+<dd><p>Undo the effect of any previous <samp class="option">--null</samp> option.
+</p></dd>
+</dl>
+
+<p>The <samp class="option">--null</samp> option is just like the one in <abbr class="acronym">GNU</abbr>
+<code class="command">xargs</code> and <code class="command">cpio</code>, and is useful with the
+<samp class="option">-print0</samp> predicate of <abbr class="acronym">GNU</abbr> <code class="command">find</code>.  In
+<code class="command">tar</code>, <samp class="option">--null</samp> also disables special handling for
+file names that begin with dash (similar to
+<samp class="option">--verbatim-files-from</samp> option).
+</p>
+<p>This example shows how to use <code class="command">find</code> to generate a list of files
+larger than 800K in length and put that list into a file called
+<samp class="file">long-files</samp>.  The <samp class="option">-print0</samp> option to <code class="command">find</code> is just
+like <samp class="option">-print</samp>, except that it separates files with a <code class="code">NUL</code>
+rather than with a newline.  You can then run <code class="command">tar</code> with both the
+<samp class="option">--null</samp> and <samp class="option">-T</samp> options to specify that <code class="command">tar</code> gets the
+files from that file, <samp class="file">long-files</samp>, to create the archive
+<samp class="file">big.tgz</samp>.  The <samp class="option">--null</samp> option to <code class="command">tar</code> will cause
+<code class="command">tar</code> to recognize the <code class="code">NUL</code> separator between files.
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">find . -size +800 -print0 &gt; long-files</kbd>
+$ <kbd class="kbd">tar -c -v --null --files-from=long-files --file=big.tar</kbd>
+</pre></div>
+
+<p>The <samp class="option">--no-null</samp> option can be used if you need to read both
+<code class="code">NUL</code>-terminated and newline-terminated files on the same command line.
+For example, if <samp class="file">flist</samp> is a newline-terminated file, then the
+following command can be used to combine it with the above command:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">$ <kbd class="kbd">find . -size +800 -print0 |
+  tar -c -f big.tar --null -T - --no-null -T flist</kbd>
+</pre></div></div>
+
+<p>This example uses short options for typographic reasons, to avoid
+very long lines.
+</p>
+<p><abbr class="acronym">GNU</abbr> <code class="command">tar</code> is tries to automatically detect <code class="code">NUL</code>-terminated file
+lists, so in many cases it is safe to use them even without the
+<samp class="option">--null</samp> option.  In this case <code class="command">tar</code> will print a
+warning and continue reading such a file as if <samp class="option">--null</samp> were
+actually given:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">$ <kbd class="kbd">find . -size +800 -print0 | tar -c -f big.tar -T -</kbd>
+tar: -: file name read contains nul character
+</pre></div></div>
+
+<p>The null terminator, however, remains in effect only for this
+particular file, any following <samp class="option">-T</samp> options will assume
+newline termination.  Of course, the null autodetection applies
+to these eventual surplus <samp class="option">-T</samp> options as well.
+</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Up: <a href="files.html">Reading Names from a File</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

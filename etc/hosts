@@ -1,0 +1,6 @@
+# Begin /etc/hosts
+
+127.0.0.1       localhost.localdomain localhost
+192.168.227.208 lfs113.mynet.org      lfs113
+
+# End /etc/hosts

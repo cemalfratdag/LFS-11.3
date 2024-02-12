@@ -1,0 +1,412 @@
+# Bu viminfo dosyası Vim 9.0 tarafından oluşturulmuştur.
+# Yapabileceğinizi düşünüyorsanız bu dosyayı düzenleyebilirsiniz!
+
+# Viminfo version
+|1,4
+
+# Bu dosya yazıldığı sırada mevcut 'encoding'in değeri
+*encoding=utf-8
+
+
+# hlsearch on (H) or off (h):
+~h
+# Komut Satırı Geçmişi (yeniden eskiye):
+:x
+|2,0,1707726729,,"x"
+:q
+|2,0,1707725171,,"q"
+:qa
+|2,0,1707722823,,"qa"
+:u
+|2,0,1707475584,,"u"
+:X
+|2,0,1707475188,,"X"
+
+# Arama Dizisi Geçmişi (yeniden eskiye):
+
+# İfade Geçmişi (yeniden eskiye):
+
+# Girdi Satırı Geçmişi (yeniden eskiye):
+
+# Hata Ayıklama Satırı Geçmişi (yeniden eskiye):
+
+# Yazmaçlar:
+""1	LINE	0
+	BROADCAST=10.52.255.255
+|3,1,1,1,1,0,1707726024,"BROADCAST=10.52.255.255"
+"2	LINE	0
+	BROADCAST=10.52.255.255
+|3,0,2,1,1,0,1707723753,"BROADCAST=10.52.255.255"
+"3	LINE	0
+	PREFIX=16
+|3,0,3,1,1,0,1707723752,"PREFIX=16"
+"4	LINE	0
+	GATEWAY=10.0.2.2
+|3,0,4,1,1,0,1707723751,"GATEWAY=10.0.2.2"
+"5	LINE	0
+	IP=10.52.0.22
+|3,0,5,1,1,0,1707723751,"IP=10.52.0.22"
+"6	LINE	0
+	domain mynet.org
+|3,0,6,1,1,0,1707722556,"domain mynet.org"
+"7	LINE	0
+	::1       localhost ip6-localhost ip6-loopback
+	
+|3,0,7,1,2,0,1707474829,"::1       localhost ip6-localhost ip6-loopback",""
+"8	LINE	0
+	ff02::1   ip6-allnodes
+|3,0,8,1,1,0,1707474827,"ff02::1   ip6-allnodes"
+"9	LINE	0
+	ff02::2   ip6-allrouters
+|3,0,9,1,1,0,1707474826,"ff02::2   ip6-allrouters"
+"-	CHAR	0
+	e
+|3,0,36,0,1,0,1707474521,"e"
+
+# Dosya imleri:
+'0  3  22  /etc/profile
+|4,48,3,22,1707726729,"/etc/profile"
+'1  1  0  /etc/default/locale
+|4,49,1,0,1707726621,"/etc/default/locale"
+'2  4  37  /etc/hosts
+|4,50,4,37,1707726208,"/etc/hosts"
+'3  6  0  /etc/sysconfig/ifconfig.enp0s3
+|4,51,6,0,1707726030,"/etc/sysconfig/ifconfig.enp0s3"
+'4  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,52,7,22,1707725171,"/etc/sysconfig/ifconfig.enp0s3"
+'5  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,53,7,22,1707725171,"/etc/sysconfig/ifconfig.enp0s3"
+'6  3  10  /etc/resolv.conf
+|4,54,3,10,1707725156,"/etc/resolv.conf"
+'7  5  11  /etc/hosts
+|4,55,5,11,1707725139,"/etc/hosts"
+'8  5  11  /etc/hosts
+|4,56,5,11,1707725139,"/etc/hosts"
+'9  2  15  /etc/resolv.conf
+|4,57,2,15,1707725043,"/etc/resolv.conf"
+
+# Atlama listesi (önce en yeniler):
+-'  3  22  /etc/profile
+|4,39,3,22,1707726729,"/etc/profile"
+-'  1  0  /etc/default/locale
+|4,39,1,0,1707726621,"/etc/default/locale"
+-'  1  0  /etc/default/locale
+|4,39,1,0,1707726621,"/etc/default/locale"
+-'  4  37  /etc/hosts
+|4,39,4,37,1707726208,"/etc/hosts"
+-'  4  37  /etc/hosts
+|4,39,4,37,1707726208,"/etc/hosts"
+-'  4  37  /etc/hosts
+|4,39,4,37,1707726208,"/etc/hosts"
+-'  4  37  /etc/hosts
+|4,39,4,37,1707726208,"/etc/hosts"
+-'  5  11  /etc/hosts
+|4,39,5,11,1707726080,"/etc/hosts"
+-'  5  11  /etc/hosts
+|4,39,5,11,1707726080,"/etc/hosts"
+-'  5  11  /etc/hosts
+|4,39,5,11,1707726080,"/etc/hosts"
+-'  5  11  /etc/hosts
+|4,39,5,11,1707726080,"/etc/hosts"
+-'  6  0  /etc/sysconfig/ifconfig.enp0s3
+|4,39,6,0,1707726030,"/etc/sysconfig/ifconfig.enp0s3"
+-'  6  0  /etc/sysconfig/ifconfig.enp0s3
+|4,39,6,0,1707726030,"/etc/sysconfig/ifconfig.enp0s3"
+-'  6  0  /etc/sysconfig/ifconfig.enp0s3
+|4,39,6,0,1707726030,"/etc/sysconfig/ifconfig.enp0s3"
+-'  6  0  /etc/sysconfig/ifconfig.enp0s3
+|4,39,6,0,1707726030,"/etc/sysconfig/ifconfig.enp0s3"
+-'  6  0  /etc/sysconfig/ifconfig.enp0s3
+|4,39,6,0,1707726030,"/etc/sysconfig/ifconfig.enp0s3"
+-'  6  0  /etc/sysconfig/ifconfig.enp0s3
+|4,39,6,0,1707726030,"/etc/sysconfig/ifconfig.enp0s3"
+-'  6  0  /etc/sysconfig/ifconfig.enp0s3
+|4,39,6,0,1707726030,"/etc/sysconfig/ifconfig.enp0s3"
+-'  6  0  /etc/sysconfig/ifconfig.enp0s3
+|4,39,6,0,1707726030,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725884,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725884,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725884,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725884,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725884,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725884,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725884,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725884,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725171,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725171,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725171,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725171,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725171,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725171,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725171,"/etc/sysconfig/ifconfig.enp0s3"
+-'  7  22  /etc/sysconfig/ifconfig.enp0s3
+|4,39,7,22,1707725171,"/etc/sysconfig/ifconfig.enp0s3"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  3  10  /etc/resolv.conf
+|4,39,3,10,1707725156,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  2  15  /etc/resolv.conf
+|4,39,2,15,1707725141,"/etc/resolv.conf"
+-'  5  11  /etc/hosts
+|4,39,5,11,1707725139,"/etc/hosts"
+
+# Dosyalardaki imlerin geçmişi (yeniden eskiye):
+
+> /etc/profile
+	*	1707726728	0
+	"	3	22
+	^	3	23
+	.	3	23
+	+	3	23
+
+> /etc/default/locale
+	*	1707726620	0
+	"	1	0
+
+> /etc/hosts
+	*	1707726207	0
+	"	4	37
+	^	4	38
+	.	4	37
+	+	4	0
+	+	5	0
+	+	4	10
+	+	3	11
+	+	5	0
+	+	4	14
+	+	3	15
+	+	4	37
+
+> /etc/sysconfig/ifconfig.enp0s3
+	*	1707726024	0
+	"	6	0
+	.	7	0
+	+	2	11
+	+	7	11
+	+	7	15
+	+	7	19
+	+	7	9
+	+	7	8
+	+	7	13
+	+	7	0
+	+	7	15
+	+	7	18
+	+	7	8
+	+	7	18
+	+	7	8
+	+	7	7
+	+	7	18
+	+	7	8
+	+	7	15
+	+	3	16
+	+	7	0
+	+	6	16
+	+	7	0
+	+	7	22
+	+	4	17
+	+	5	18
+	+	6	22
+	+	7	0
+
+> /etc/resolv.conf
+	*	1707725155	0
+	"	3	10
+	^	3	11
+	.	3	10
+	+	4	15
+	+	4	21
+	+	5	11
+	+	4	18
+	+	5	18
+	+	4	0
+	+	2	0
+	+	3	10
+	i	2	0
+
+> /etc/sysconfig/hosts
+	*	1707724861	0
+	"	1	0
+
+> /etc/os-release
+	*	1707478546	0
+	"	5	24
+	^	5	25
+	.	5	24
+	+	5	24
+
+> /etc/lsb-release
+	*	1707478519	0
+	"	3	24
+	^	3	25
+	.	3	25
+	+	3	25
+
+> /boot/grub/grub.cfg
+	*	1707478298	0
+	"	9	53
+	^	9	54
+	.	9	53
+	+	6	14
+	+	9	53
+
+> /etc/fstab
+	*	1707475680	0
+	"	8	14
+	^	8	15
+	.	8	15
+	+	1	0
+	+	6	30
+	+	6	63
+	+	7	36
+	+	6	36
+	+	7	63
+	+	8	15
+
+> /etc/sysconfig/console
+	*	1707475190	0
+	"	6	0
+	^	6	0
+	.	5	12
+	+	3	9
+	+	5	12
+
+> /etc/sysconfig/clock
+	*	1707475074	0
+	"	7	0

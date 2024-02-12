@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>warnings (GNU tar 1.34)</title>
+
+<meta name="description" content="warnings (GNU tar 1.34)">
+<meta name="keywords" content="warnings (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="tar-invocation.html" rel="up" title="tar invocation">
+<link href="interactive.html" rel="next" title="interactive">
+<link href="checkpoints.html" rel="prev" title="checkpoints">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+span.r {font-family: initial; font-weight: normal; font-style: normal}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="warnings">
+<div class="nav-panel">
+<p>
+Next: <a href="interactive.html" accesskey="n" rel="next">Asking for Confirmation During Operations</a>, Previous: <a href="checkpoints.html" accesskey="p" rel="prev">Checkpoints</a>, Up: <a href="tar-invocation.html" accesskey="u" rel="up">Invoking <abbr class="acronym">GNU</abbr> <code class="command">tar</code></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Controlling-Warning-Messages">3.9 Controlling Warning Messages</h3>
+
+<p>Sometimes, while performing the requested task, <abbr class="acronym">GNU</abbr> <code class="command">tar</code> notices
+some conditions that are not exactly errors, but which the user
+should be aware of.  When this happens, <code class="command">tar</code> issues a
+<em class="dfn">warning message</em> describing the condition.  Warning messages
+are output to the standard error and they do not affect the exit
+code of <code class="command">tar</code> command.
+</p>
+<a class="index-entry-id" id="index-warning_002c-explained"></a>
+<p><abbr class="acronym">GNU</abbr> <code class="command">tar</code> allows the user to suppress some or all of its warning
+messages:
+</p>
+<dl class="table">
+<dt><samp class="option">--warning=<var class="var">keyword</var></samp></dt>
+<dd><p>Control display of the warning messages identified by <var class="var">keyword</var>.
+If <var class="var">keyword</var> starts with the prefix &lsquo;<samp class="samp">no-</samp>&rsquo;, such messages are
+suppressed.  Otherwise, they are enabled.
+</p>
+<p>Multiple <samp class="option">--warning</samp> messages accumulate.
+</p>
+<p>The tables below list allowed values for <var class="var">keyword</var> along with the
+warning messages they control.
+</p></dd>
+</dl>
+
+<h4 class="subheading" id="Keywords-controlling-tar-operation">Keywords controlling <code class="command">tar</code> operation</h4>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-all"></a>
+</dd>
+<dt>all</dt>
+<dd><p>Enable all warning messages.  This is the default.
+<a class="index-entry-id" id="index-none"></a>
+</p></dd>
+<dt>none</dt>
+<dd><p>Disable all warning messages.
+<a class="index-entry-id" id="index-filename_002dwith_002dnuls"></a>
+<a class="index-entry-id" id="index-file-name-read-contains-nul-character_002c-warning-message"></a>
+</p></dd>
+<dt>filename-with-nuls</dt>
+<dd><p>&lsquo;<samp class="samp">%s: file name read contains nul character</samp>&rsquo;
+<a class="index-entry-id" id="index-alone_002dzero_002dblock"></a>
+<a class="index-entry-id" id="index-A-lone-zero-block-at_002c-warning-message"></a>
+</p></dd>
+<dt>alone-zero-block</dt>
+<dd><p>&lsquo;<samp class="samp">A lone zero block at %s</samp>&rsquo;
+</p></dd>
+</dl>
+
+<h4 class="subheading" id="Keywords-applicable-for-tar-_002d_002dcreate">Keywords applicable for <code class="command">tar --create</code></h4>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-cachedir"></a>
+<a class="index-entry-id" id="index-contains-a-cache-directory-tag_002c-warning-message"></a>
+</dd>
+<dt>cachedir</dt>
+<dd><p>&lsquo;<samp class="samp">%s: contains a cache directory tag %s; %s</samp>&rsquo;
+<a class="index-entry-id" id="index-file_002dshrank"></a>
+<a class="index-entry-id" id="index-File-shrank-by-_0025s-bytes_002c-warning-message"></a>
+</p></dd>
+<dt>file-shrank</dt>
+<dd><p>&lsquo;<samp class="samp">%s: File shrank by %s bytes; padding with zeros</samp>&rsquo;
+<a class="index-entry-id" id="index-xdev"></a>
+<a class="index-entry-id" id="index-file-is-on-a-different-filesystem_002c-warning-message"></a>
+</p></dd>
+<dt>xdev</dt>
+<dd><p>&lsquo;<samp class="samp">%s: file is on a different filesystem; not dumped</samp>&rsquo;
+<a class="index-entry-id" id="index-file_002dignored"></a>
+<a class="index-entry-id" id="index-Unknown-file-type_003b-file-ignored_002c-warning-message"></a>
+<a class="index-entry-id" id="index-socket-ignored_002c-warning-message"></a>
+<a class="index-entry-id" id="index-door-ignored_002c-warning-message"></a>
+</p></dd>
+<dt>file-ignored</dt>
+<dd><p>&lsquo;<samp class="samp">%s: Unknown file type; file ignored</samp>&rsquo;
+<br>&lsquo;<samp class="samp">%s: socket ignored</samp>&rsquo;
+<br>&lsquo;<samp class="samp">%s: door ignored</samp>&rsquo;
+<a class="index-entry-id" id="index-file_002dunchanged"></a>
+<a class="index-entry-id" id="index-file-is-unchanged_003b-not-dumped_002c-warning-message"></a>
+</p></dd>
+<dt>file-unchanged</dt>
+<dd><p>&lsquo;<samp class="samp">%s: file is unchanged; not dumped</samp>&rsquo;
+<a class="index-entry-id" id="index-ignore_002darchive"></a>
+<a class="index-entry-id" id="index-file-is-the-archive_003b-not-dumped_002c-warning-message"></a>
+<a class="index-entry-id" id="index-ignore_002darchive-1"></a>
+<a class="index-entry-id" id="index-file-is-the-archive_003b-not-dumped_002c-warning-message-1"></a>
+</p></dd>
+<dt>ignore-archive</dt>
+<dd><p>&lsquo;<samp class="samp">%s: file is the archive; not dumped</samp>&rsquo;
+<a class="index-entry-id" id="index-file_002dremoved"></a>
+<a class="index-entry-id" id="index-File-removed-before-we-read-it_002c-warning-message"></a>
+</p></dd>
+<dt>file-removed</dt>
+<dd><p>&lsquo;<samp class="samp">%s: File removed before we read it</samp>&rsquo;
+<a class="index-entry-id" id="index-file_002dchanged"></a>
+<a class="index-entry-id" id="index-file-changed-as-we-read-it_002c-warning-message"></a>
+</p></dd>
+<dt>file-changed</dt>
+<dd><p>&lsquo;<samp class="samp">%s: file changed as we read it</samp>&rsquo;
+</p></dd>
+<dt>failed-read</dt>
+<dd><p>Suppresses warnings about unreadable files or directories. This
+keyword applies only if used together with the <samp class="option">--ignore-failed-read</samp>
+option. See <a class="xref" href="Ignore-Failed-Read.html">Ignore Failed Read</a>.
+</p></dd>
+</dl>
+
+<h4 class="subheading" id="Keywords-applicable-for-tar-_002d_002dextract">Keywords applicable for <code class="command">tar --extract</code></h4>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-existing_002dfile"></a>
+<a class="index-entry-id" id="index-_0025s_003a-skipping-existing-file_002c-warning-message"></a>
+</dd>
+<dt>existing-file</dt>
+<dd><p>&lsquo;<samp class="samp">%s: skipping existing file</samp>&rsquo;
+<a class="index-entry-id" id="index-timestamp"></a>
+<a class="index-entry-id" id="index-implausibly-old-time-stamp-_0025s_002c-warning-message"></a>
+<a class="index-entry-id" id="index-time-stamp-_0025s-is-_0025s-s-in-the-future_002c-warning-message"></a>
+</p></dd>
+<dt>timestamp</dt>
+<dd><p>&lsquo;<samp class="samp">%s: implausibly old time stamp %s</samp>&rsquo;
+<br>&lsquo;<samp class="samp">%s: time stamp %s is %s s in the future</samp>&rsquo;
+<a class="index-entry-id" id="index-contiguous_002dcast"></a>
+<a class="index-entry-id" id="index-Extracting-contiguous-files-as-regular-files_002c-warning-message"></a>
+</p></dd>
+<dt>contiguous-cast</dt>
+<dd><p>&lsquo;<samp class="samp">Extracting contiguous files as regular files</samp>&rsquo;
+<a class="index-entry-id" id="index-symlink_002dcast"></a>
+<a class="index-entry-id" id="index-Attempting-extraction-of-symbolic-links-as-hard-links_002c-warning-message"></a>
+</p></dd>
+<dt>symlink-cast</dt>
+<dd><p>&lsquo;<samp class="samp">Attempting extraction of symbolic links as hard links</samp>&rsquo;
+<a class="index-entry-id" id="index-unknown_002dcast"></a>
+<a class="index-entry-id" id="index-Unknown-file-type-_0027_0025c_0027_002c-extracted-as-normal-file_002c-warning-message"></a>
+</p></dd>
+<dt>unknown-cast</dt>
+<dd><p>&lsquo;<samp class="samp">%s: Unknown file type '%c', extracted as normal file</samp>&rsquo;
+<a class="index-entry-id" id="index-ignore_002dnewer"></a>
+<a class="index-entry-id" id="index-Current-_0025s-is-newer-or-same-age_002c-warning-message"></a>
+</p></dd>
+<dt>ignore-newer</dt>
+<dd><p>&lsquo;<samp class="samp">Current %s is newer or same age</samp>&rsquo;
+<a class="index-entry-id" id="index-unknown_002dkeyword"></a>
+<a class="index-entry-id" id="index-Ignoring-unknown-extended-header-keyword-_0027_0025s_0027_002c-warning-message"></a>
+</p></dd>
+<dt>unknown-keyword</dt>
+<dd><p>&lsquo;<samp class="samp">Ignoring unknown extended header keyword '%s'</samp>&rsquo;
+<a class="index-entry-id" id="index-decompress_002dprogram"></a>
+</p></dd>
+<dt>decompress-program</dt>
+<dd><p>Controls verbose description of failures occurring when trying to run
+alternative decompressor programs (see <a class="pxref" href="gzip.html#alternative-decompression-programs">alternative decompression programs</a>).  This warning is disabled by default (unless
+<samp class="option">--verbose</samp> is used).  A common example of what you can get
+when using this warning is:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar --warning=decompress-program -x -f archive.Z</kbd>
+tar (child): cannot run compress: No such file or directory
+tar (child): trying gzip
+</pre></div>
+
+<p>This means that <code class="command">tar</code> first tried to decompress
+<samp class="file">archive.Z</samp> using <code class="command">compress</code>, and, when that
+failed, switched to <code class="command">gzip</code>.
+<a class="index-entry-id" id="index-record_002dsize"></a>
+<a class="index-entry-id" id="index-Record-size-_003d-_0025lu-blocks_002c-warning-message"></a>
+</p></dd>
+<dt>record-size</dt>
+<dd><p>&lsquo;<samp class="samp">Record size = %lu blocks</samp>&rsquo;
+</p></dd>
+</dl>
+
+<h4 class="subheading" id="Keywords-controlling-incremental-extraction_003a">Keywords controlling incremental extraction:</h4>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-rename_002ddirectory"></a>
+<a class="index-entry-id" id="index-_0025s_003a-Directory-has-been-renamed-from-_0025s_002c-warning-message"></a>
+<a class="index-entry-id" id="index-_0025s_003a-Directory-has-been-renamed_002c-warning-message"></a>
+</dd>
+<dt>rename-directory</dt>
+<dd><p>&lsquo;<samp class="samp">%s: Directory has been renamed from %s</samp>&rsquo;
+<br>&lsquo;<samp class="samp">%s: Directory has been renamed</samp>&rsquo;
+<a class="index-entry-id" id="index-new_002ddirectory"></a>
+<a class="index-entry-id" id="index-_0025s_003a-Directory-is-new_002c-warning-message"></a>
+</p></dd>
+<dt>new-directory</dt>
+<dd><p>&lsquo;<samp class="samp">%s: Directory is new</samp>&rsquo;
+<a class="index-entry-id" id="index-xdev-1"></a>
+<a class="index-entry-id" id="index-_0025s_003a-directory-is-on-a-different-device_003a-not-purging_002c-warning-message"></a>
+</p></dd>
+<dt>xdev</dt>
+<dd><p>&lsquo;<samp class="samp">%s: directory is on a different device: not purging</samp>&rsquo;
+<a class="index-entry-id" id="index-bad_002ddumpdir"></a>
+<a class="index-entry-id" id="index-Malformed-dumpdir_003a-_0027X_0027-never-used_002c-warning-message"></a>
+</p></dd>
+<dt>bad-dumpdir</dt>
+<dd><p>&lsquo;<samp class="samp">Malformed dumpdir: 'X' never used</samp>&rsquo;
+</p></dd>
+</dl>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="interactive.html">Asking for Confirmation During Operations</a>, Previous: <a href="checkpoints.html">Checkpoints</a>, Up: <a href="tar-invocation.html">Invoking <abbr class="acronym">GNU</abbr> <code class="command">tar</code></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

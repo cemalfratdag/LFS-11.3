@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual documents how to install and use the Multiple Precision
+Floating-Point Reliable Library, version 4.2.0.
+
+Copyright 1991, 1993-2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.2 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the
+license is included in GNU Free Documentation License. -->
+<title>Miscellaneous Functions (GNU MPFR 4.2.0)</title>
+
+<meta name="description" content="How to install and use GNU MPFR, a library for reliable multiple precision
+floating-point arithmetic, version 4.2.0.">
+<meta name="keywords" content="Miscellaneous Functions (GNU MPFR 4.2.0)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="MPFR-Interface.html" rel="up" title="MPFR Interface">
+<link href="Exception-Related-Functions.html" rel="next" title="Exception Related Functions">
+<link href="Rounding_002dRelated-Functions.html" rel="prev" title="Rounding-Related Functions">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Miscellaneous-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Exception-Related-Functions.html" accesskey="n" rel="next">Exception Related Functions</a>, Previous: <a href="Rounding_002dRelated-Functions.html" accesskey="p" rel="prev">Rounding-Related Functions</a>, Up: <a href="MPFR-Interface.html" accesskey="u" rel="up">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a class="index-entry-id" id="index-Miscellaneous-float-functions"></a>
+<h3 class="section" id="Miscellaneous-Functions-1">5.12 Miscellaneous Functions</h3>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fnexttoward"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_nexttoward</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>, mpfr_t <var class="var">y</var>)</code><a class="copiable-link" href='#index-mpfr_005fnexttoward'> ¶</a></span></dt>
+<dd><p>If <var class="var">x</var> or <var class="var">y</var> is NaN, set <var class="var">x</var> to NaN; note that the NaN flag
+is set as usual.
+If <var class="var">x</var> and <var class="var">y</var> are equal, <var class="var">x</var> is unchanged.
+Otherwise, if <var class="var">x</var> is different from <var class="var">y</var>, replace <var class="var">x</var> by the
+next floating-point number (with the precision of <var class="var">x</var> and the current
+exponent range) in the direction of <var class="var">y</var>
+(the infinite values are seen as the smallest and largest floating-point
+numbers). If the result is zero, it keeps the same sign. No underflow,
+overflow, or inexact exception is raised.
+</p>
+<p>Note: Concerning the exceptions and the sign of 0, the behavior differs
+from the ISO C <code class="code">nextafter</code> and <code class="code">nexttoward</code> functions. It is
+similar to the nextUp and nextDown operations from IEEE 754 (introduced
+in its 2008 revision).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fnextabove"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_nextabove</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>)</code><a class="copiable-link" href='#index-mpfr_005fnextabove'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fnextbelow"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_nextbelow</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>)</code><a class="copiable-link" href='#index-mpfr_005fnextbelow'> ¶</a></span></dt>
+<dd><p>Equivalent to <code class="code">mpfr_nexttoward</code> where <var class="var">y</var> is +Inf
+(resp. −Inf).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fmin"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_min</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fmin'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fmax"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_max</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fmax'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the minimum (resp. maximum)
+of <var class="var">op1</var> and <var class="var">op2</var>. If <var class="var">op1</var>
+and <var class="var">op2</var> are both NaN, then <var class="var">rop</var> is set to NaN. If <var class="var">op1</var>
+or <var class="var">op2</var> is NaN, then <var class="var">rop</var> is set to the numeric value. If
+<var class="var">op1</var> and <var class="var">op2</var> are zeros of different signs, then <var class="var">rop</var>
+is set to −0 (resp. +0).
+As usual, the NaN flag is set only when the result is NaN, i.e.,
+when both <var class="var">op1</var> and <var class="var">op2</var> are NaN.
+</p>
+<p>Note: These functions correspond to the minimumNumber and maximumNumber
+operations of IEEE 754-2019 for the result. But in MPFR, the NaN flag
+is set only when <em class="emph">both</em> operands are NaN.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005furandomb"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_urandomb</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, gmp_randstate_t <var class="var">state</var>)</code><a class="copiable-link" href='#index-mpfr_005furandomb'> ¶</a></span></dt>
+<dd><p>Generate a uniformly distributed random float in the interval
+0 &lt;= <var class="var">rop</var> &lt; 1<!-- /@w -->. More precisely, the number can be seen as a
+float with a random non-normalized significand and exponent 0, which is then
+normalized (thus if <var class="var">e</var> denotes the exponent after normalization, then
+the least −<var class="var">e</var><!-- /@w --> significant bits of the significand are always
+0).
+</p>
+<p>Return 0, unless the exponent is not in the current exponent range, in
+which case <var class="var">rop</var> is set to NaN and a non-zero value is returned (this
+should never happen in practice, except in very specific cases). The
+second argument is a <code class="code">gmp_randstate_t</code> structure, which should be
+created using the GMP <code class="code">gmp_randinit</code> function (see the GMP manual).
+</p>
+<p>Note: for a given version of MPFR, the returned value of <var class="var">rop</var> and the
+new value of <var class="var">state</var> (which controls further random values) do not depend
+on the machine word size.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005furandom"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_urandom</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, gmp_randstate_t <var class="var">state</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005furandom'> ¶</a></span></dt>
+<dd><p>Generate a uniformly distributed random float.
+The floating-point number <var class="var">rop</var> can be seen as if a random real number is
+generated according to the continuous uniform distribution on the interval
+[0, 1] and then rounded in the direction <var class="var">rnd</var>.
+</p>
+<p>The second argument is a <code class="code">gmp_randstate_t</code> structure, which should be
+created using the GMP <code class="code">gmp_randinit</code> function (see the GMP manual).
+</p>
+<p>Note: the note for <code class="code">mpfr_urandomb</code> holds too. Moreover, the exact number
+(the random value to be rounded) and the next random state do not depend on
+the current exponent range and the rounding mode. However, they depend on
+the target precision: from the same state of the random generator, if the
+precision of the destination is changed, then the value may be completely
+different (and the state of the random generator is different too).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fnrandom"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_nrandom</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop1</var>, gmp_randstate_t <var class="var">state</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fnrandom'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fgrandom"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_grandom</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop1</var>, mpfr_t <var class="var">rop2</var>, gmp_randstate_t <var class="var">state</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fgrandom'> ¶</a></span></dt>
+<dd><p>Generate one (possibly two for <code class="code">mpfr_grandom</code>) random floating-point
+number according to a standard normal Gaussian distribution (with mean zero
+and variance one). For <code class="code">mpfr_grandom</code>, if <var class="var">rop2</var> is a null pointer,
+then only one value is generated and stored in <var class="var">rop1</var>.
+</p>
+<p>The floating-point number <var class="var">rop1</var> (and <var class="var">rop2</var>) can be seen as if a
+random real number were generated according to the standard normal Gaussian
+distribution and then rounded in the direction <var class="var">rnd</var>.
+</p>
+<p>The <code class="code">gmp_randstate_t</code> argument should be
+created using the GMP <code class="code">gmp_randinit</code> function (see the GMP manual).
+</p>
+<p>For <code class="code">mpfr_grandom</code>,
+the combination of the ternary values is returned like with
+<code class="code">mpfr_sin_cos</code>. If <var class="var">rop2</var> is a null pointer, the second ternary
+value is assumed to be 0 (note that the encoding of the only ternary value
+is not the same as the usual encoding for functions that return only one
+result). Otherwise the ternary value of a random number is always non-zero.
+</p>
+<p>Note: the note for <code class="code">mpfr_urandomb</code> holds too. In addition, the exponent
+range and the rounding mode might have a side effect on the next random state.
+</p>
+<p>Note: <code class="code">mpfr_nrandom</code> is much more efficient than <code class="code">mpfr_grandom</code>,
+especially for large precision. Thus <code class="code">mpfr_grandom</code> is marked as
+deprecated and will be removed in a future release.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005ferandom"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_erandom</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop1</var>, gmp_randstate_t <var class="var">state</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ferandom'> ¶</a></span></dt>
+<dd><p>Generate one random floating-point number according to an exponential
+distribution, with mean one.
+Other characteristics are identical to <code class="code">mpfr_nrandom</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005fexp"><span class="category-def">Function: </span><span><code class="def-type">mpfr_exp_t</code> <strong class="def-name">mpfr_get_exp</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fexp'> ¶</a></span></dt>
+<dd><p>Return the exponent of <var class="var">x</var>, assuming that <var class="var">x</var> is a non-zero ordinary
+number and the significand is considered in [1/2,1). For this function,
+<var class="var">x</var> is allowed to be outside of the current range of acceptable values.
+The behavior for NaN, infinity or zero is undefined.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fset_005fexp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_set_exp</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>, mpfr_exp_t <var class="var">e</var>)</code><a class="copiable-link" href='#index-mpfr_005fset_005fexp'> ¶</a></span></dt>
+<dd><p>Set the exponent of <var class="var">x</var> to <var class="var">e</var> if <var class="var">x</var> is a non-zero ordinary
+number and <var class="var">e</var> is in the current exponent range, and return 0;
+otherwise, return a non-zero value (<var class="var">x</var> is not changed).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fsignbit"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_signbit</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005fsignbit'> ¶</a></span></dt>
+<dd><p>Return a non-zero value iff <var class="var">op</var> has its sign bit set (i.e., if it is
+negative, −0, or a NaN whose representation has its sign bit set).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fsetsign"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_setsign</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, int <var class="var">s</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fsetsign'> ¶</a></span></dt>
+<dd><p>Set the value of <var class="var">rop</var> from <var class="var">op</var>, rounded toward the given
+direction <var class="var">rnd</var>, then set (resp. clear) its sign bit if <var class="var">s</var>
+is non-zero (resp. zero), even when <var class="var">op</var> is a NaN.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcopysign"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_copysign</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fcopysign'> ¶</a></span></dt>
+<dd><p>Set the value of <var class="var">rop</var> from <var class="var">op1</var>, rounded toward the given
+direction <var class="var">rnd</var>, then set its sign bit to that of <var class="var">op2</var> (even
+when <var class="var">op1</var> or <var class="var">op2</var> is a NaN). This function is equivalent to
+<code class="code">mpfr_setsign (<var class="var">rop</var>, <var class="var">op1</var>, mpfr_signbit (<var class="var">op2</var>), <var class="var">rnd</var>)</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005fversion"><span class="category-def">Function: </span><span><code class="def-type">const char *</code> <strong class="def-name">mpfr_get_version</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fget_005fversion'> ¶</a></span></dt>
+<dd><p>Return the MPFR version, as a null-terminated string.
+</p></dd></dl>
+
+<dl class="first-deffn first-defmac-alias-first-deffn">
+<dt class="deffn defmac-alias-deffn" id="index-MPFR_005fVERSION"><span class="category-def">Macro: </span><span><strong class="def-name">MPFR_VERSION</strong><a class="copiable-link" href='#index-MPFR_005fVERSION'> ¶</a></span></dt>
+<dt class="deffnx defmacx-alias-deffnx def-cmd-deffn" id="index-MPFR_005fVERSION_005fMAJOR"><span class="category-def">Macro: </span><span><strong class="def-name">MPFR_VERSION_MAJOR</strong><a class="copiable-link" href='#index-MPFR_005fVERSION_005fMAJOR'> ¶</a></span></dt>
+<dt class="deffnx defmacx-alias-deffnx def-cmd-deffn" id="index-MPFR_005fVERSION_005fMINOR"><span class="category-def">Macro: </span><span><strong class="def-name">MPFR_VERSION_MINOR</strong><a class="copiable-link" href='#index-MPFR_005fVERSION_005fMINOR'> ¶</a></span></dt>
+<dt class="deffnx defmacx-alias-deffnx def-cmd-deffn" id="index-MPFR_005fVERSION_005fPATCHLEVEL"><span class="category-def">Macro: </span><span><strong class="def-name">MPFR_VERSION_PATCHLEVEL</strong><a class="copiable-link" href='#index-MPFR_005fVERSION_005fPATCHLEVEL'> ¶</a></span></dt>
+<dt class="deffnx defmacx-alias-deffnx def-cmd-deffn" id="index-MPFR_005fVERSION_005fSTRING"><span class="category-def">Macro: </span><span><strong class="def-name">MPFR_VERSION_STRING</strong><a class="copiable-link" href='#index-MPFR_005fVERSION_005fSTRING'> ¶</a></span></dt>
+<dd><p><code class="code">MPFR_VERSION</code> is the version of MPFR as a preprocessing constant.
+<code class="code">MPFR_VERSION_MAJOR</code>, <code class="code">MPFR_VERSION_MINOR</code> and
+<code class="code">MPFR_VERSION_PATCHLEVEL</code> are respectively the major, minor and patch
+level of MPFR version, as preprocessing constants.
+<code class="code">MPFR_VERSION_STRING</code> is the version (with an optional suffix, used
+in development and pre-release versions) as a string constant, which can
+be compared to the result of <code class="code">mpfr_get_version</code> to check at run time
+the header file and library used match:
+</p><div class="example">
+<pre class="example-preformatted">if (strcmp (mpfr_get_version (), MPFR_VERSION_STRING))
+  fprintf (stderr, &quot;Warning: header and library do not match\n&quot;);
+</pre></div>
+<p>Note: Obtaining different strings is not necessarily an error, as
+in general, a program compiled with some old MPFR version can be
+dynamically linked with a newer MPFR library version (if allowed
+by the library versioning system).
+</p></dd></dl>
+
+<dl class="first-deftypefn">
+<dt class="deftypefn" id="index-MPFR_005fVERSION_005fNUM"><span class="category-def">Macro: </span><span><code class="def-type">long</code> <strong class="def-name">MPFR_VERSION_NUM</strong> <code class="def-code-arguments">(<var class="var">major</var>, <var class="var">minor</var>, <var class="var">patchlevel</var>)</code><a class="copiable-link" href='#index-MPFR_005fVERSION_005fNUM'> ¶</a></span></dt>
+<dd><p>Create an integer in the same format as used by <code class="code">MPFR_VERSION</code> from the
+given <var class="var">major</var>, <var class="var">minor</var> and <var class="var">patchlevel</var>.
+Here is an example of how to check the MPFR version at compile time:
+</p><div class="example">
+<pre class="example-preformatted">#if (!defined(MPFR_VERSION) || (MPFR_VERSION &lt; MPFR_VERSION_NUM(3,0,0)))
+# error &quot;Wrong MPFR version.&quot;
+#endif
+</pre></div>
+</dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005fpatches"><span class="category-def">Function: </span><span><code class="def-type">const char *</code> <strong class="def-name">mpfr_get_patches</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fget_005fpatches'> ¶</a></span></dt>
+<dd><p>Return a null-terminated string containing the ids of the patches applied to
+the MPFR library (contents of the <samp class="file">PATCHES</samp> file), separated by spaces.
+Note: If the program has been compiled with an older MPFR version and is
+dynamically linked with a new MPFR library version, the identifiers of the
+patches applied to the old (compile-time) MPFR version are not available
+(however, this information should not have much interest in general).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fbuildopt_005ftls_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_buildopt_tls_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fbuildopt_005ftls_005fp'> ¶</a></span></dt>
+<dd><p>Return a non-zero value if MPFR was compiled as thread safe using
+compiler-level Thread-Local Storage (that is, MPFR was built with the
+‘<samp class="samp">--enable-thread-safe</samp>’ configure option, see <code class="code">INSTALL</code> file),
+return zero otherwise.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fbuildopt_005ffloat128_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_buildopt_float128_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fbuildopt_005ffloat128_005fp'> ¶</a></span></dt>
+<dd><p>Return a non-zero value if MPFR was compiled with ‘<samp class="samp">_Float128</samp>’ support
+(that is, MPFR was built with the ‘<samp class="samp">--enable-float128</samp>’ configure option),
+return zero otherwise.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fbuildopt_005fdecimal_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_buildopt_decimal_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fbuildopt_005fdecimal_005fp'> ¶</a></span></dt>
+<dd><p>Return a non-zero value if MPFR was compiled with decimal float support (that
+is, MPFR was built with the ‘<samp class="samp">--enable-decimal-float</samp>’ configure option),
+return zero otherwise.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fbuildopt_005fgmpinternals_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_buildopt_gmpinternals_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fbuildopt_005fgmpinternals_005fp'> ¶</a></span></dt>
+<dd><p>Return a non-zero value if MPFR was compiled with GMP internals
+(that is, MPFR was built with either ‘<samp class="samp">--with-gmp-build</samp>’ or
+‘<samp class="samp">--enable-gmp-internals</samp>’ configure option), return zero otherwise.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fbuildopt_005fsharedcache_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_buildopt_sharedcache_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fbuildopt_005fsharedcache_005fp'> ¶</a></span></dt>
+<dd><p>Return a non-zero value if MPFR was compiled so that all threads share
+the same cache for one MPFR constant, like <code class="code">mpfr_const_pi</code> or
+<code class="code">mpfr_const_log2</code> (that is, MPFR was built with the
+‘<samp class="samp">--enable-shared-cache</samp>’ configure option), return zero otherwise.
+If the return value is non-zero, MPFR applications may need to be compiled
+with the ‘<samp class="samp">-pthread</samp>’ option.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fbuildopt_005ftune_005fcase"><span class="category-def">Function: </span><span><code class="def-type">const char *</code> <strong class="def-name">mpfr_buildopt_tune_case</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpfr_005fbuildopt_005ftune_005fcase'> ¶</a></span></dt>
+<dd><p>Return a string saying which thresholds file has been used at compile time.
+This file is normally selected from the processor type.
+</p></dd></dl>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Exception-Related-Functions.html">Exception Related Functions</a>, Previous: <a href="Rounding_002dRelated-Functions.html">Rounding-Related Functions</a>, Up: <a href="MPFR-Interface.html">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

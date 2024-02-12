@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual documents how to install and use the Multiple Precision
+Floating-Point Reliable Library, version 4.2.0.
+
+Copyright 1991, 1993-2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.2 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the
+license is included in GNU Free Documentation License. -->
+<title>Custom Interface (GNU MPFR 4.2.0)</title>
+
+<meta name="description" content="How to install and use GNU MPFR, a library for reliable multiple precision
+floating-point arithmetic, version 4.2.0.">
+<meta name="keywords" content="Custom Interface (GNU MPFR 4.2.0)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="MPFR-Interface.html" rel="up" title="MPFR Interface">
+<link href="Internals.html" rel="next" title="Internals">
+<link href="Compatibility-with-MPF.html" rel="prev" title="Compatibility with MPF">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Custom-Interface">
+<div class="nav-panel">
+<p>
+Next: <a href="Internals.html" accesskey="n" rel="next">Internals</a>, Previous: <a href="Compatibility-with-MPF.html" accesskey="p" rel="prev">Compatibility With MPF</a>, Up: <a href="MPFR-Interface.html" accesskey="u" rel="up">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a class="index-entry-id" id="index-Custom-interface"></a>
+<h3 class="section" id="Custom-Interface-1">5.16 Custom Interface</h3>
+
+<p>Some applications use a stack to handle the memory and their objects.
+However, the MPFR memory design is not well suited for such a thing. So that
+such applications are able to use MPFR, an auxiliary memory interface has
+been created: the Custom Interface.
+</p>
+<p>The following interface allows one to use MPFR in two ways:
+</p>
+<ul class="itemize mark-bullet">
+<li>Either directly store a floating-point number as a <code class="code">mpfr_t</code>
+on the stack.
+
+</li><li>Either store its own representation on the
+stack and construct a new temporary <code class="code">mpfr_t</code> each time it is needed.
+
+</li></ul>
+
+<p>Nothing has to be done to destroy the floating-point
+numbers except garbaging the used
+memory: all the memory management (allocating, destroying, garbaging) is left
+to the application.
+</p>
+<p>Each function in this interface is also implemented as a macro for
+efficiency reasons: for example <code class="code">mpfr_custom_init (s, p)</code>
+uses the macro, while <code class="code">(mpfr_custom_init) (s, p)</code> uses the function.
+The <code class="code">mpfr_custom_init_set</code> macro is not usable in contexts where
+an expression is expected, e.g., inside <code class="code">for(...)</code> or before a
+comma operator.
+</p>
+<p>Note 1: MPFR functions may still initialize temporary floating-point numbers
+using <code class="code">mpfr_init</code> and similar functions. See Custom Allocation (GNU MP).
+</p>
+<p>Note 2: MPFR functions may use the cached functions (<code class="code">mpfr_const_pi</code> for
+example), even if they are not explicitly called. You have to call
+<code class="code">mpfr_free_cache</code> each time you garbage the memory iff <code class="code">mpfr_init</code>,
+through GMP Custom Allocation, allocates its memory on the application stack.
+</p>
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcustom_005fget_005fsize"><span class="category-def">Function: </span><span><code class="def-type">size_t</code> <strong class="def-name">mpfr_custom_get_size</strong> <code class="def-code-arguments">(mpfr_prec_t <var class="var">prec</var>)</code><a class="copiable-link" href='#index-mpfr_005fcustom_005fget_005fsize'> ¶</a></span></dt>
+<dd><p>Return the needed size in bytes to store the significand of a floating-point
+number of precision <var class="var">prec</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcustom_005finit"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_custom_init</strong> <code class="def-code-arguments">(void *<var class="var">significand</var>, mpfr_prec_t <var class="var">prec</var>)</code><a class="copiable-link" href='#index-mpfr_005fcustom_005finit'> ¶</a></span></dt>
+<dd><p>Initialize a significand of precision <var class="var">prec</var>, where
+<var class="var">significand</var> must be an area of <code class="code">mpfr_custom_get_size (prec)</code> bytes
+at least and be suitably aligned for an array of <code class="code">mp_limb_t</code> (GMP type,
+see <a class="pxref" href="Internals.html">Internals</a>).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcustom_005finit_005fset"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_custom_init_set</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>, int <var class="var">kind</var>, mpfr_exp_t <var class="var">exp</var>, mpfr_prec_t <var class="var">prec</var>, void *<var class="var">significand</var>)</code><a class="copiable-link" href='#index-mpfr_005fcustom_005finit_005fset'> ¶</a></span></dt>
+<dd><p>Perform a dummy initialization of a <code class="code">mpfr_t</code> and set it to:
+</p><ul class="itemize mark-bullet">
+<li>if abs(<var class="var">kind</var>) = <code class="code">MPFR_NAN_KIND</code>, <var class="var">x</var> is set to NaN;
+</li><li>if abs(<var class="var">kind</var>) = <code class="code">MPFR_INF_KIND</code>, <var class="var">x</var> is set to the
+infinity of the same sign as <var class="var">kind</var>;
+</li><li>if abs(<var class="var">kind</var>) = <code class="code">MPFR_ZERO_KIND</code>, <var class="var">x</var> is set to the
+zero of the same sign as <var class="var">kind</var>;
+</li><li>if abs(<var class="var">kind</var>) = <code class="code">MPFR_REGULAR_KIND</code>, <var class="var">x</var> is set to
+the regular number whose sign is the one of <var class="var">kind</var>, and whose exponent
+and significand are given by <var class="var">exp</var> and <var class="var">significand</var>.
+</li></ul>
+<p>In all cases, <var class="var">significand</var> will be used directly for further computing
+involving <var class="var">x</var>. This function does not allocate anything.
+A floating-point number initialized with this function cannot be resized using
+<code class="code">mpfr_set_prec</code> or <code class="code">mpfr_prec_round</code>,
+or cleared using <code class="code">mpfr_clear</code>!
+The <var class="var">significand</var> must have been initialized with <code class="code">mpfr_custom_init</code>
+using the same precision <var class="var">prec</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcustom_005fget_005fkind"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_custom_get_kind</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>)</code><a class="copiable-link" href='#index-mpfr_005fcustom_005fget_005fkind'> ¶</a></span></dt>
+<dd><p>Return the current kind of a <code class="code">mpfr_t</code> as created by
+<code class="code">mpfr_custom_init_set</code>.
+The behavior of this function for any <code class="code">mpfr_t</code> not initialized
+with <code class="code">mpfr_custom_init_set</code> is undefined.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcustom_005fget_005fsignificand"><span class="category-def">Function: </span><span><code class="def-type">void *</code> <strong class="def-name">mpfr_custom_get_significand</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>)</code><a class="copiable-link" href='#index-mpfr_005fcustom_005fget_005fsignificand'> ¶</a></span></dt>
+<dd><p>Return a pointer to the significand used by a <code class="code">mpfr_t</code> initialized with
+<code class="code">mpfr_custom_init_set</code>.
+The behavior of this function for any <code class="code">mpfr_t</code> not initialized
+with <code class="code">mpfr_custom_init_set</code> is undefined.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcustom_005fget_005fexp"><span class="category-def">Function: </span><span><code class="def-type">mpfr_exp_t</code> <strong class="def-name">mpfr_custom_get_exp</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>)</code><a class="copiable-link" href='#index-mpfr_005fcustom_005fget_005fexp'> ¶</a></span></dt>
+<dd><p>Return the exponent of <var class="var">x</var>, assuming that <var class="var">x</var> is a non-zero ordinary
+number and the significand is considered in [1/2,1).
+But if <var class="var">x</var> is NaN, infinity or zero, contrary to <code class="code">mpfr_get_exp</code>
+(where the behavior is undefined), the return value is here an unspecified,
+valid value of the <code class="code">mpfr_exp_t</code> type.
+The behavior of this function for any <code class="code">mpfr_t</code> not initialized
+with <code class="code">mpfr_custom_init_set</code> is undefined.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fcustom_005fmove"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_custom_move</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>, void *<var class="var">new_position</var>)</code><a class="copiable-link" href='#index-mpfr_005fcustom_005fmove'> ¶</a></span></dt>
+<dd><p>Inform MPFR that the significand of <var class="var">x</var> has moved due to a garbage collect
+and update its new position to <code class="code">new_position</code>.
+However, the application has to move the significand and the <code class="code">mpfr_t</code>
+itself.
+The behavior of this function for any <code class="code">mpfr_t</code> not initialized
+with <code class="code">mpfr_custom_init_set</code> is undefined.
+</p></dd></dl>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Internals.html">Internals</a>, Previous: <a href="Compatibility-with-MPF.html">Compatibility With MPF</a>, Up: <a href="MPFR-Interface.html">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

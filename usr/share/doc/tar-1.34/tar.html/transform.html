@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>transform (GNU tar 1.34)</title>
+
+<meta name="description" content="transform (GNU tar 1.34)">
+<meta name="keywords" content="transform (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Choosing.html" rel="up" title="Choosing">
+<link href="after.html" rel="next" title="after">
+<link href="quoting-styles.html" rel="prev" title="quoting styles">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="transform">
+<div class="nav-panel">
+<p>
+Next: <a href="after.html" accesskey="n" rel="next">Operating Only on New Files</a>, Previous: <a href="quoting-styles.html" accesskey="p" rel="prev">Quoting Member Names</a>, Up: <a href="Choosing.html" accesskey="u" rel="up">Choosing Files and Names for <code class="command">tar</code></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Modifying-File-and-Member-Names">6.7 Modifying File and Member Names</h3>
+
+<p><code class="command">Tar</code> archives contain detailed information about files stored
+in them and full file names are part of that information.  When
+storing a file to an archive, its file name is recorded in it,
+along with the actual file contents.  When restoring from an archive,
+a file is created on disk with exactly the same name as that stored
+in the archive.  In the majority of cases this is the desired behavior
+of a file archiver.  However, there are some cases when it is not.
+</p>
+<p>First of all, it is often unsafe to extract archive members with
+absolute file names or those that begin with a <samp class="file">../</samp>.  <abbr class="acronym">GNU</abbr> <code class="command">tar</code>
+takes special precautions when extracting such names and provides a
+special option for handling them, which is described in
+<a class="ref" href="absolute.html">Absolute File Names</a>.
+</p>
+<p>Secondly, you may wish to extract file names without some leading
+directory components, or with otherwise modified names.  In other
+cases it is desirable to store files under differing names in the
+archive.
+</p>
+<p><abbr class="acronym">GNU</abbr> <code class="command">tar</code> provides several options for these needs.
+</p>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-strip_002dcomponents"></a>
+</dd>
+<dt><samp class="option">--strip-components=<var class="var">number</var></samp></dt>
+<dd><p>Strip given <var class="var">number</var> of leading components from file names before
+extraction.
+</p></dd>
+</dl>
+
+<p>For example, suppose you have archived whole <samp class="file">/usr</samp> hierarchy to
+a tar archive named <samp class="file">usr.tar</samp>.  Among other files, this archive
+contains <samp class="file">usr/include/stdlib.h</samp>, which you wish to extract to
+the current working directory.  To do so, you type:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar -xf usr.tar --strip=2 usr/include/stdlib.h</kbd>
+</pre></div>
+
+<p>The option <samp class="option">--strip=2</samp> instructs <code class="command">tar</code> to strip the
+two leading components (<samp class="file">usr/</samp> and <samp class="file">include/</samp>) off the file
+name.
+</p>
+<p>If you add the <samp class="option">--verbose</samp> (<samp class="option">-v</samp>) option to the invocation
+above, you will note that the verbose listing still contains the
+full file name, with the two removed components still in place.  This
+can be inconvenient, so <code class="command">tar</code> provides a special option for
+altering this behavior:
+</p>
+<a class="anchor" id="show_002dtransformed_002dnames"></a><dl class="table">
+<dd><a class="index-entry-id" id="index-show_002dtransformed_002dnames"></a>
+</dd>
+<dt><samp class="option">--show-transformed-names</samp></dt>
+<dd><p>Display file or member names with all requested transformations
+applied.
+</p></dd>
+</dl>
+
+<p>For example:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">$ <kbd class="kbd">tar -xf usr.tar -v --strip=2 usr/include/stdlib.h</kbd>
+usr/include/stdlib.h
+$ <kbd class="kbd">tar -xf usr.tar -v --strip=2 --show-transformed usr/include/stdlib.h</kbd>
+stdlib.h
+</pre></div></div>
+
+<p>Notice that in both cases the file <samp class="file">stdlib.h</samp> is extracted to the
+current working directory, <samp class="option">--show-transformed-names</samp> affects
+only the way its name is displayed.
+</p>
+<p>This option is especially useful for verifying whether the invocation
+will have the desired effect.  Thus, before running
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar -x --strip=<var class="var">n</var></kbd>
+</pre></div>
+
+<p>it is often advisable to run
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar -t -v --show-transformed --strip=<var class="var">n</var></kbd>
+</pre></div>
+
+<p>to make sure the command will produce the intended results.
+</p>
+<p>In case you need to apply more complex modifications to the file name,
+<abbr class="acronym">GNU</abbr> <code class="command">tar</code> provides a general-purpose transformation option:
+</p>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-transform"></a>
+<a class="index-entry-id" id="index-xform"></a>
+</dd>
+<dt><samp class="option">--transform=<var class="var">expression</var></samp></dt>
+<dt><samp class="option">--xform=<var class="var">expression</var></samp></dt>
+<dd><p>Modify file names using supplied <var class="var">expression</var>.
+</p></dd>
+</dl>
+
+<p>The <var class="var">expression</var> is a <code class="command">sed</code>-like replace expression of the
+form:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">s/<var class="var">regexp</var>/<var class="var">replace</var>/[<var class="var">flags</var>]
+</pre></div>
+
+<p>where <var class="var">regexp</var> is a <em class="dfn">regular expression</em>, <var class="var">replace</var> is a
+replacement for each file name part that matches <var class="var">regexp</var>.  Both
+<var class="var">regexp</var> and <var class="var">replace</var> are described in detail in
+<a data-manual="sed" href="https://www.gnu.org/software/sed/manual/html_node/The-_0022s_0022-Command.html#The-_0022s_0022-Command">The &lsquo;s&rsquo; Command</a> in <cite class="cite">GNU sed</cite>.
+</p>
+<p>Any delimiter can be used in lieu of &lsquo;<samp class="samp">/</samp>&rsquo;, the only requirement being
+that it be used consistently throughout the expression. For example,
+the following two expressions are equivalent:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">s/one/two/
+s,one,two,
+</pre></div></div>
+
+<p>Changing delimiters is often useful when the <var class="var">regex</var> contains
+slashes.  For example, it is more convenient to write <code class="code">s,/,-,</code> than
+<code class="code">s/\//-/</code>.
+</p>
+<p>As in <code class="command">sed</code>, you can give several replace expressions,
+separated by a semicolon.
+</p>
+<p>Supported <var class="var">flags</var> are:
+</p>
+<dl class="table">
+<dt>&lsquo;<samp class="samp">g</samp>&rsquo;</dt>
+<dd><p>Apply the replacement to <em class="emph">all</em> matches to the <var class="var">regexp</var>, not
+just the first.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">i</samp>&rsquo;</dt>
+<dd><p>Use case-insensitive matching.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">x</samp>&rsquo;</dt>
+<dd><p><var class="var">regexp</var> is an <em class="dfn">extended regular expression</em> (see <a data-manual="sed" href="https://www.gnu.org/software/sed/manual/html_node/Extended-regexps.html#Extended-regexps">Extended regular expressions</a> in <cite class="cite">GNU sed</cite>).
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp"><var class="var">number</var></samp>&rsquo;</dt>
+<dd><p>Only replace the <var class="var">number</var>th match of the <var class="var">regexp</var>.
+</p>
+<p>Note: the <abbr class="acronym">POSIX</abbr> standard does not specify what should happen
+when you mix the &lsquo;<samp class="samp">g</samp>&rsquo; and <var class="var">number</var> modifiers.  <abbr class="acronym">GNU</abbr> <code class="command">tar</code>
+follows the GNU <code class="command">sed</code> implementation in this regard, so
+the interaction is defined to be: ignore matches before the
+<var class="var">number</var>th, and then match and replace all matches from the
+<var class="var">number</var>th on.
+</p>
+</dd>
+</dl>
+
+<p>In addition, several <em class="dfn">transformation scope</em> flags are supported,
+that control to what files transformations apply.  These are:
+</p>
+<dl class="table">
+<dt>&lsquo;<samp class="samp">r</samp>&rsquo;</dt>
+<dd><p>Apply transformation to regular archive members.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">R</samp>&rsquo;</dt>
+<dd><p>Do not apply transformation to regular archive members.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">s</samp>&rsquo;</dt>
+<dd><p>Apply transformation to symbolic link targets.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">S</samp>&rsquo;</dt>
+<dd><p>Do not apply transformation to symbolic link targets.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">h</samp>&rsquo;</dt>
+<dd><p>Apply transformation to hard link targets.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">H</samp>&rsquo;</dt>
+<dd><p>Do not apply transformation to hard link targets.
+</p></dd>
+</dl>
+
+<p>Default is &lsquo;<samp class="samp">rsh</samp>&rsquo;, which means to apply transformations to both archive
+members and targets of symbolic and hard links.
+</p>
+<p>Default scope flags can also be changed using &lsquo;<samp class="samp">flags=</samp>&rsquo; statement
+in the transform expression.  The flags set this way remain in force
+until next &lsquo;<samp class="samp">flags=</samp>&rsquo; statement or end of expression, whichever
+occurs first.  For example:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">  --transform 'flags=S;s|^|/usr/local/|'
+</pre></div>
+
+<p>Here are several examples of <samp class="option">--transform</samp> usage:
+</p>
+<ol class="enumerate">
+<li> Extract <samp class="file">usr/</samp> hierarchy into <samp class="file">usr/local/</samp>:
+
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar --transform='s,usr/,usr/local/,' -x -f arch.tar</kbd>
+</pre></div>
+
+</li><li> Strip two leading directory components (equivalent to
+<samp class="option">--strip-components=2</samp>):
+
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar --transform='s,/*[^/]*/[^/]*/,,' -x -f arch.tar</kbd>
+</pre></div>
+
+</li><li> Convert each file name to lower case:
+
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar --transform 's/.*/\L&amp;/' -x -f arch.tar</kbd>
+</pre></div>
+
+</li><li> Prepend <samp class="file">/prefix/</samp>  to each file name:
+
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar --transform 's,^,/prefix/,' -x -f arch.tar</kbd>
+</pre></div>
+
+</li><li> Archive the <samp class="file">/lib</samp> directory, prepending &lsquo;<samp class="samp">/usr/local</samp>&rsquo;
+to each archive member:
+
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar --transform 's,^,/usr/local/,S' -c -f arch.tar /lib</kbd>
+</pre></div>
+</li></ol>
+
+<p>Notice the use of flags in the last example.  The <samp class="file">/lib</samp>
+directory often contains many symbolic links to files within it.
+It may look, for example, like this:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">ls -l</kbd>
+drwxr-xr-x root/root       0 2008-07-08 16:20 /lib/
+-rwxr-xr-x root/root 1250840 2008-05-25 07:44 /lib/libc-2.3.2.so
+lrwxrwxrwx root/root       0 2008-06-24 17:12 /lib/libc.so.6 -&gt; libc-2.3.2.so
+...
+</pre></div>
+
+<p>Using the expression &lsquo;<samp class="samp">s,^,/usr/local/,</samp>&rsquo; would mean adding
+&lsquo;<samp class="samp">/usr/local</samp>&rsquo; to both regular archive members and to link
+targets. In this case, <samp class="file">/lib/libc.so.6</samp> would become:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">  /usr/local/lib/libc.so.6 -&gt; /usr/local/libc-2.3.2.so
+</pre></div>
+
+<p>This is definitely not desired.  To avoid this, the &lsquo;<samp class="samp">S</samp>&rsquo; flag
+is used, which excludes symbolic link targets from filename
+transformations.  The result is:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar --transform 's,^,/usr/local/,S' -c -v -f arch.tar \
+       --show-transformed /lib</kbd>
+drwxr-xr-x root/root       0 2008-07-08 16:20 /usr/local/lib/
+-rwxr-xr-x root/root 1250840 2008-05-25 07:44 /usr/local/lib/libc-2.3.2.so
+lrwxrwxrwx root/root       0 2008-06-24 17:12 /usr/local/lib/libc.so.6 \
+ -&gt; libc-2.3.2.so
+</pre></div>
+
+<p>Unlike <samp class="option">--strip-components</samp>, <samp class="option">--transform</samp> can be used
+in any <abbr class="acronym">GNU</abbr> <code class="command">tar</code> operation mode.  For example, the following command
+adds files to the archive while replacing the leading <samp class="file">usr/</samp>
+component with <samp class="file">var/</samp>:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar -cf arch.tar --transform='s,^usr/,var/,' /</kbd>
+</pre></div>
+
+<p>To test <samp class="option">--transform</samp> effect we suggest using
+<samp class="option">--show-transformed-names</samp> option:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar -cf arch.tar --transform='s,^usr/,var/,' \
+       --verbose --show-transformed-names /</kbd>
+</pre></div>
+
+<p>If both <samp class="option">--strip-components</samp> and <samp class="option">--transform</samp> are used
+together, then <samp class="option">--transform</samp> is applied first, and the required
+number of components is then stripped from its result.
+</p>
+<p>You can use as many <samp class="option">--transform</samp> options in a single command
+line as you want.  The specified expressions will then be applied in
+order of their appearance.  For example, the following two invocations
+are equivalent:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar -cf arch.tar --transform='s,/usr/var,/var/' \
+                        --transform='s,/usr/local,/usr/,'</kbd>
+$ <kbd class="kbd">tar -cf arch.tar \
+               --transform='s,/usr/var,/var/;s,/usr/local,/usr/,'</kbd>
+</pre></div>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="after.html">Operating Only on New Files</a>, Previous: <a href="quoting-styles.html">Quoting Member Names</a>, Up: <a href="Choosing.html">Choosing Files and Names for <code class="command">tar</code></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

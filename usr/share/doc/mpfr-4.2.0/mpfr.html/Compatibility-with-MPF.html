@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual documents how to install and use the Multiple Precision
+Floating-Point Reliable Library, version 4.2.0.
+
+Copyright 1991, 1993-2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.2 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the
+license is included in GNU Free Documentation License. -->
+<title>Compatibility with MPF (GNU MPFR 4.2.0)</title>
+
+<meta name="description" content="How to install and use GNU MPFR, a library for reliable multiple precision
+floating-point arithmetic, version 4.2.0.">
+<meta name="keywords" content="Compatibility with MPF (GNU MPFR 4.2.0)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="MPFR-Interface.html" rel="up" title="MPFR Interface">
+<link href="Custom-Interface.html" rel="next" title="Custom Interface">
+<link href="Memory-Handling-Functions.html" rel="prev" title="Memory Handling Functions">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Compatibility-with-MPF">
+<div class="nav-panel">
+<p>
+Next: <a href="Custom-Interface.html" accesskey="n" rel="next">Custom Interface</a>, Previous: <a href="Memory-Handling-Functions.html" accesskey="p" rel="prev">Memory Handling Functions</a>, Up: <a href="MPFR-Interface.html" accesskey="u" rel="up">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a class="index-entry-id" id="index-Compatibility-with-MPF"></a>
+<h3 class="section" id="Compatibility-With-MPF">5.15 Compatibility With MPF</h3>
+
+<p>A header file <samp class="file">mpf2mpfr.h</samp> is included in the distribution of MPFR for
+compatibility with the GNU MP class MPF.
+By inserting the following two lines after the <code class="code">#include &lt;gmp.h&gt;</code> line,
+</p><div class="example">
+<pre class="example-preformatted">#include &lt;mpfr.h&gt;
+#include &lt;mpf2mpfr.h&gt;
+</pre></div>
+<p>many programs written for MPF can be compiled directly against MPFR
+without any changes.
+All operations are then performed with the default MPFR rounding mode,
+which can be reset with <code class="code">mpfr_set_default_rounding_mode</code>.
+</p>
+<p>Warning! There are some differences. In particular:
+</p><ul class="itemize mark-bullet">
+<li>The precision is different: MPFR rounds to the exact number of bits
+(zeroing trailing bits in the internal representation). Users may need to
+increase the precision of their variables.
+</li><li>The exponent range is also different.
+</li><li>The formatted output functions (<code class="code">gmp_printf</code>, etc.) will not work
+for arguments of arbitrary-precision floating-point type (<code class="code">mpf_t</code>, which
+<samp class="file">mpf2mpfr.h</samp> redefines as <code class="code">mpfr_t</code>).
+</li><li>The output of <code class="code">mpf_out_str</code> has a format slightly different from
+the one of <code class="code">mpfr_out_str</code> (concerning the position of the decimal-point
+character, trailing zeros and the output of the value 0).
+</li></ul>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fset_005fprec_005fraw"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_set_prec_raw</strong> <code class="def-code-arguments">(mpfr_t <var class="var">x</var>, mpfr_prec_t <var class="var">prec</var>)</code><a class="copiable-link" href='#index-mpfr_005fset_005fprec_005fraw'> ¶</a></span></dt>
+<dd><p>Reset the precision of <var class="var">x</var> to be <strong class="strong">exactly</strong> <var class="var">prec</var> bits.
+The only difference with <code class="code">mpfr_set_prec</code> is that <var class="var">prec</var> is assumed to
+be small enough so that the significand fits into the current allocated memory
+space for <var class="var">x</var>. Otherwise the behavior is undefined.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005feq"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_eq</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>, unsigned long int <var class="var">op3</var>)</code><a class="copiable-link" href='#index-mpfr_005feq'> ¶</a></span></dt>
+<dd><p>Return non-zero if <var class="var">op1</var> and <var class="var">op2</var> are both non-zero ordinary
+numbers with the same exponent and the same first <var class="var">op3</var> bits, both
+zero, or both infinities of the same sign. Return zero otherwise.
+This function is defined for compatibility with MPF, we do not recommend
+to use it otherwise.
+Do not use it either if
+you want to know whether two numbers are close to each other; for instance,
+1.011111 and 1.100000 are regarded as different for any value of
+<var class="var">op3</var> larger than 1.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005freldiff"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_reldiff</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, mpfr_t <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005freldiff'> ¶</a></span></dt>
+<dd><p>Compute the relative difference between <var class="var">op1</var> and <var class="var">op2</var>
+and store the result in <var class="var">rop</var>.
+This function does not guarantee the correct rounding on the relative
+difference; it just computes |<var class="var">op1</var> − <var class="var">op2</var>| / <var class="var">op1</var><!-- /@w -->,
+using the precision of <var class="var">rop</var> and the rounding mode <var class="var">rnd</var> for all
+operations.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fmul_005f2exp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_mul_2exp</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, unsigned long int <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fmul_005f2exp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fdiv_005f2exp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_div_2exp</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op1</var>, unsigned long int <var class="var">op2</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fdiv_005f2exp'> ¶</a></span></dt>
+<dd><p>These functions are identical to <code class="code">mpfr_mul_2ui</code> and <code class="code">mpfr_div_2ui</code>
+respectively.
+These functions are only kept for compatibility with MPF, one should
+prefer <code class="code">mpfr_mul_2ui</code> and <code class="code">mpfr_div_2ui</code> otherwise.
+</p></dd></dl>
+
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Custom-Interface.html">Custom Interface</a>, Previous: <a href="Memory-Handling-Functions.html">Memory Handling Functions</a>, Up: <a href="MPFR-Interface.html">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

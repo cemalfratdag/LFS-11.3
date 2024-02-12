@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>C++ Interface Integers (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="C++ Interface Integers (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="C_002b_002b-Class-Interface.html" rel="up" title="C++ Class Interface">
+<link href="C_002b_002b-Interface-Rationals.html" rel="next" title="C++ Interface Rationals">
+<link href="C_002b_002b-Interface-General.html" rel="prev" title="C++ Interface General">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="C_002b_002b-Interface-Integers">
+<div class="nav-panel">
+<p>
+Next: <a href="C_002b_002b-Interface-Rationals.html" accesskey="n" rel="next">C++ Interface Rationals</a>, Previous: <a href="C_002b_002b-Interface-General.html" accesskey="p" rel="prev">C++ Interface General</a>, Up: <a href="C_002b_002b-Class-Interface.html" accesskey="u" rel="up">C++ Class Interface</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="C_002b_002b-Interface-Integers-1">12.2 C++ Interface Integers</h3>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fclass_003a_003ampz_005fclass"><span class="category-def">Function: </span><span><strong class="def-name">mpz_class::mpz_class</strong> <code class="def-code-arguments">(type <var class="var">n</var>)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003ampz_005fclass'> &para;</a></span></dt>
+<dd><p>Construct an <code class="code">mpz_class</code>.  All the standard C++ types may be used, except
+<code class="code">long long</code> and <code class="code">long double</code>, and all the GMP C++ classes can be
+used, although conversions from <code class="code">mpq_class</code> and <code class="code">mpf_class</code> are
+<code class="code">explicit</code>.  Any necessary conversion follows the corresponding C
+function, for example <code class="code">double</code> follows <code class="code">mpz_set_d</code>
+(see <a class="pxref" href="Assigning-Integers.html">Assignment Functions</a>).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fclass_003a_003ampz_005fclass-1"><span class="category-def">Function: </span><span><code class="def-type">explicit</code> <strong class="def-name">mpz_class::mpz_class</strong> <code class="def-code-arguments">(const mpz_t <var class="var">z</var>)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003ampz_005fclass-1'> &para;</a></span></dt>
+<dd><p>Construct an <code class="code">mpz_class</code> from an <code class="code">mpz_t</code>.  The value in <var class="var">z</var> is
+copied into the new <code class="code">mpz_class</code>, there won&rsquo;t be any permanent association
+between it and <var class="var">z</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpz_005fclass_003a_003ampz_005fclass-2"><span class="category-def">Function: </span><span><code class="def-type">explicit</code> <strong class="def-name">mpz_class::mpz_class</strong> <code class="def-code-arguments">(const char *<var class="var">s</var>, int <var class="var">base</var> = 0)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003ampz_005fclass-2'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003ampz_005fclass-3"><span class="category-def">Function: </span><span><code class="def-type">explicit</code> <strong class="def-name">mpz_class::mpz_class</strong> <code class="def-code-arguments">(const string&amp; <var class="var">s</var>, int <var class="var">base</var> = 0)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003ampz_005fclass-3'> &para;</a></span></dt>
+<dd><p>Construct an <code class="code">mpz_class</code> converted from a string using <code class="code">mpz_set_str</code>
+(see <a class="pxref" href="Assigning-Integers.html">Assignment Functions</a>).
+</p>
+<p>If the string is not a valid integer, an <code class="code">std::invalid_argument</code>
+exception is thrown.  The same applies to <code class="code">operator=</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-operator_0022_0022"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">operator&quot;&quot;</strong> <code class="def-code-arguments">_mpz (const char *<var class="var">str</var>)</code><a class="copiable-link" href='#index-operator_0022_0022'> &para;</a></span></dt>
+<dd><p>With C++11 compilers, integers can be constructed with the syntax
+<code class="code">123_mpz</code> which is equivalent to <code class="code">mpz_class(&quot;123&quot;)</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-operator_002f"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">operator/</strong> <code class="def-code-arguments">(mpz_class <var class="var">a</var>, mpz_class <var class="var">d</var>)</code><a class="copiable-link" href='#index-operator_002f'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-operator_0025"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">operator%</strong> <code class="def-code-arguments">(mpz_class <var class="var">a</var>, mpz_class <var class="var">d</var>)</code><a class="copiable-link" href='#index-operator_0025'> &para;</a></span></dt>
+<dd><p>Divisions involving <code class="code">mpz_class</code> round towards zero, as per the
+<code class="code">mpz_tdiv_q</code> and <code class="code">mpz_tdiv_r</code> functions (see <a class="pxref" href="Integer-Division.html">Division Functions</a>).
+This is the same as the C99 <code class="code">/</code> and <code class="code">%</code> operators.
+</p>
+<p>The <code class="code">mpz_fdiv&hellip;</code> or <code class="code">mpz_cdiv&hellip;</code> functions can always be called
+directly if desired.  For example,
+</p>
+<div class="example">
+<pre class="example-preformatted">mpz_class q, a, d;
+...
+mpz_fdiv_q (q.get_mpz_t(), a.get_mpz_t(), d.get_mpz_t());
+</pre></div>
+</dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-abs"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">abs</strong> <code class="def-code-arguments">(mpz_class <var class="var">op</var>)</code><a class="copiable-link" href='#index-abs'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-cmp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">cmp</strong> <code class="def-code-arguments">(mpz_class <var class="var">op1</var>, type <var class="var">op2</var>)</code><a class="copiable-link" href='#index-cmp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-cmp-1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">cmp</strong> <code class="def-code-arguments">(type <var class="var">op1</var>, mpz_class <var class="var">op2</var>)</code><a class="copiable-link" href='#index-cmp-1'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003afits_005fsint_005fp"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">mpz_class::fits_sint_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003afits_005fsint_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003afits_005fslong_005fp"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">mpz_class::fits_slong_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003afits_005fslong_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003afits_005fsshort_005fp"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">mpz_class::fits_sshort_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003afits_005fsshort_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003afits_005fuint_005fp"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">mpz_class::fits_uint_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003afits_005fuint_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003afits_005fulong_005fp"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">mpz_class::fits_ulong_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003afits_005fulong_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003afits_005fushort_005fp"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">mpz_class::fits_ushort_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003afits_005fushort_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003aget_005fd"><span class="category-def">Function: </span><span><code class="def-type">double</code> <strong class="def-name">mpz_class::get_d</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003aget_005fd'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003aget_005fsi"><span class="category-def">Function: </span><span><code class="def-type">long</code> <strong class="def-name">mpz_class::get_si</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003aget_005fsi'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003aget_005fstr"><span class="category-def">Function: </span><span><code class="def-type">string</code> <strong class="def-name">mpz_class::get_str</strong> <code class="def-code-arguments">(int <var class="var">base</var> = 10)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003aget_005fstr'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003aget_005fui"><span class="category-def">Function: </span><span><code class="def-type">unsigned long</code> <strong class="def-name">mpz_class::get_ui</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003aget_005fui'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003aset_005fstr"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_class::set_str</strong> <code class="def-code-arguments">(const char *<var class="var">str</var>, int <var class="var">base</var>)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003aset_005fstr'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003aset_005fstr-1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpz_class::set_str</strong> <code class="def-code-arguments">(const string&amp; <var class="var">str</var>, int <var class="var">base</var>)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003aset_005fstr-1'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-sgn"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">sgn</strong> <code class="def-code-arguments">(mpz_class <var class="var">op</var>)</code><a class="copiable-link" href='#index-sgn'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-sqrt"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">sqrt</strong> <code class="def-code-arguments">(mpz_class <var class="var">op</var>)</code><a class="copiable-link" href='#index-sqrt'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-gcd"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">gcd</strong> <code class="def-code-arguments">(mpz_class <var class="var">op1</var>, mpz_class <var class="var">op2</var>)</code><a class="copiable-link" href='#index-gcd'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-lcm"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">lcm</strong> <code class="def-code-arguments">(mpz_class <var class="var">op1</var>, mpz_class <var class="var">op2</var>)</code><a class="copiable-link" href='#index-lcm'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003afactorial"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">mpz_class::factorial</strong> <code class="def-code-arguments">(type <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003afactorial'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-factorial"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">factorial</strong> <code class="def-code-arguments">(mpz_class <var class="var">op</var>)</code><a class="copiable-link" href='#index-factorial'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003aprimorial"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">mpz_class::primorial</strong> <code class="def-code-arguments">(type <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003aprimorial'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-primorial"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">primorial</strong> <code class="def-code-arguments">(mpz_class <var class="var">op</var>)</code><a class="copiable-link" href='#index-primorial'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003afibonacci"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">mpz_class::fibonacci</strong> <code class="def-code-arguments">(type <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003afibonacci'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-fibonacci"><span class="category-def">Function: </span><span><code class="def-type">mpz_class</code> <strong class="def-name">fibonacci</strong> <code class="def-code-arguments">(mpz_class <var class="var">op</var>)</code><a class="copiable-link" href='#index-fibonacci'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpz_005fclass_003a_003aswap"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpz_class::swap</strong> <code class="def-code-arguments">(mpz_class&amp; <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpz_005fclass_003a_003aswap'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-swap"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">swap</strong> <code class="def-code-arguments">(mpz_class&amp; <var class="var">op1</var>, mpz_class&amp; <var class="var">op2</var>)</code><a class="copiable-link" href='#index-swap'> &para;</a></span></dt>
+<dd><p>These functions provide a C++ class interface to the corresponding GMP C
+routines.  Calling <code class="code">factorial</code> or <code class="code">primorial</code> on a negative number
+is undefined.
+</p>
+<p><code class="code">cmp</code> can be used with any of the classes or the standard C++ types,
+except <code class="code">long long</code> and <code class="code">long double</code>.
+</p></dd></dl>
+
+<br>
+<p>Overloaded operators for combinations of <code class="code">mpz_class</code> and <code class="code">double</code>
+are provided for completeness, but it should be noted that if the given
+<code class="code">double</code> is not an integer then the way any rounding is done is currently
+unspecified.  The rounding might take place at the start, in the middle, or at
+the end of the operation, and it might change in the future.
+</p>
+<p>Conversions between <code class="code">mpz_class</code> and <code class="code">double</code>, however, are defined
+to follow the corresponding C functions <code class="code">mpz_get_d</code> and <code class="code">mpz_set_d</code>.
+And comparisons are always made exactly, as per <code class="code">mpz_cmp_d</code>.
+</p>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="C_002b_002b-Interface-Rationals.html">C++ Interface Rationals</a>, Previous: <a href="C_002b_002b-Interface-General.html">C++ Interface General</a>, Up: <a href="C_002b_002b-Class-Interface.html">C++ Class Interface</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

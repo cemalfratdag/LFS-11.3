@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>PAX 1 (GNU tar 1.34)</title>
+
+<meta name="description" content="PAX 1 (GNU tar 1.34)">
+<meta name="keywords" content="PAX 1 (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Sparse-Formats.html" rel="up" title="Sparse Formats">
+<link href="PAX-0.html" rel="prev" title="PAX 0">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="appendixsubsec-level-extent" id="PAX-1">
+<div class="nav-panel">
+<p>
+Previous: <a href="PAX-0.html" accesskey="p" rel="prev">PAX Format, Versions 0.0 and 0.1</a>, Up: <a href="Sparse-Formats.html" accesskey="u" rel="up">Storing Sparse Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="appendixsubsec" id="PAX-Format_002c-Version-1_002e0">PAX Format, Version 1.0</h4>
+
+<a class="index-entry-id" id="index-sparse-formats_002c-v_002e1_002e0"></a>
+<p>The version <code class="code">1.0</code> of sparse format was introduced with <abbr class="acronym">GNU</abbr> <code class="command">tar</code>
+1.15.92.  Its main objective was to make the resulting file
+extractable with little effort even by non-posix aware <code class="command">tar</code>
+implementations.  Starting from this version, the extended header
+preceding a sparse member always contains the following variables that
+identify the format being used:
+</p>
+<dl class="table">
+<dt id='index-GNU_002esparse_002emajor_002c-extended-header-variable'><span><code class="code">GNU.sparse.major</code><a class="copiable-link" href='#index-GNU_002esparse_002emajor_002c-extended-header-variable'> &para;</a></span></dt>
+<dd><p>Major version
+</p>
+</dd>
+<dt id='index-GNU_002esparse_002eminor_002c-extended-header-variable'><span><code class="code">GNU.sparse.minor</code><a class="copiable-link" href='#index-GNU_002esparse_002eminor_002c-extended-header-variable'> &para;</a></span></dt>
+<dd><p>Minor version
+</p></dd>
+</dl>
+
+<p>The <code class="code">name</code> field in <code class="code">ustar</code> header contains a special name,
+constructed using the following pattern:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">%d/GNUSparseFile.%p/%f
+</pre></div>
+
+<a class="index-entry-id" id="index-GNU_002esparse_002ename_002c-extended-header-variable_002c-in-v_002e1_002e0"></a>
+<a class="index-entry-id" id="index-GNU_002esparse_002erealsize_002c-extended-header-variable"></a>
+<p>The real name of the sparse file is stored in the variable
+<code class="code">GNU.sparse.name</code>.  The real size of the file is stored in the
+variable <code class="code">GNU.sparse.realsize</code>.
+</p>
+<p>The sparse map itself is stored in the file data block, preceding the actual
+file data.  It consists of a series of decimal numbers delimited
+by newlines. The map is padded with nulls to the nearest block boundary.
+</p>
+<p>The first number gives the number of entries in the map. Following are
+map entries, each one consisting of two numbers giving the offset and
+size of the data block it describes.
+</p>
+<p>The format is designed in such a way that non-posix aware <code class="command">tar</code>s and <code class="command">tar</code>s not
+supporting <code class="code">GNU.sparse.*</code> keywords will extract each sparse file
+in its condensed form with the file map prepended and will place it
+into a separate directory.  Then, using a simple program it would be
+possible to expand the file to its original form even without <abbr class="acronym">GNU</abbr> <code class="command">tar</code>.
+See <a class="xref" href="Sparse-Recovery.html">Extracting Sparse Members</a>, for the detailed information on how to extract
+sparse members without <abbr class="acronym">GNU</abbr> <code class="command">tar</code>.
+</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Previous: <a href="PAX-0.html">PAX Format, Versions 0.0 and 0.1</a>, Up: <a href="Sparse-Formats.html">Storing Sparse Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

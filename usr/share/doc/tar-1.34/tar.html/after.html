@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>after (GNU tar 1.34)</title>
+
+<meta name="description" content="after (GNU tar 1.34)">
+<meta name="keywords" content="after (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Choosing.html" rel="up" title="Choosing">
+<link href="recurse.html" rel="next" title="recurse">
+<link href="transform.html" rel="prev" title="transform">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="after">
+<div class="nav-panel">
+<p>
+Next: <a href="recurse.html" accesskey="n" rel="next">Descending into Directories</a>, Previous: <a href="transform.html" accesskey="p" rel="prev">Modifying File and Member Names</a>, Up: <a href="Choosing.html" accesskey="u" rel="up">Choosing Files and Names for <code class="command">tar</code></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Operating-Only-on-New-Files">6.8 Operating Only on New Files</h3>
+
+<a class="index-entry-id" id="index-Excluding-file-by-age"></a>
+<a class="index-entry-id" id="index-Data-Modification-time_002c-excluding-files-by"></a>
+<a class="index-entry-id" id="index-Modification-time_002c-excluding-files-by"></a>
+<a class="index-entry-id" id="index-Age_002c-excluding-files-by"></a>
+<p>The <samp class="option">--after-date=<var class="var">date</var></samp> (<samp class="option">--newer=<var class="var">date</var></samp>,
+<samp class="option">-N <var class="var">date</var></samp>) option causes <code class="command">tar</code> to only work on
+files whose data modification or status change times are newer than
+the <var class="var">date</var> given.  If <var class="var">date</var> starts with &lsquo;<samp class="samp">/</samp>&rsquo; or &lsquo;<samp class="samp">.</samp>&rsquo;,
+it is taken to be a file name; the data modification time of that file
+is used as the date. If you use this option when creating or appending
+to an archive, the archive will only include new files.  If you use
+<samp class="option">--after-date</samp> when extracting an archive, <code class="command">tar</code> will
+only extract files newer than the <var class="var">date</var> you specify.
+</p>
+<p>If you only want <code class="command">tar</code> to make the date comparison based on
+modification of the file&rsquo;s data (rather than status
+changes), then use the <samp class="option">--newer-mtime=<var class="var">date</var></samp> option.
+</p>
+<a class="index-entry-id" id="index-_002d_002dafter_002ddate-and-_002d_002dupdate-compared"></a>
+<a class="index-entry-id" id="index-_002d_002dnewer_002dmtime-and-_002d_002dupdate-compared"></a>
+<p>You may use these options with any operation.  Note that these options
+differ from the <samp class="option">--update</samp> (<samp class="option">-u</samp>) operation in that they
+allow you to specify a particular date against which <code class="command">tar</code> can
+compare when deciding whether or not to archive the files.
+</p>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-after_002ddate"></a>
+<a class="index-entry-id" id="index-newer"></a>
+</dd>
+<dt><samp class="option">--after-date=<var class="var">date</var></samp></dt>
+<dt><samp class="option">--newer=<var class="var">date</var></samp></dt>
+<dt><samp class="option">-N <var class="var">date</var></samp></dt>
+<dd><p>Only store files newer than <var class="var">date</var>.
+</p>
+<p>Acts on files only if their data modification or status change times are
+later than <var class="var">date</var>.  Use in conjunction with any operation.
+</p>
+<p>If <var class="var">date</var> starts with &lsquo;<samp class="samp">/</samp>&rsquo; or &lsquo;<samp class="samp">.</samp>&rsquo;, it is taken to be a file
+name; the data modification time of that file is used as the date.
+</p>
+<a class="index-entry-id" id="index-newer_002dmtime"></a>
+</dd>
+<dt><samp class="option">--newer-mtime=<var class="var">date</var></samp></dt>
+<dd><p>Acts like <samp class="option">--after-date</samp>, but only looks at data modification times.
+</p></dd>
+</dl>
+
+<p>These options limit <code class="command">tar</code> to operate only on files which have
+been modified after the date specified.  A file&rsquo;s status is considered to have
+changed if its contents have been modified, or if its owner,
+permissions, and so forth, have been changed.  (For more information on
+how to specify a date, see <a class="ref" href="Date-input-formats.html">Date input formats</a>; remember that the
+entire date argument must be quoted if it contains any spaces.)
+</p>
+<p>Gurus would say that <samp class="option">--after-date</samp> tests both the data
+modification time (<code class="code">mtime</code>, the time the contents of the file
+were last modified) and the status change time (<code class="code">ctime</code>, the time
+the file&rsquo;s status was last changed: owner, permissions, etc.)
+fields, while <samp class="option">--newer-mtime</samp> tests only the <code class="code">mtime</code>
+field.
+</p>
+<p>To be precise, <samp class="option">--after-date</samp> checks <em class="emph">both</em> <code class="code">mtime</code> and
+<code class="code">ctime</code> and processes the file if either one is more recent than
+<var class="var">date</var>, while <samp class="option">--newer-mtime</samp> only checks <code class="code">mtime</code> and
+disregards <code class="code">ctime</code>.  Neither does it use <code class="code">atime</code> (the last time the
+contents of the file were looked at).
+</p>
+<p>Date specifiers can have embedded spaces.  Because of this, you may need
+to quote date arguments to keep the shell from parsing them as separate
+arguments.  For example, the following command will add to the archive
+all the files modified less than two days ago:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar -cf foo.tar --newer-mtime '2 days ago'</kbd>
+</pre></div>
+
+<p>When any of these options is used with the option <samp class="option">--verbose</samp>
+(see <a class="pxref" href="verbose-tutorial.html">The <samp class="option">--verbose</samp> Option</a>) <abbr class="acronym">GNU</abbr> <code class="command">tar</code> will try to convert the specified
+date back to its textual representation and compare that with the
+one given with the option.  If the two dates differ, <code class="command">tar</code> will
+print a warning saying what date it will use.  This is to help user
+ensure he is using the right date.  For example:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">$ <kbd class="kbd">tar -c -f archive.tar --after-date='10 days ago' .</kbd>
+tar: Option --after-date: Treating date '10 days ago' as 2006-06-11
+13:19:37.232434
+</pre></div></div>
+
+<blockquote class="quotation">
+<p><strong class="strong">Please Note:</strong> <samp class="option">--after-date</samp> and <samp class="option">--newer-mtime</samp>
+should not be used for incremental backups.  See <a class="xref" href="Incremental-Dumps.html">Using <code class="command">tar</code> to Perform Incremental Dumps</a>,
+for proper way of creating incremental backups.
+</p></blockquote>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="recurse.html">Descending into Directories</a>, Previous: <a href="transform.html">Modifying File and Member Names</a>, Up: <a href="Choosing.html">Choosing Files and Names for <code class="command">tar</code></a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

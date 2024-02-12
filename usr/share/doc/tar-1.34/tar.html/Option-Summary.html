@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Option Summary (GNU tar 1.34)</title>
+
+<meta name="description" content="Option Summary (GNU tar 1.34)">
+<meta name="keywords" content="Option Summary (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="All-Options.html" rel="up" title="All Options">
+<link href="Short-Option-Summary.html" rel="next" title="Short Option Summary">
+<link href="Operation-Summary.html" rel="prev" title="Operation Summary">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+span.r {font-family: initial; font-weight: normal; font-style: normal}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="Option-Summary">
+<div class="nav-panel">
+<p>
+Next: <a href="Short-Option-Summary.html" accesskey="n" rel="next">Short Options Cross Reference</a>, Previous: <a href="Operation-Summary.html" accesskey="p" rel="prev">Operations</a>, Up: <a href="All-Options.html" accesskey="u" rel="up">All <code class="command">tar</code> Options</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="tar-Options">3.4.2 <code class="command">tar</code> Options</h4>
+
+<dl class="table">
+<dd>
+<a class="anchor" id="g_t_002d_002dabsolute_002dnames"></a><a class="index-entry-id" id="index-absolute_002dnames_002c-summary"></a>
+</dd>
+<dt><samp class="option">--absolute-names</samp></dt>
+<dt><samp class="option">-P</samp></dt>
+<dd>
+<p>Normally when creating an archive, <code class="command">tar</code> strips an initial
+&lsquo;<samp class="samp">/</samp>&rsquo; from member names, and when extracting from an archive <code class="command">tar</code>
+treats names specially if they have initial &lsquo;<samp class="samp">/</samp>&rsquo; or internal
+&lsquo;<samp class="samp">..</samp>&rsquo;.  This option disables that behavior.  See <a class="xref" href="absolute.html">Absolute File Names</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dacls"></a><a class="index-entry-id" id="index-acls_002c-summary"></a>
+</dd>
+<dt><samp class="option">--acls</samp></dt>
+<dd><p>Enable POSIX ACLs support.  See <a class="xref" href="Extended-File-Attributes.html">acls</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dafter_002ddate"></a><a class="index-entry-id" id="index-after_002ddate_002c-summary"></a>
+</dd>
+<dt><samp class="option">--after-date</samp></dt>
+<dd>
+<p>(See <samp class="option">--newer</samp>, see <a class="pxref" href="after.html">Operating Only on New Files</a>)
+</p>
+<a class="anchor" id="g_t_002d_002danchored"></a><a class="index-entry-id" id="index-anchored_002c-summary"></a>
+</dd>
+<dt><samp class="option">--anchored</samp></dt>
+<dd><p>A pattern must match an initial subsequence of the name&rsquo;s components.
+See <a class="xref" href="controlling-pattern_002dmatching.html">Controlling Pattern-Matching</a>.
+</p>
+<a class="anchor" id="g_t_002d_002datime_002dpreserve"></a><a class="index-entry-id" id="index-atime_002dpreserve_002c-summary"></a>
+</dd>
+<dt><samp class="option">--atime-preserve</samp></dt>
+<dt><samp class="option">--atime-preserve=replace</samp></dt>
+<dt><samp class="option">--atime-preserve=system</samp></dt>
+<dd>
+<p>Attempt to preserve the access time of files when reading them.  This
+option currently is effective only on files that you own, unless you
+have superuser privileges.
+</p>
+<p><samp class="option">--atime-preserve=replace</samp> remembers the access time of a file
+before reading it, and then restores the access time afterwards.  This
+may cause problems if other programs are reading the file at the same
+time, as the times of their accesses will be lost.  On most platforms
+restoring the access time also requires <code class="command">tar</code> to restore the
+data modification time too, so this option may also cause problems if
+other programs are writing the file at the same time (<code class="command">tar</code> attempts
+to detect this situation, but cannot do so reliably due to race
+conditions).  Worse, on most platforms restoring the access time also
+updates the status change time, which means that this option is
+incompatible with incremental backups.
+</p>
+<p><samp class="option">--atime-preserve=system</samp> avoids changing time stamps on files,
+without interfering with time stamp updates
+caused by other programs, so it works better with incremental backups.
+However, it requires a special <code class="code">O_NOATIME</code> option from the
+underlying operating and file system implementation, and it also requires
+that searching directories does not update their access times.  As of
+this writing (November 2005) this works only with Linux, and only with
+Linux kernels 2.6.8 and later.  Worse, there is currently no reliable
+way to know whether this feature actually works.  Sometimes
+<code class="command">tar</code> knows that it does not work, and if you use
+<samp class="option">--atime-preserve=system</samp> then <code class="command">tar</code> complains and
+exits right away.  But other times <code class="command">tar</code> might think that the
+option works when it actually does not.
+</p>
+<p>Currently <samp class="option">--atime-preserve</samp> with no operand defaults to
+<samp class="option">--atime-preserve=replace</samp>, but this may change in the future
+as support for <samp class="option">--atime-preserve=system</samp> improves.
+</p>
+<p>If your operating or file system does not support
+<samp class="option">--atime-preserve=system</samp>, you might be able to preserve access
+times reliably by using the <code class="command">mount</code> command.  For example,
+you can mount the file system read-only, or access the file system via
+a read-only loopback mount, or use the &lsquo;<samp class="samp">noatime</samp>&rsquo; mount option
+available on some systems.  However, mounting typically requires
+superuser privileges and can be a pain to manage.
+</p>
+<a class="anchor" id="g_t_002d_002dauto_002dcompress"></a><a class="index-entry-id" id="index-auto_002dcompress_002c-summary"></a>
+</dd>
+<dt><samp class="option">--auto-compress</samp></dt>
+<dt><samp class="option">-a</samp></dt>
+<dd>
+<p>During a <samp class="option">--create</samp> operation, enables automatic compressed
+format recognition based on the archive suffix.  The effect of this
+option is cancelled by <samp class="option">--no-auto-compress</samp>.  See <a class="xref" href="gzip.html">Creating and Reading Compressed Archives</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dbackup"></a><a class="index-entry-id" id="index-backup_002c-summary"></a>
+</dd>
+<dt><samp class="option">--backup=<var class="var">backup-type</var></samp></dt>
+<dd>
+<p>Rather than deleting files from the file system, <code class="command">tar</code> will
+back them up using simple or numbered backups, depending upon
+<var class="var">backup-type</var>.  See <a class="xref" href="backup.html">Backup options</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dblock_002dnumber"></a><a class="index-entry-id" id="index-block_002dnumber_002c-summary"></a>
+</dd>
+<dt><samp class="option">--block-number</samp></dt>
+<dt><samp class="option">-R</samp></dt>
+<dd>
+<p>With this option present, <code class="command">tar</code> prints error messages for read errors
+with the block number in the archive file.  See <a class="xref" href="verbose.html#block_002dnumber">block-number</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dblocking_002dfactor"></a><a class="index-entry-id" id="index-blocking_002dfactor_002c-summary"></a>
+</dd>
+<dt><samp class="option">--blocking-factor=<var class="var">blocking</var></samp></dt>
+<dt><samp class="option">-b <var class="var">blocking</var></samp></dt>
+<dd>
+<p>Sets the blocking factor <code class="command">tar</code> uses to <var class="var">blocking</var> x 512 bytes per
+record.  See <a class="xref" href="Blocking-Factor.html">The Blocking Factor of an Archive</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dbzip2"></a><a class="index-entry-id" id="index-bzip2_002c-summary"></a>
+</dd>
+<dt><samp class="option">--bzip2</samp></dt>
+<dt><samp class="option">-j</samp></dt>
+<dd>
+<p>This option tells <code class="command">tar</code> to read or write archives through
+<code class="code">bzip2</code>.  See <a class="xref" href="gzip.html">Creating and Reading Compressed Archives</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dcheck_002ddevice"></a><a class="index-entry-id" id="index-check_002ddevice_002c-summary"></a>
+</dd>
+<dt><samp class="option">--check-device</samp></dt>
+<dd><p>Check device numbers when creating a list of modified files for
+incremental archiving.  This is the default.  See <a class="xref" href="Incremental-Dumps.html#device-numbers">device numbers</a>,
+for a detailed description.
+</p>
+<a class="anchor" id="g_t_002d_002dcheckpoint"></a><a class="index-entry-id" id="index-checkpoint_002c-summary"></a>
+</dd>
+<dt><samp class="option">--checkpoint[=<var class="var">number</var>]</samp></dt>
+<dd>
+<p>This option directs <code class="command">tar</code> to print periodic checkpoint
+messages as it reads through the archive.  It is intended for when you
+want a visual indication that <code class="command">tar</code> is still running, but
+don&rsquo;t want to see <samp class="option">--verbose</samp> output.  You can also instruct
+<code class="command">tar</code> to execute a list of actions on each checkpoint, see
+<samp class="option">--checkpoint-action</samp> below.  For a detailed description, see
+<a class="ref" href="checkpoints.html">Checkpoints</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dcheckpoint_002daction"></a><a class="index-entry-id" id="index-checkpoint_002daction_002c-summary"></a>
+</dd>
+<dt><samp class="option">--checkpoint-action=<var class="var">action</var></samp></dt>
+<dd><p>Instruct <code class="command">tar</code> to execute an action upon hitting a
+breakpoint.  Here we give only a brief outline.  See <a class="xref" href="checkpoints.html">Checkpoints</a>,
+for a complete description.
+</p>
+<p>The <var class="var">action</var> argument can be one of the following:
+</p>
+<dl class="table">
+<dt>bell</dt>
+<dd><p>Produce an audible bell on the console.
+</p>
+</dd>
+<dt>dot</dt>
+<dt>.</dt>
+<dd><p>Print a single dot on the standard listing stream.
+</p>
+</dd>
+<dt>echo</dt>
+<dd><p>Display a textual message on the standard error, with the status and
+number of the checkpoint.  This is the default.
+</p>
+</dd>
+<dt>echo=<var class="var">string</var></dt>
+<dd><p>Display <var class="var">string</var> on the standard error.  Before output, the string
+is subject to meta-character expansion.
+</p>
+</dd>
+<dt>exec=<var class="var">command</var></dt>
+<dd><p>Execute the given <var class="var">command</var>.
+</p>
+</dd>
+<dt>sleep=<var class="var">time</var></dt>
+<dd><p>Wait for <var class="var">time</var> seconds.
+</p>
+</dd>
+<dt>ttyout=<var class="var">string</var></dt>
+<dd><p>Output <var class="var">string</var> on the current console (<samp class="file">/dev/tty</samp>).
+</p>
+</dd>
+<dt>totals</dt>
+<dd><p>Print statistics (see see <a class="pxref" href="verbose.html#totals">totals</a>).
+</p>
+</dd>
+<dt>wait=<var class="var">signo</var></dt>
+<dd><p>Wait for signal <var class="var">signo</var>.
+</p></dd>
+</dl>
+
+<p>Several <samp class="option">--checkpoint-action</samp> options can be specified.  The
+supplied actions will be executed in order of their appearance in the
+command line.
+</p>
+<p>Using <samp class="option">--checkpoint-action</samp> without <samp class="option">--checkpoint</samp>
+assumes default checkpoint frequency of one checkpoint per 10 records.
+</p>
+<a class="anchor" id="g_t_002d_002dcheck_002dlinks"></a><a class="index-entry-id" id="index-check_002dlinks_002c-summary"></a>
+</dd>
+<dt><samp class="option">--check-links</samp></dt>
+<dt><samp class="option">-l</samp></dt>
+<dd><p>If this option was given, <code class="command">tar</code> will check the number of links
+dumped for each processed file.  If this number does not match the
+total number of hard links for the file, a warning message will be
+output <a class="footnote" id="DOCF5" href="#FOOT5"><sup>5</sup></a>.
+</p>
+<p>See <a class="xref" href="hard-links.html">Hard Links</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dcompress"></a><a class="index-entry-id" id="index-compress_002c-summary"></a>
+<a class="anchor" id="g_t_002d_002duncompress"></a><a class="index-entry-id" id="index-uncompress_002c-summary"></a>
+</dd>
+<dt><samp class="option">--compress</samp></dt>
+<dt><samp class="option">--uncompress</samp></dt>
+<dt><samp class="option">-Z</samp></dt>
+<dd>
+<p><code class="command">tar</code> will use the <code class="command">compress</code> program when reading or
+writing the archive.  This allows you to directly act on archives
+while saving space.  See <a class="xref" href="gzip.html">Creating and Reading Compressed Archives</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dclamp_002dmtime"></a><a class="index-entry-id" id="index-clamp_002dmtime_002c-summary"></a>
+</dd>
+<dt><samp class="option">--clamp-mtime</samp></dt>
+<dd>
+<p>(See <samp class="option">--mtime</samp>.)
+</p>
+<a class="anchor" id="g_t_002d_002dconfirmation"></a><a class="index-entry-id" id="index-confirmation_002c-summary"></a>
+</dd>
+<dt><samp class="option">--confirmation</samp></dt>
+<dd>
+<p>(See <samp class="option">--interactive</samp>.)  See <a class="xref" href="interactive.html">Asking for Confirmation During Operations</a>.
+</p>
+<a class="anchor" id="g_t_002d_002ddelay_002ddirectory_002drestore"></a><a class="index-entry-id" id="index-delay_002ddirectory_002drestore_002c-summary"></a>
+</dd>
+<dt><samp class="option">--delay-directory-restore</samp></dt>
+<dd>
+<p>Delay setting modification times and permissions of extracted
+directories until the end of extraction. See <a class="xref" href="Directory-Modification-Times-and-Permissions.html">Directory Modification Times and Permissions</a>.
+</p>
+<a class="anchor" id="g_t_002d_002ddereference"></a><a class="index-entry-id" id="index-dereference_002c-summary"></a>
+</dd>
+<dt><samp class="option">--dereference</samp></dt>
+<dt><samp class="option">-h</samp></dt>
+<dd>
+<p>When reading or writing a file to be archived, <code class="command">tar</code> accesses
+the file that a symbolic link points to, rather than the symlink
+itself.  See <a class="xref" href="dereference.html">Symbolic Links</a>.
+</p>
+<a class="anchor" id="g_t_002d_002ddirectory"></a><a class="index-entry-id" id="index-directory_002c-summary"></a>
+</dd>
+<dt><samp class="option">--directory=<var class="var">dir</var></samp></dt>
+<dt><samp class="option">-C <var class="var">dir</var></samp></dt>
+<dd>
+<p>When this option is specified, <code class="command">tar</code> will change its current directory
+to <var class="var">dir</var> before performing any operations.  When this option is used
+during archive creation, it is order sensitive.  See <a class="xref" href="directory.html">Changing the Working Directory</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude"></a><a class="index-entry-id" id="index-exclude_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude=<var class="var">pattern</var></samp></dt>
+<dd>
+<p>When performing operations, <code class="command">tar</code> will skip files that match
+<var class="var">pattern</var>.  See <a class="xref" href="exclude.html">Excluding Some Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude_002dbackups"></a><a class="index-entry-id" id="index-exclude_002dbackups_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude-backups</samp></dt>
+<dd><p>Exclude backup and lock files.  See <a class="xref" href="exclude.html">exclude-backups</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude_002dfrom"></a><a class="index-entry-id" id="index-exclude_002dfrom_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude-from=<var class="var">file</var></samp></dt>
+<dt><samp class="option">-X <var class="var">file</var></samp></dt>
+<dd>
+<p>Similar to <samp class="option">--exclude</samp>, except <code class="command">tar</code> will use the list of
+patterns in the file <var class="var">file</var>.  See <a class="xref" href="exclude.html">Excluding Some Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude_002dcaches"></a><a class="index-entry-id" id="index-exclude_002dcaches_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude-caches</samp></dt>
+<dd>
+<p>Exclude from dump any directory containing a valid cache directory
+tag file, but still dump the directory node and the tag file itself.
+</p>
+<p>See <a class="xref" href="exclude.html">exclude-caches</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude_002dcaches_002dunder"></a><a class="index-entry-id" id="index-exclude_002dcaches_002dunder_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude-caches-under</samp></dt>
+<dd>
+<p>Exclude from dump any directory containing a valid cache directory
+tag file, but still dump the directory node itself.
+</p>
+<p>See <a class="xref" href="exclude.html">Excluding Some Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude_002dcaches_002dall"></a><a class="index-entry-id" id="index-exclude_002dcaches_002dall_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude-caches-all</samp></dt>
+<dd>
+<p>Exclude from dump any directory containing a valid cache directory
+tag file.  See <a class="xref" href="exclude.html">Excluding Some Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude_002dignore"></a><a class="index-entry-id" id="index-exclude_002dignore_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude-ignore=<var class="var">file</var></samp></dt>
+<dd><p>Before dumping a directory, <code class="command">tar</code> checks if it contains
+<var class="var">file</var>.  If so, exclusion patterns are read from this file.
+The patterns affect only the directory itself.  See <a class="xref" href="exclude.html">Excluding Some Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude_002dignore_002drecursive"></a><a class="index-entry-id" id="index-exclude_002dignore_002drecursive_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude-ignore-recursive=<var class="var">file</var></samp></dt>
+<dd><p>Before dumping a directory, <code class="command">tar</code> checks if it contains
+<var class="var">file</var>.  If so, exclusion patterns are read from this file.
+The patterns affect the directory and all itssubdirectories.
+See <a class="xref" href="exclude.html">Excluding Some Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude_002dtag"></a><a class="index-entry-id" id="index-exclude_002dtag_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude-tag=<var class="var">file</var></samp></dt>
+<dd>
+<p>Exclude from dump any directory containing file named <var class="var">file</var>, but
+dump the directory node and <var class="var">file</var> itself.  See <a class="xref" href="exclude.html">exclude-tag</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude_002dtag_002dunder"></a><a class="index-entry-id" id="index-exclude_002dtag_002dunder_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude-tag-under=<var class="var">file</var></samp></dt>
+<dd>
+<p>Exclude from dump the contents of any directory containing file
+named <var class="var">file</var>, but dump the directory node itself.  See <a class="xref" href="exclude.html">exclude-tag-under</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude_002dtag_002dall"></a><a class="index-entry-id" id="index-exclude_002dtag_002dall_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude-tag-all=<var class="var">file</var></samp></dt>
+<dd>
+<p>Exclude from dump any directory containing file named <var class="var">file</var>.
+See <a class="xref" href="exclude.html">exclude-tag-all</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude_002dvcs"></a><a class="index-entry-id" id="index-exclude_002dvcs_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude-vcs</samp></dt>
+<dd>
+<p>Exclude from dump directories and files, that are internal for some
+widely used version control systems.
+</p>
+<p>See <a class="xref" href="exclude.html#exclude_002dvcs">exclude-vcs</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dexclude_002dvcs_002dignores"></a><a class="index-entry-id" id="index-exclude_002dvcs_002dignores_002c-summary"></a>
+</dd>
+<dt><samp class="option">--exclude-vcs-ignores</samp></dt>
+<dd><p>Exclude files that match patterns read from VCS-specific ignore
+files.  Supported files are: <samp class="file">.cvsignore</samp>, <samp class="file">.gitignore</samp>,
+<samp class="file">.bzrignore</samp>, and <samp class="file">.hgignore</samp>.  The semantics of each file
+is the same as for the corresponding VCS, e.g. patterns read from
+<samp class="file">.gitignore</samp> affect the directory and all its subdirectories.
+See <a class="xref" href="exclude.html#exclude_002dvcs_002dignores">exclude-vcs-ignores</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dfile"></a><a class="index-entry-id" id="index-file_002c-summary"></a>
+</dd>
+<dt><samp class="option">--file=<var class="var">archive</var></samp></dt>
+<dt><samp class="option">-f <var class="var">archive</var></samp></dt>
+<dd>
+<p><code class="command">tar</code> will use the file <var class="var">archive</var> as the <code class="command">tar</code> archive it
+performs operations on, rather than <code class="command">tar</code>&rsquo;s compilation dependent
+default.  See <a class="xref" href="file-tutorial.html">The <samp class="option">--file</samp> Option</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dfiles_002dfrom"></a><a class="index-entry-id" id="index-files_002dfrom_002c-summary"></a>
+</dd>
+<dt><samp class="option">--files-from=<var class="var">file</var></samp></dt>
+<dt><samp class="option">-T <var class="var">file</var></samp></dt>
+<dd>
+<p><code class="command">tar</code> will use the contents of <var class="var">file</var> as a list of archive members
+or files to operate on, in addition to those specified on the
+command-line.  See <a class="xref" href="files.html">Reading Names from a File</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dforce_002dlocal"></a><a class="index-entry-id" id="index-force_002dlocal_002c-summary"></a>
+</dd>
+<dt><samp class="option">--force-local</samp></dt>
+<dd>
+<p>Forces <code class="command">tar</code> to interpret the file name given to <samp class="option">--file</samp>
+as a local file, even if it looks like a remote tape drive name.
+See <a class="xref" href="file.html#local-and-remote-archives">local and remote archives</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dformat"></a><a class="index-entry-id" id="index-format_002c-summary"></a>
+</dd>
+<dt><samp class="option">--format=<var class="var">format</var></samp></dt>
+<dt><samp class="option">-H <var class="var">format</var></samp></dt>
+<dd>
+<p>Selects output archive format.  <var class="var">Format</var> may be one of the
+following:
+</p>
+<dl class="table">
+<dt>&lsquo;<samp class="samp">v7</samp>&rsquo;</dt>
+<dd><p>Creates an archive that is compatible with Unix V7 <code class="command">tar</code>.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">oldgnu</samp>&rsquo;</dt>
+<dd><p>Creates an archive that is compatible with GNU <code class="command">tar</code> version
+1.12 or earlier.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">gnu</samp>&rsquo;</dt>
+<dd><p>Creates archive in GNU tar 1.13 format.  Basically it is the same as
+&lsquo;<samp class="samp">oldgnu</samp>&rsquo; with the only difference in the way it handles long
+numeric fields.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">ustar</samp>&rsquo;</dt>
+<dd><p>Creates a <abbr class="acronym">POSIX.1-1988</abbr> compatible archive.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">posix</samp>&rsquo;</dt>
+<dd><p>Creates a <abbr class="acronym">POSIX.1-2001 archive</abbr>.
+</p>
+</dd>
+</dl>
+
+<p>See <a class="xref" href="Formats.html">Controlling the Archive Format</a>, for a detailed discussion of these formats.
+</p>
+<a class="anchor" id="g_t_002d_002dfull_002dtime"></a><a class="index-entry-id" id="index-full_002dtime_002c-summary"></a>
+</dd>
+<dt><samp class="option">--full-time</samp></dt>
+<dd><p>This option instructs <code class="command">tar</code> to print file times to their full
+resolution.  Usually this means 1-second resolution, but that depends
+on the underlying file system.  The <samp class="option">--full-time</samp> option takes
+effect only when detailed output (verbosity level 2 or higher) has
+been requested using the <samp class="option">--verbose</samp> option, e.g., when listing
+or extracting archives:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar -t -v --full-time -f archive.tar</kbd>
+</pre></div>
+
+<p>or, when creating an archive:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar -c -vv --full-time -f archive.tar .</kbd>
+</pre></div>
+
+<p>Notice, thar when creating the archive you need to specify
+<samp class="option">--verbose</samp> twice to get a detailed output (see <a class="pxref" href="verbose-tutorial.html">The <samp class="option">--verbose</samp> Option</a>).
+</p>
+<a class="anchor" id="g_t_002d_002dgroup"></a><a class="index-entry-id" id="index-group_002c-summary"></a>
+</dd>
+<dt><samp class="option">--group=<var class="var">group</var></samp></dt>
+<dd>
+<p>Files added to the <code class="command">tar</code> archive will have a group <abbr class="acronym">ID</abbr> of <var class="var">group</var>,
+rather than the group from the source file.  <var class="var">group</var> can specify a
+symbolic name, or a numeric <abbr class="acronym">ID</abbr>, or both as
+<var class="var">name</var>:<var class="var">id</var>.  See <a class="xref" href="override.html">Overriding File Metadata</a>.
+</p>
+<p>Also see the <samp class="option">--group-map</samp> option and comments for the
+<samp class="option">--owner=<var class="var">user</var></samp> option.
+</p>
+<a class="anchor" id="g_t_002d_002dgroup_002dmap"></a><a class="index-entry-id" id="index-group_002dmap_002c-summary"></a>
+</dd>
+<dt><samp class="option">--group-map=<var class="var">file</var></samp></dt>
+<dd>
+<p>Read owner group translation map from <var class="var">file</var>.  This option allows to
+translate only certain group names and/or UIDs.  See <a class="xref" href="override.html">Overriding File Metadata</a>, for a
+detailed description.  When used together with <samp class="option">--group</samp>
+option, the latter affects only those files whose owner group is not listed
+in the <var class="var">file</var>.
+</p>
+<p>This option does not affect extraction from archives.
+</p>
+<a class="anchor" id="g_t_002d_002dgzip"></a><a class="index-entry-id" id="index-gzip_002c-summary"></a>
+<a class="anchor" id="g_t_002d_002dgunzip"></a><a class="index-entry-id" id="index-gunzip_002c-summary"></a>
+<a class="anchor" id="g_t_002d_002dungzip"></a><a class="index-entry-id" id="index-ungzip_002c-summary"></a>
+</dd>
+<dt><samp class="option">--gzip</samp></dt>
+<dt><samp class="option">--gunzip</samp></dt>
+<dt><samp class="option">--ungzip</samp></dt>
+<dt><samp class="option">-z</samp></dt>
+<dd>
+<p>This option tells <code class="command">tar</code> to read or write archives through
+<code class="command">gzip</code>, allowing <code class="command">tar</code> to directly operate on several
+kinds of compressed archives transparently.  See <a class="xref" href="gzip.html">Creating and Reading Compressed Archives</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dhard_002ddereference"></a><a class="index-entry-id" id="index-hard_002ddereference_002c-summary"></a>
+</dd>
+<dt><samp class="option">--hard-dereference</samp></dt>
+<dd><p>When creating an archive, dereference hard links and store the files
+they refer to, instead of creating usual hard link members.
+</p>
+<p>See <a class="xref" href="hard-links.html">Hard Links</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dhelp"></a><a class="index-entry-id" id="index-help_002c-summary"></a>
+</dd>
+<dt><samp class="option">--help</samp></dt>
+<dt><samp class="option">-?</samp></dt>
+<dd>
+<p><code class="command">tar</code> will print out a short message summarizing the operations and
+options to <code class="command">tar</code> and exit. See <a class="xref" href="help.html"><abbr class="acronym">GNU</abbr> <code class="command">tar</code> documentation</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dhole_002ddetection"></a><a class="index-entry-id" id="index-hole_002ddetection_002c-summary"></a>
+</dd>
+<dt><samp class="option">--hole-detection=<var class="var">method</var></samp></dt>
+<dd><p>Use <var class="var">method</var> to detect holes in sparse files.  This option implies
+<samp class="option">--sparse</samp>.  Valid methods are &lsquo;<samp class="samp">seek</samp>&rsquo; and &lsquo;<samp class="samp">raw</samp>&rsquo;.
+Default is &lsquo;<samp class="samp">seek</samp>&rsquo; with fallback to &lsquo;<samp class="samp">raw</samp>&rsquo; when not
+applicable. See <a class="xref" href="sparse.html">Archiving Sparse Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dignore_002dcase"></a><a class="index-entry-id" id="index-ignore_002dcase_002c-summary"></a>
+</dd>
+<dt><samp class="option">--ignore-case</samp></dt>
+<dd><p>Ignore case when matching member or file names with
+patterns. See <a class="xref" href="controlling-pattern_002dmatching.html">Controlling Pattern-Matching</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dignore_002dcommand_002derror"></a><a class="index-entry-id" id="index-ignore_002dcommand_002derror_002c-summary"></a>
+</dd>
+<dt><samp class="option">--ignore-command-error</samp></dt>
+<dd><p>Ignore exit codes of subprocesses. See <a class="xref" href="Writing-to-an-External-Program.html">Writing to an External Program</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dignore_002dfailed_002dread"></a><a class="index-entry-id" id="index-ignore_002dfailed_002dread_002c-summary"></a>
+</dd>
+<dt><samp class="option">--ignore-failed-read</samp></dt>
+<dd>
+<p>Do not exit unsuccessfully merely because an unreadable file was encountered.
+See <a class="xref" href="Ignore-Failed-Read.html">Ignore Failed Read</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dignore_002dzeros"></a><a class="index-entry-id" id="index-ignore_002dzeros_002c-summary"></a>
+</dd>
+<dt><samp class="option">--ignore-zeros</samp></dt>
+<dt><samp class="option">-i</samp></dt>
+<dd>
+<p>With this option, <code class="command">tar</code> will ignore zeroed blocks in the
+archive, which normally signals EOF.  See <a class="xref" href="Reading.html">Options to Help Read Archives</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dincremental"></a><a class="index-entry-id" id="index-incremental_002c-summary"></a>
+</dd>
+<dt><samp class="option">--incremental</samp></dt>
+<dt><samp class="option">-G</samp></dt>
+<dd>
+<p>Informs <code class="command">tar</code> that it is working with an old
+<abbr class="acronym">GNU</abbr>-format incremental backup archive.  It is intended
+primarily for backwards compatibility only.  See <a class="xref" href="Incremental-Dumps.html">Using <code class="command">tar</code> to Perform Incremental Dumps</a>,
+for a detailed discussion of incremental archives.
+</p>
+<a class="anchor" id="g_t_002d_002dindex_002dfile"></a><a class="index-entry-id" id="index-index_002dfile_002c-summary"></a>
+</dd>
+<dt><samp class="option">--index-file=<var class="var">file</var></samp></dt>
+<dd>
+<p>Send verbose output to <var class="var">file</var> instead of to standard output.
+</p>
+<a class="anchor" id="g_t_002d_002dinfo_002dscript"></a><a class="index-entry-id" id="index-info_002dscript_002c-summary"></a>
+<a class="anchor" id="g_t_002d_002dnew_002dvolume_002dscript"></a><a class="index-entry-id" id="index-new_002dvolume_002dscript_002c-summary"></a>
+</dd>
+<dt><samp class="option">--info-script=<var class="var">command</var></samp></dt>
+<dt><samp class="option">--new-volume-script=<var class="var">command</var></samp></dt>
+<dt><samp class="option">-F <var class="var">command</var></samp></dt>
+<dd>
+<p>When <code class="command">tar</code> is performing multi-tape backups, <var class="var">command</var> is run
+at the end of each tape.  If it exits with nonzero status,
+<code class="command">tar</code> fails immediately.  See <a class="xref" href="Multi_002dVolume-Archives.html#info_002dscript">info-script</a>, for a detailed
+discussion of this feature.
+</p>
+<a class="anchor" id="g_t_002d_002dinteractive"></a><a class="index-entry-id" id="index-interactive_002c-summary"></a>
+</dd>
+<dt><samp class="option">--interactive</samp></dt>
+<dt><samp class="option">--confirmation</samp></dt>
+<dt><samp class="option">-w</samp></dt>
+<dd>
+<p>Specifies that <code class="command">tar</code> should ask the user for confirmation before
+performing potentially destructive options, such as overwriting files.
+See <a class="xref" href="interactive.html">Asking for Confirmation During Operations</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dkeep_002ddirectory_002dsymlink"></a><a class="index-entry-id" id="index-keep_002ddirectory_002dsymlink_002c-summary"></a>
+</dd>
+<dt><samp class="option">--keep-directory-symlink</samp></dt>
+<dd>
+<p>This option changes the behavior of tar when it encounters a symlink
+with the same name as the directory that it is about to extract.  By
+default, in this case tar would first remove the symlink and then
+proceed extracting the directory.
+</p>
+<p>The <samp class="option">--keep-directory-symlink</samp> option disables this behavior
+and instructs tar to follow symlinks to directories when extracting
+from the archive.
+</p>
+<p>It is mainly intended to provide compatibility with the Slackware
+installation scripts.
+</p>
+<a class="anchor" id="g_t_002d_002dkeep_002dnewer_002dfiles"></a><a class="index-entry-id" id="index-keep_002dnewer_002dfiles_002c-summary"></a>
+</dd>
+<dt><samp class="option">--keep-newer-files</samp></dt>
+<dd>
+<p>Do not replace existing files that are newer than their archive copies
+when extracting files from an archive.
+</p>
+<a class="anchor" id="g_t_002d_002dkeep_002dold_002dfiles"></a><a class="index-entry-id" id="index-keep_002dold_002dfiles_002c-summary"></a>
+</dd>
+<dt><samp class="option">--keep-old-files</samp></dt>
+<dt><samp class="option">-k</samp></dt>
+<dd>
+<p>Do not overwrite existing files when extracting files from an
+archive.  Return error if such files exist.  See also
+<a class="ref" href="#g_t_002d_002dskip_002dold_002dfiles">--skip-old-files</a>.
+</p>
+<p>See <a class="xref" href="Keep-Old-Files.html">Keep Old Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dlabel"></a><a class="index-entry-id" id="index-label_002c-summary"></a>
+</dd>
+<dt><samp class="option">--label=<var class="var">name</var></samp></dt>
+<dt><samp class="option">-V <var class="var">name</var></samp></dt>
+<dd>
+<p>When creating an archive, instructs <code class="command">tar</code> to write <var class="var">name</var>
+as a name record in the archive.  When extracting or listing archives,
+<code class="command">tar</code> will only operate on archives that have a label matching
+the pattern specified in <var class="var">name</var>.  See <a class="xref" href="Tape-Files.html">Tape Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dlevel"></a><a class="index-entry-id" id="index-level_002c-summary"></a>
+</dd>
+<dt><samp class="option">--level=<var class="var">n</var></samp></dt>
+<dd><p>Force incremental backup of level <var class="var">n</var>.  As of <abbr class="acronym">GNU</abbr> <code class="command">tar</code> version
+1.34, the option <samp class="option">--level=0</samp> truncates the snapshot
+file, thereby forcing the level 0 dump.  Other values of <var class="var">n</var> are
+effectively ignored.  See <a class="xref" href="Incremental-Dumps.html#g_t_002d_002dlevel_003d0">--level=0</a>, for details and examples.
+</p>
+<p>The use of this option is valid only in conjunction with the
+<samp class="option">--listed-incremental</samp> option.  See <a class="xref" href="Incremental-Dumps.html">Using <code class="command">tar</code> to Perform Incremental Dumps</a>,
+for a detailed description.
+</p>
+<a class="anchor" id="g_t_002d_002dlisted_002dincremental"></a><a class="index-entry-id" id="index-listed_002dincremental_002c-summary"></a>
+</dd>
+<dt><samp class="option">--listed-incremental=<var class="var">snapshot-file</var></samp></dt>
+<dt><samp class="option">-g <var class="var">snapshot-file</var></samp></dt>
+<dd>
+<p>During a <samp class="option">--create</samp> operation, specifies that the archive that
+<code class="command">tar</code> creates is a new <abbr class="acronym">GNU</abbr>-format incremental
+backup, using <var class="var">snapshot-file</var> to determine which files to backup.
+With other operations, informs <code class="command">tar</code> that the archive is in
+incremental format.  See <a class="xref" href="Incremental-Dumps.html">Using <code class="command">tar</code> to Perform Incremental Dumps</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dlzip"></a><a class="index-entry-id" id="index-lzip_002c-summary"></a>
+</dd>
+<dt><samp class="option">--lzip</samp></dt>
+<dd>
+<p>This option tells <code class="command">tar</code> to read or write archives through
+<code class="command">lzip</code>.  See <a class="xref" href="gzip.html">Creating and Reading Compressed Archives</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dlzma"></a><a class="index-entry-id" id="index-lzma_002c-summary"></a>
+</dd>
+<dt><samp class="option">--lzma</samp></dt>
+<dd>
+<p>This option tells <code class="command">tar</code> to read or write archives through
+<code class="command">lzma</code>.  See <a class="xref" href="gzip.html">Creating and Reading Compressed Archives</a>.
+</p>
+</dd>
+<dt><samp class="option">--lzop</samp></dt>
+<dd>
+<p>This option tells <code class="command">tar</code> to read or write archives through
+<code class="command">lzop</code>.  See <a class="xref" href="gzip.html">Creating and Reading Compressed Archives</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dmode"></a><a class="index-entry-id" id="index-mode_002c-summary"></a>
+</dd>
+<dt><samp class="option">--mode=<var class="var">permissions</var></samp></dt>
+<dd>
+<p>When adding files to an archive, <code class="command">tar</code> will use
+<var class="var">permissions</var> for the archive members, rather than the permissions
+from the files.  <var class="var">permissions</var> can be specified either as an octal
+number or as symbolic permissions, like with
+<code class="command">chmod</code>. See <a class="xref" href="override.html">Overriding File Metadata</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dmtime"></a><a class="index-entry-id" id="index-mtime_002c-summary"></a>
+</dd>
+<dt><samp class="option">--mtime=<var class="var">date</var></samp></dt>
+<dd>
+<p>When adding files to an archive, <code class="command">tar</code> will use <var class="var">date</var> as
+the modification time of members when creating archives, instead of
+their actual modification times.  The value of <var class="var">date</var> can be
+either a textual date representation (see <a class="pxref" href="Date-input-formats.html">Date input formats</a>) or a
+name of the existing file, starting with &lsquo;<samp class="samp">/</samp>&rsquo; or &lsquo;<samp class="samp">.</samp>&rsquo;.  In the
+latter case, the modification time of that file is used. See <a class="xref" href="override.html">Overriding File Metadata</a>.
+</p>
+<p>When <code class="command">--clamp-mtime</code> is also specified, files with
+modification times earlier than <var class="var">date</var> will retain their actual
+modification times, and <var class="var">date</var> will only be used for files whose
+modification times are later than <var class="var">date</var>.
+</p>
+<a class="anchor" id="g_t_002d_002dmulti_002dvolume"></a><a class="index-entry-id" id="index-multi_002dvolume_002c-summary"></a>
+</dd>
+<dt><samp class="option">--multi-volume</samp></dt>
+<dt><samp class="option">-M</samp></dt>
+<dd>
+<p>Informs <code class="command">tar</code> that it should create or otherwise operate on a
+multi-volume <code class="command">tar</code> archive.  See <a class="xref" href="Using-Multiple-Tapes.html">Using Multiple Tapes</a>.
+</p>
+<a class="index-entry-id" id="index-new_002dvolume_002dscript_002c-summary-1"></a>
+</dd>
+<dt><samp class="option">--new-volume-script</samp></dt>
+<dd>
+<p>(see <samp class="option">--info-script</samp>)
+</p>
+<a class="anchor" id="g_t_002d_002dnewer"></a><a class="index-entry-id" id="index-newer_002c-summary"></a>
+</dd>
+<dt><samp class="option">--newer=<var class="var">date</var></samp></dt>
+<dt><samp class="option">--after-date=<var class="var">date</var></samp></dt>
+<dt><samp class="option">-N</samp></dt>
+<dd>
+<p>When creating an archive, <code class="command">tar</code> will only add files that have changed
+since <var class="var">date</var>.  If <var class="var">date</var> begins with &lsquo;<samp class="samp">/</samp>&rsquo; or &lsquo;<samp class="samp">.</samp>&rsquo;, it
+is taken to be the name of a file whose data modification time specifies
+the date.  See <a class="xref" href="after.html">Operating Only on New Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dnewer_002dmtime"></a><a class="index-entry-id" id="index-newer_002dmtime_002c-summary"></a>
+</dd>
+<dt><samp class="option">--newer-mtime=<var class="var">date</var></samp></dt>
+<dd>
+<p>Like <samp class="option">--newer</samp>, but add only files whose
+contents have changed (as opposed to just <samp class="option">--newer</samp>, which will
+also back up files for which any status information has
+changed).  See <a class="xref" href="after.html">Operating Only on New Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dacls"></a><a class="index-entry-id" id="index-no_002dacls_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-acls</samp></dt>
+<dd><p>Disable the POSIX ACLs support.  See <a class="xref" href="Extended-File-Attributes.html">acls</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002danchored"></a><a class="index-entry-id" id="index-no_002danchored_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-anchored</samp></dt>
+<dd><p>An exclude pattern can match any subsequence of the name&rsquo;s components.
+See <a class="xref" href="controlling-pattern_002dmatching.html">Controlling Pattern-Matching</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dauto_002dcompress"></a><a class="index-entry-id" id="index-no_002dauto_002dcompress_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-auto-compress</samp></dt>
+<dd>
+<p>Disables automatic compressed format recognition based on the archive
+suffix.  See <a class="xref" href="#g_t_002d_002dauto_002dcompress">--auto-compress</a>.  See <a class="xref" href="gzip.html">Creating and Reading Compressed Archives</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dcheck_002ddevice"></a><a class="index-entry-id" id="index-no_002dcheck_002ddevice_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-check-device</samp></dt>
+<dd><p>Do not check device numbers when creating a list of modified files
+for incremental archiving.  See <a class="xref" href="Incremental-Dumps.html#device-numbers">device numbers</a>, for
+a detailed description.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002ddelay_002ddirectory_002drestore"></a><a class="index-entry-id" id="index-no_002ddelay_002ddirectory_002drestore_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-delay-directory-restore</samp></dt>
+<dd>
+<p>Modification times and permissions of extracted
+directories are set when all files from this directory have been
+extracted.  This is the default.
+See <a class="xref" href="Directory-Modification-Times-and-Permissions.html">Directory Modification Times and Permissions</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dignore_002dcase"></a><a class="index-entry-id" id="index-no_002dignore_002dcase_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-ignore-case</samp></dt>
+<dd><p>Use case-sensitive matching.
+See <a class="xref" href="controlling-pattern_002dmatching.html">Controlling Pattern-Matching</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dignore_002dcommand_002derror"></a><a class="index-entry-id" id="index-no_002dignore_002dcommand_002derror_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-ignore-command-error</samp></dt>
+<dd><p>Print warnings about subprocesses that terminated with a nonzero exit
+code. See <a class="xref" href="Writing-to-an-External-Program.html">Writing to an External Program</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dnull"></a><a class="index-entry-id" id="index-no_002dnull_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-null</samp></dt>
+<dd>
+<p>If the <samp class="option">--null</samp> option was given previously, this option
+cancels its effect, so that any following <samp class="option">--files-from</samp>
+options will expect their file lists to be newline-terminated.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002doverwrite_002ddir"></a><a class="index-entry-id" id="index-no_002doverwrite_002ddir_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-overwrite-dir</samp></dt>
+<dd>
+<p>Preserve metadata of existing directories when extracting files
+from an archive.  See <a class="xref" href="Overwrite-Old-Files.html">Overwrite Old Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dquote_002dchars"></a><a class="index-entry-id" id="index-no_002dquote_002dchars_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-quote-chars=<var class="var">string</var></samp></dt>
+<dd><p>Remove characters listed in <var class="var">string</var> from the list of quoted
+characters set by the previous <samp class="option">--quote-chars</samp> option
+(see <a class="pxref" href="quoting-styles.html">Quoting Member Names</a>).
+</p>
+<a class="anchor" id="g_t_002d_002dno_002drecursion"></a><a class="index-entry-id" id="index-no_002drecursion_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-recursion</samp></dt>
+<dd>
+<p>With this option, <code class="command">tar</code> will not recurse into directories.
+See <a class="xref" href="recurse.html">Descending into Directories</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dsame_002downer"></a><a class="index-entry-id" id="index-no_002dsame_002downer_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-same-owner</samp></dt>
+<dt><samp class="option">-o</samp></dt>
+<dd>
+<p>When extracting an archive, do not attempt to preserve the owner
+specified in the <code class="command">tar</code> archive.  This the default behavior
+for ordinary users.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dsame_002dpermissions"></a><a class="index-entry-id" id="index-no_002dsame_002dpermissions_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-same-permissions</samp></dt>
+<dd>
+<p>When extracting an archive, subtract the user&rsquo;s umask from files from
+the permissions specified in the archive.  This is the default behavior
+for ordinary users.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dseek"></a><a class="index-entry-id" id="index-no_002dseek_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-seek</samp></dt>
+<dd>
+<p>The archive media does not support seeks to arbitrary
+locations.  Usually <code class="command">tar</code> determines automatically whether
+the archive can be seeked or not.  Use this option to disable this
+mechanism.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dselinux"></a><a class="index-entry-id" id="index-no_002dselinux_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-selinux</samp></dt>
+<dd><p>Disable SELinux context support.  See <a class="xref" href="Extended-File-Attributes.html">SELinux</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dunquote"></a><a class="index-entry-id" id="index-no_002dunquote_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-unquote</samp></dt>
+<dd><p>Treat all input file or member names literally, do not interpret
+escape sequences.  See <a class="xref" href="Selecting-Archive-Members.html#input-name-quoting">input name quoting</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dverbatim_002dfiles_002dfrom"></a><a class="index-entry-id" id="index-no_002dverbatim_002dfiles_002dfrom_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-verbatim-files-from</samp></dt>
+<dd>
+<p>Instructs <abbr class="acronym">GNU</abbr> <code class="command">tar</code> to treat each line read from a file list as if it
+were supplied in the command line.  I.e., leading and trailing
+whitespace is removed and, if the result begins with a dash, it is
+treated as a <abbr class="acronym">GNU</abbr> <code class="command">tar</code> command line option.
+</p>
+<p>This is default behavior.  This option is provided as a way to restore
+it after <samp class="option">--verbatim-files-from</samp> option.
+</p>
+<p>It is implied by the <samp class="option">--no-null</samp> option.
+</p>
+<p>See <a class="xref" href="files.html#no_002dverbatim_002dfiles_002dfrom">no-verbatim-files-from</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dwildcards"></a><a class="index-entry-id" id="index-no_002dwildcards_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-wildcards</samp></dt>
+<dd><p>Do not use wildcards.
+See <a class="xref" href="controlling-pattern_002dmatching.html">Controlling Pattern-Matching</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dwildcards_002dmatch_002dslash"></a><a class="index-entry-id" id="index-no_002dwildcards_002dmatch_002dslash_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-wildcards-match-slash</samp></dt>
+<dd><p>Wildcards do not match &lsquo;<samp class="samp">/</samp>&rsquo;.
+See <a class="xref" href="controlling-pattern_002dmatching.html">Controlling Pattern-Matching</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dno_002dxattrs"></a><a class="index-entry-id" id="index-no_002dxattrs_002c-summary"></a>
+</dd>
+<dt><samp class="option">--no-xattrs</samp></dt>
+<dd><p>Disable extended attributes support.  See <a class="xref" href="Extended-File-Attributes.html">xattrs</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dnull"></a><a class="index-entry-id" id="index-null_002c-summary"></a>
+</dd>
+<dt><samp class="option">--null</samp></dt>
+<dd>
+<p>When <code class="command">tar</code> is using the <samp class="option">--files-from</samp> option, this option
+instructs <code class="command">tar</code> to expect file names terminated with
+<abbr class="acronym">NUL</abbr>, and to process file names verbatim.
+</p>
+<p>This means that <code class="command">tar</code> correctly works with file names that
+contain newlines or begin with a dash.
+</p>
+<p>See <a class="xref" href="nul.html"><code class="code">NUL</code>-Terminated File Names</a>.
+</p>
+<p>See also <a class="ref" href="files.html#verbatim_002dfiles_002dfrom">verbatim-files-from</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dnumeric_002downer"></a><a class="index-entry-id" id="index-numeric_002downer_002c-summary"></a>
+</dd>
+<dt><samp class="option">--numeric-owner</samp></dt>
+<dd>
+<p>This option will notify <code class="command">tar</code> that it should use numeric user
+and group IDs when creating a <code class="command">tar</code> file, rather than names.
+See <a class="xref" href="Attributes.html">Handling File Attributes</a>.
+</p>
+</dd>
+<dt><samp class="option">-o</samp></dt>
+<dd><p>The function of this option depends on the action <code class="command">tar</code> is
+performing.  When extracting files, <samp class="option">-o</samp> is a synonym for
+<samp class="option">--no-same-owner</samp>, i.e., it prevents <code class="command">tar</code> from
+restoring ownership of files being extracted.
+</p>
+<p>When creating an archive, it is a synonym for
+<samp class="option">--old-archive</samp>.  This behavior is for compatibility
+with previous versions of <abbr class="acronym">GNU</abbr> <code class="command">tar</code>, and will be
+removed in future releases.
+</p>
+<p>See <a class="xref" href="Changes.html">Changes</a>, for more information.
+</p>
+<a class="anchor" id="g_t_002d_002doccurrence"></a><a class="index-entry-id" id="index-occurrence_002c-summary"></a>
+</dd>
+<dt><samp class="option">--occurrence[=<var class="var">number</var>]</samp></dt>
+<dd>
+<p>This option can be used in conjunction with one of the subcommands
+<samp class="option">--delete</samp>, <samp class="option">--diff</samp>, <samp class="option">--extract</samp> or
+<samp class="option">--list</samp> when a list of files is given either on the command
+line or via <samp class="option">-T</samp> option.
+</p>
+<p>This option instructs <code class="command">tar</code> to process only the <var class="var">number</var>th
+occurrence of each named file.  <var class="var">Number</var> defaults to 1, so
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">tar -x -f archive.tar --occurrence filename
+</pre></div>
+
+<p>will extract the first occurrence of the member <samp class="file">filename</samp> from <samp class="file">archive.tar</samp>
+and will terminate without scanning to the end of the archive.
+</p>
+<a class="anchor" id="g_t_002d_002dold_002darchive"></a><a class="index-entry-id" id="index-old_002darchive_002c-summary"></a>
+</dd>
+<dt><samp class="option">--old-archive</samp></dt>
+<dd><p>Synonym for <samp class="option">--format=v7</samp>.
+</p>
+<a class="anchor" id="g_t_002d_002done_002dfile_002dsystem"></a><a class="index-entry-id" id="index-one_002dfile_002dsystem_002c-summary"></a>
+</dd>
+<dt><samp class="option">--one-file-system</samp></dt>
+<dd><p>Used when creating an archive.  Prevents <code class="command">tar</code> from recursing into
+directories that are on different file systems from the current
+directory.
+</p>
+<a class="anchor" id="g_t_002d_002done_002dtop_002dlevel"></a><a class="index-entry-id" id="index-one_002dtop_002dlevel_002c-summary"></a>
+</dd>
+<dt><samp class="option">--one-top-level[=<var class="var">dir</var>]</samp></dt>
+<dd><p>Tells <code class="command">tar</code> to create a new directory beneath the extraction directory
+(or the one passed to <samp class="option">-C</samp>) and use it to guard against
+tarbombs.  In the absence of <var class="var">dir</var> argument, the name of the new directory
+will be equal to the base name of the archive (file name minus the
+archive suffix, if recognized).  Any member names that do not begin
+with that directory name (after
+transformations from <samp class="option">--transform</samp> and
+<samp class="option">--strip-components</samp>) will be prefixed with it.  Recognized
+file name suffixes are &lsquo;<samp class="samp">.tar</samp>&rsquo;, and any compression suffixes
+recognizable by See <a class="xref" href="#g_t_002d_002dauto_002dcompress">--auto-compress</a>.
+</p>
+<a class="anchor" id="g_t_002d_002doverwrite"></a><a class="index-entry-id" id="index-overwrite_002c-summary"></a>
+</dd>
+<dt><samp class="option">--overwrite</samp></dt>
+<dd>
+<p>Overwrite existing files and directory metadata when extracting files
+from an archive.  See <a class="xref" href="Overwrite-Old-Files.html">Overwrite Old Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002doverwrite_002ddir"></a><a class="index-entry-id" id="index-overwrite_002ddir_002c-summary"></a>
+</dd>
+<dt><samp class="option">--overwrite-dir</samp></dt>
+<dd>
+<p>Overwrite the metadata of existing directories when extracting files
+from an archive.  See <a class="xref" href="Overwrite-Old-Files.html">Overwrite Old Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002downer"></a><a class="index-entry-id" id="index-owner_002c-summary"></a>
+</dd>
+<dt><samp class="option">--owner=<var class="var">user</var></samp></dt>
+<dd>
+<p>Specifies that <code class="command">tar</code> should use <var class="var">user</var> as the owner of members
+when creating archives, instead of the user associated with the source
+file.  <var class="var">user</var> can specify a symbolic name, or a numeric
+<abbr class="acronym">ID</abbr>, or both as <var class="var">name</var>:<var class="var">id</var>.
+See <a class="xref" href="override.html">Overriding File Metadata</a>.
+</p>
+<p>This option does not affect extraction from archives.  See also
+<samp class="option">--owner-map</samp>, below.
+</p>
+<a class="anchor" id="g_t_002d_002downer_002dmap"></a><a class="index-entry-id" id="index-owner_002dmap_002c-summary"></a>
+</dd>
+<dt><samp class="option">--owner-map=<var class="var">file</var></samp></dt>
+<dd>
+<p>Read owner translation map from <var class="var">file</var>.  This option allows to
+translate only certain owner names or UIDs.  See <a class="xref" href="override.html">Overriding File Metadata</a>, for a
+detailed description.  When used together with <samp class="option">--owner</samp>
+option, the latter affects only those files whose owner is not listed
+in the <var class="var">file</var>.
+</p>
+<p>This option does not affect extraction from archives.
+</p>
+<a class="anchor" id="g_t_002d_002dpax_002doption"></a><a class="index-entry-id" id="index-pax_002doption_002c-summary"></a>
+</dd>
+<dt><samp class="option">--pax-option=<var class="var">keyword-list</var></samp></dt>
+<dd><p>This option enables creation of the archive in <abbr class="acronym">POSIX.1-2001</abbr>
+format (see <a class="pxref" href="posix.html"><abbr class="acronym">GNU</abbr> <code class="command">tar</code> and <abbr class="acronym">POSIX</abbr> <code class="command">tar</code></a>) and modifies the way <code class="command">tar</code> handles the
+extended header keywords.  <var class="var">Keyword-list</var> is a comma-separated
+list of keyword options.  See <a class="xref" href="PAX-keywords.html">Controlling Extended Header Keywords</a>, for a detailed
+discussion.
+</p>
+<a class="anchor" id="g_t_002d_002dportability"></a><a class="index-entry-id" id="index-portability_002c-summary"></a>
+</dd>
+<dt><samp class="option">--portability</samp></dt>
+<dt><samp class="option">--old-archive</samp></dt>
+<dd><p>Synonym for <samp class="option">--format=v7</samp>.
+</p>
+<a class="anchor" id="g_t_002d_002dposix"></a><a class="index-entry-id" id="index-posix_002c-summary"></a>
+</dd>
+<dt><samp class="option">--posix</samp></dt>
+<dd><p>Same as <samp class="option">--format=posix</samp>.
+</p>
+<a class="anchor" id="g_t_002d_002dpreserve_002dorder"></a><a class="index-entry-id" id="index-preserve_002dorder_002c-summary"></a>
+</dd>
+<dt><samp class="option">--preserve-order</samp></dt>
+<dd>
+<p>(See <samp class="option">--same-order</samp>; see <a class="pxref" href="Reading.html">Options to Help Read Archives</a>.)
+</p>
+<a class="anchor" id="g_t_002d_002dpreserve_002dpermissions"></a><a class="index-entry-id" id="index-preserve_002dpermissions_002c-summary"></a>
+<a class="anchor" id="g_t_002d_002dsame_002dpermissions"></a><a class="index-entry-id" id="index-same_002dpermissions_002c-summary"></a>
+</dd>
+<dt><samp class="option">--preserve-permissions</samp></dt>
+<dt><samp class="option">--same-permissions</samp></dt>
+<dt><samp class="option">-p</samp></dt>
+<dd>
+<p>When <code class="command">tar</code> is extracting an archive, it normally subtracts the
+users&rsquo; umask from the permissions specified in the archive and uses
+that number as the permissions to create the destination file.
+Specifying this option instructs <code class="command">tar</code> that it should use the
+permissions directly from the archive.  See <a class="xref" href="Setting-Access-Permissions.html">Setting Access Permissions</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dquote_002dchars"></a><a class="index-entry-id" id="index-quote_002dchars_002c-summary"></a>
+</dd>
+<dt><samp class="option">--quote-chars=<var class="var">string</var></samp></dt>
+<dd><p>Always quote characters from <var class="var">string</var>, even if the selected
+quoting style would not quote them (see <a class="pxref" href="quoting-styles.html">Quoting Member Names</a>).
+</p>
+<a class="anchor" id="g_t_002d_002dquoting_002dstyle"></a><a class="index-entry-id" id="index-quoting_002dstyle_002c-summary"></a>
+</dd>
+<dt><samp class="option">--quoting-style=<var class="var">style</var></samp></dt>
+<dd><p>Set quoting style to use when printing member and file names
+(see <a class="pxref" href="quoting-styles.html">Quoting Member Names</a>). Valid <var class="var">style</var> values are:
+<code class="code">literal</code>, <code class="code">shell</code>, <code class="code">shell-always</code>, <code class="code">c</code>,
+<code class="code">escape</code>, <code class="code">locale</code>, and <code class="code">clocale</code>. Default quoting
+style is <code class="code">escape</code>, unless overridden while configuring the
+package.
+</p>
+<a class="anchor" id="g_t_002d_002dread_002dfull_002drecords"></a><a class="index-entry-id" id="index-read_002dfull_002drecords_002c-summary"></a>
+</dd>
+<dt><samp class="option">--read-full-records</samp></dt>
+<dt><samp class="option">-B</samp></dt>
+<dd>
+<p>Specifies that <code class="command">tar</code> should reblock its input, for reading
+from pipes on systems with buggy implementations.  See <a class="xref" href="Reading.html">Options to Help Read Archives</a>.
+</p>
+<a class="anchor" id="g_t_002d_002drecord_002dsize"></a><a class="index-entry-id" id="index-record_002dsize_002c-summary"></a>
+</dd>
+<dt><samp class="option">--record-size=<var class="var">size</var>[<var class="var">suf</var>]</samp></dt>
+<dd>
+<p>Instructs <code class="command">tar</code> to use <var class="var">size</var> bytes per record when accessing the
+archive.  The argument can be suffixed with a <em class="dfn">size suffix</em>, e.g.
+<samp class="option">--record-size=10K</samp> for 10 Kilobytes.  See <a class="xref" href="Device.html#size_002dsuffixes">Table 9.1</a>,
+for a list of valid suffixes.   See <a class="xref" href="Blocking-Factor.html">The Blocking Factor of an Archive</a>, for a detailed
+description of this option.
+</p>
+<a class="anchor" id="g_t_002d_002drecursion"></a><a class="index-entry-id" id="index-recursion_002c-summary"></a>
+</dd>
+<dt><samp class="option">--recursion</samp></dt>
+<dd>
+<p>With this option, <code class="command">tar</code> recurses into directories (default).
+See <a class="xref" href="recurse.html">Descending into Directories</a>.
+</p>
+<a class="anchor" id="g_t_002d_002drecursive_002dunlink"></a><a class="index-entry-id" id="index-recursive_002dunlink_002c-summary"></a>
+</dd>
+<dt><samp class="option">--recursive-unlink</samp></dt>
+<dd>
+<p>Remove existing
+directory hierarchies before extracting directories of the same name
+from the archive.  See <a class="xref" href="Recursive-Unlink.html">Recursive Unlink</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dremove_002dfiles"></a><a class="index-entry-id" id="index-remove_002dfiles_002c-summary"></a>
+</dd>
+<dt><samp class="option">--remove-files</samp></dt>
+<dd>
+<p>Directs <code class="command">tar</code> to remove the source file from the file system after
+appending it to an archive.  See <a class="xref" href="remove-files.html">Removing Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002drestrict"></a><a class="index-entry-id" id="index-restrict_002c-summary"></a>
+</dd>
+<dt><samp class="option">--restrict</samp></dt>
+<dd>
+<p>Disable use of some potentially harmful <code class="command">tar</code> options.
+Currently this option disables shell invocation from multi-volume menu
+(see <a class="pxref" href="Using-Multiple-Tapes.html">Using Multiple Tapes</a>).
+</p>
+<a class="anchor" id="g_t_002d_002drmt_002dcommand"></a><a class="index-entry-id" id="index-rmt_002dcommand_002c-summary"></a>
+</dd>
+<dt><samp class="option">--rmt-command=<var class="var">cmd</var></samp></dt>
+<dd>
+<p>Notifies <code class="command">tar</code> that it should use <var class="var">cmd</var> instead of
+the default <samp class="file">/usr/libexec/rmt</samp> (see <a class="pxref" href="Remote-Tape-Server.html">Remote Tape Server</a>).
+</p>
+<a class="anchor" id="g_t_002d_002drsh_002dcommand"></a><a class="index-entry-id" id="index-rsh_002dcommand_002c-summary"></a>
+</dd>
+<dt><samp class="option">--rsh-command=<var class="var">cmd</var></samp></dt>
+<dd>
+<p>Notifies <code class="command">tar</code> that is should use <var class="var">cmd</var> to communicate with remote
+devices.  See <a class="xref" href="Device.html">Device Selection and Switching</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dsame_002dorder"></a><a class="index-entry-id" id="index-same_002dorder_002c-summary"></a>
+</dd>
+<dt><samp class="option">--same-order</samp></dt>
+<dt><samp class="option">--preserve-order</samp></dt>
+<dt><samp class="option">-s</samp></dt>
+<dd>
+<p>This option is an optimization for <code class="command">tar</code> when running on machines with
+small amounts of memory.  It informs <code class="command">tar</code> that the list of file
+arguments has already been sorted to match the order of files in the
+archive.  See <a class="xref" href="Reading.html">Options to Help Read Archives</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dsame_002downer"></a><a class="index-entry-id" id="index-same_002downer_002c-summary"></a>
+</dd>
+<dt><samp class="option">--same-owner</samp></dt>
+<dd>
+<p>When extracting an archive, <code class="command">tar</code> will attempt to preserve the owner
+specified in the <code class="command">tar</code> archive with this option present.
+This is the default behavior for the superuser; this option has an
+effect only for ordinary users.  See <a class="xref" href="Attributes.html">Handling File Attributes</a>.
+</p>
+<a class="index-entry-id" id="index-same_002dpermissions_002c-summary-1"></a>
+</dd>
+<dt><samp class="option">--same-permissions</samp></dt>
+<dd>
+<p>(See <samp class="option">--preserve-permissions</samp>; see <a class="pxref" href="Setting-Access-Permissions.html">Setting Access Permissions</a>.)
+</p>
+<a class="anchor" id="g_t_002d_002dseek"></a><a class="index-entry-id" id="index-seek_002c-summary"></a>
+</dd>
+<dt><samp class="option">--seek</samp></dt>
+<dt><samp class="option">-n</samp></dt>
+<dd>
+<p>Assume that the archive media supports seeks to arbitrary
+locations.  Usually <code class="command">tar</code> determines automatically whether
+the archive can be seeked or not.  This option is intended for use
+in cases when such recognition fails.  It takes effect only if the
+archive is open for reading (e.g. with <samp class="option">--list</samp> or
+<samp class="option">--extract</samp> options).
+</p>
+<a class="anchor" id="g_t_002d_002dselinux"></a><a class="index-entry-id" id="index-selinux_002c-summary"></a>
+</dd>
+<dt><samp class="option">--selinux</samp></dt>
+<dd><p>Enable the SELinux context support.
+See <a class="xref" href="Extended-File-Attributes.html">selinux</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dshow_002ddefaults"></a><a class="index-entry-id" id="index-show_002ddefaults_002c-summary"></a>
+</dd>
+<dt><samp class="option">--show-defaults</samp></dt>
+<dd>
+<p>Displays the default options used by <code class="command">tar</code> and exits
+successfully.  This option is intended for use in shell scripts.
+Here is an example of what you can see using this option:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar --show-defaults</kbd>
+--format=gnu -f- -b20 --quoting-style=escape
+--rmt-command=/usr/libexec/rmt --rsh-command=/usr/bin/rsh
+</pre></div>
+
+<p>Notice, that this option outputs only one line.  The example output
+above has been split to fit page boundaries. See <a class="xref" href="defaults.html">Obtaining <abbr class="acronym">GNU</abbr> <code class="command">tar</code> default values</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dshow_002domitted_002ddirs"></a><a class="index-entry-id" id="index-show_002domitted_002ddirs_002c-summary"></a>
+</dd>
+<dt><samp class="option">--show-omitted-dirs</samp></dt>
+<dd>
+<p>Instructs <code class="command">tar</code> to mention the directories it is skipping when
+operating on a <code class="command">tar</code> archive.  See <a class="xref" href="verbose.html#show_002domitted_002ddirs">show-omitted-dirs</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dshow_002dsnapshot_002dfield_002dranges"></a><a class="index-entry-id" id="index-show_002dsnapshot_002dfield_002dranges_002c-summary"></a>
+</dd>
+<dt><samp class="option">--show-snapshot-field-ranges</samp></dt>
+<dd>
+<p>Displays the range of values allowed by this version of <code class="command">tar</code>
+for each field in the snapshot file, then exits successfully.
+See <a class="xref" href="Snapshot-Files.html">Format of the Incremental Snapshot Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dshow_002dtransformed_002dnames"></a><a class="index-entry-id" id="index-show_002dtransformed_002dnames_002c-summary"></a>
+<a class="anchor" id="g_t_002d_002dshow_002dstored_002dnames"></a><a class="index-entry-id" id="index-show_002dstored_002dnames_002c-summary"></a>
+</dd>
+<dt><samp class="option">--show-transformed-names</samp></dt>
+<dt><samp class="option">--show-stored-names</samp></dt>
+<dd>
+<p>Display file or member names after applying any transformations
+(see <a class="pxref" href="transform.html">Modifying File and Member Names</a>).  In particular, when used in conjunction with one of
+the archive creation operations it instructs <code class="command">tar</code> to list the
+member names stored in the archive, as opposed to the actual file
+names.  See <a class="xref" href="list.html#listing-member-and-file-names">listing member and file names</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dskip_002dold_002dfiles"></a><a class="index-entry-id" id="index-skip_002dold_002dfiles_002c-summary"></a>
+</dd>
+<dt><samp class="option">--skip-old-files</samp></dt>
+<dd>
+<p>Do not overwrite existing files when extracting files from an
+archive.  See <a class="xref" href="Keep-Old-Files.html">Keep Old Files</a>.
+</p>
+<p>This option differs from <samp class="option">--keep-old-files</samp> in that it does not
+treat such files as an error, instead it just silently avoids
+overwriting them.
+</p>
+<p>The <samp class="option">--warning=existing-file</samp> option can be used together with
+this option to produce warning messages about existing old files
+(see <a class="pxref" href="warnings.html">Controlling Warning Messages</a>).
+</p>
+<a class="anchor" id="g_t_002d_002dsort"></a><a class="index-entry-id" id="index-sort_002c-summary"></a>
+</dd>
+<dt><samp class="option">--sort=<var class="var">order</var></samp></dt>
+<dd><p>Specify the directory sorting order when reading directories.
+<var class="var">Order</var> may be one of the following:
+</p>
+<dl class="table">
+<dt>&lsquo;<samp class="samp">none</samp>&rsquo;</dt>
+<dd><p>No directory sorting is performed. This is the default.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">name</samp>&rsquo;</dt>
+<dd><p>Sort the directory entries on name. The operating system may deliver
+directory entries in a more or less random order, and sorting them
+makes archive creation reproducible.
+</p>
+</dd>
+<dt>&lsquo;<samp class="samp">inode</samp>&rsquo;</dt>
+<dd><p>Sort the directory entries on inode number. Sorting directories on
+inode number may reduce the amount of disk seek operations when
+creating an archive for some file systems.
+</p>
+</dd>
+</dl>
+
+<a class="anchor" id="g_t_002d_002dsparse"></a><a class="index-entry-id" id="index-sparse_002c-summary"></a>
+</dd>
+<dt><samp class="option">--sparse</samp></dt>
+<dt><samp class="option">-S</samp></dt>
+<dd>
+<p>Invokes a <abbr class="acronym">GNU</abbr> extension when adding files to an archive that handles
+sparse files efficiently.  See <a class="xref" href="sparse.html">Archiving Sparse Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dsparse_002dversion"></a><a class="index-entry-id" id="index-sparse_002dversion_002c-summary"></a>
+</dd>
+<dt><samp class="option">--sparse-version=<var class="var">version</var></samp></dt>
+<dd>
+<p>Specifies the <em class="dfn">format version</em> to use when archiving sparse
+files.  Implies <samp class="option">--sparse</samp>.  See <a class="xref" href="sparse.html">Archiving Sparse Files</a>. For the description
+of the supported sparse formats, See <a class="xref" href="Sparse-Formats.html">Storing Sparse Files</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dstarting_002dfile"></a><a class="index-entry-id" id="index-starting_002dfile_002c-summary"></a>
+</dd>
+<dt><samp class="option">--starting-file=<var class="var">name</var></samp></dt>
+<dt><samp class="option">-K <var class="var">name</var></samp></dt>
+<dd>
+<p>This option affects extraction only; <code class="command">tar</code> will skip extracting
+files in the archive until it finds one that matches <var class="var">name</var>.
+See <a class="xref" href="Scarce.html">Coping with Scarce Resources</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dstrip_002dcomponents"></a><a class="index-entry-id" id="index-strip_002dcomponents_002c-summary"></a>
+</dd>
+<dt><samp class="option">--strip-components=<var class="var">number</var></samp></dt>
+<dd><p>Strip given <var class="var">number</var> of leading components from file names before
+extraction.  For example, if archive <samp class="file">archive.tar</samp> contained
+<samp class="file">/some/file/name</samp>, then running
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">tar --extract --file archive.tar --strip-components=2
+</pre></div>
+
+<p>would extract this file to file <samp class="file">name</samp>.
+</p>
+<p>See <a class="xref" href="transform.html">Modifying File and Member Names</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dsuffix"></a><a class="index-entry-id" id="index-suffix_002c-summary"></a>
+</dd>
+<dt><samp class="option">--suffix=<var class="var">suffix</var></samp></dt>
+<dd>
+<p>Alters the suffix <code class="command">tar</code> uses when backing up files from the default
+&lsquo;<samp class="samp">~</samp>&rsquo;.  See <a class="xref" href="backup.html">Backup options</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dtape_002dlength"></a><a class="index-entry-id" id="index-tape_002dlength_002c-summary"></a>
+</dd>
+<dt><samp class="option">--tape-length=<var class="var">num</var>[<var class="var">suf</var>]</samp></dt>
+<dt><samp class="option">-L <var class="var">num</var>[<var class="var">suf</var>]</samp></dt>
+<dd>
+<p>Specifies the length of tapes that <code class="command">tar</code> is writing as being
+<var class="var">num</var>&nbsp;x&nbsp;1024<!-- /@w --> bytes long.  If optional <var class="var">suf</var> is given, it
+specifies a multiplicative factor to be used instead of 1024.  For
+example, &lsquo;<samp class="samp">-L2M</samp>&rsquo; means 2 megabytes.  See <a class="xref" href="Device.html#size_002dsuffixes">Table 9.1</a>, for a
+list of allowed suffixes.  See <a class="xref" href="Using-Multiple-Tapes.html">Using Multiple Tapes</a>, for a detailed
+discussion of this option.
+</p>
+<a class="anchor" id="g_t_002d_002dtest_002dlabel"></a><a class="index-entry-id" id="index-test_002dlabel_002c-summary"></a>
+</dd>
+<dt><samp class="option">--test-label</samp></dt>
+<dd>
+<p>Reads the volume label.  If an argument is specified, test whether it
+matches the volume label.  See <a class="xref" href="label.html#g_t_002d_002dtest_002dlabel-option">--test-label option</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dto_002dcommand"></a><a class="index-entry-id" id="index-to_002dcommand_002c-summary"></a>
+</dd>
+<dt><samp class="option">--to-command=<var class="var">command</var></samp></dt>
+<dd>
+<p>During extraction <code class="command">tar</code> will pipe extracted files to the
+standard input of <var class="var">command</var>.  See <a class="xref" href="Writing-to-an-External-Program.html">Writing to an External Program</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dto_002dstdout"></a><a class="index-entry-id" id="index-to_002dstdout_002c-summary"></a>
+</dd>
+<dt><samp class="option">--to-stdout</samp></dt>
+<dt><samp class="option">-O</samp></dt>
+<dd>
+<p>During extraction, <code class="command">tar</code> will extract files to stdout rather
+than to the file system.  See <a class="xref" href="Writing-to-Standard-Output.html">Writing to Standard Output</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dtotals"></a><a class="index-entry-id" id="index-totals_002c-summary"></a>
+</dd>
+<dt><samp class="option">--totals[=<var class="var">signo</var>]</samp></dt>
+<dd>
+<p>Displays the total number of bytes transferred when processing an
+archive.  If an argument is given, these data are displayed on
+request, when signal <var class="var">signo</var> is delivered to <code class="command">tar</code>.
+See <a class="xref" href="verbose.html#totals">totals</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dtouch"></a><a class="index-entry-id" id="index-touch_002c-summary"></a>
+</dd>
+<dt><samp class="option">--touch</samp></dt>
+<dt><samp class="option">-m</samp></dt>
+<dd>
+<p>Sets the data modification time of extracted files to the extraction time,
+rather than the data modification time stored in the archive.
+See <a class="xref" href="Data-Modification-Times.html">Setting Data Modification Times</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dtransform"></a><a class="index-entry-id" id="index-transform_002c-summary"></a>
+<a class="anchor" id="g_t_002d_002dxform"></a><a class="index-entry-id" id="index-xform_002c-summary"></a>
+</dd>
+<dt><samp class="option">--transform=<var class="var">sed-expr</var></samp></dt>
+<dt><samp class="option">--xform=<var class="var">sed-expr</var></samp></dt>
+<dd><p>Transform file or member names using <code class="command">sed</code> replacement expression
+<var class="var">sed-expr</var>.  For example,
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar cf archive.tar --transform 's,^\./,usr/,' .</kbd>
+</pre></div>
+
+<p>will add to <samp class="file">archive</samp> files from the current working directory,
+replacing initial &lsquo;<samp class="samp">./</samp>&rsquo; prefix with &lsquo;<samp class="samp">usr/</samp>&rsquo;. For the detailed
+discussion, See <a class="xref" href="transform.html">Modifying File and Member Names</a>.
+</p>
+<p>To see transformed member names in verbose listings, use
+<samp class="option">--show-transformed-names</samp> option
+(see <a class="pxref" href="transform.html#show_002dtransformed_002dnames">show-transformed-names</a>).
+</p>
+<a class="index-entry-id" id="index-uncompress_002c-summary-1"></a>
+</dd>
+<dt><samp class="option">--uncompress</samp></dt>
+<dd>
+<p>(See <samp class="option">--compress</samp>, see <a class="pxref" href="gzip.html">Creating and Reading Compressed Archives</a>)
+</p>
+<a class="index-entry-id" id="index-ungzip_002c-summary-1"></a>
+</dd>
+<dt><samp class="option">--ungzip</samp></dt>
+<dd>
+<p>(See <samp class="option">--gzip</samp>, see <a class="pxref" href="gzip.html">Creating and Reading Compressed Archives</a>)
+</p>
+<a class="anchor" id="g_t_002d_002dunlink_002dfirst"></a><a class="index-entry-id" id="index-unlink_002dfirst_002c-summary"></a>
+</dd>
+<dt><samp class="option">--unlink-first</samp></dt>
+<dt><samp class="option">-U</samp></dt>
+<dd>
+<p>Directs <code class="command">tar</code> to remove the corresponding file from the file
+system before extracting it from the archive.  See <a class="xref" href="Unlink-First.html">Unlink First</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dunquote"></a><a class="index-entry-id" id="index-unquote_002c-summary"></a>
+</dd>
+<dt><samp class="option">--unquote</samp></dt>
+<dd><p>Enable unquoting input file or member names (default).  See <a class="xref" href="Selecting-Archive-Members.html#input-name-quoting">input name quoting</a>.
+</p>
+<a class="anchor" id="g_t_002d_002duse_002dcompress_002dprogram"></a><a class="index-entry-id" id="index-use_002dcompress_002dprogram_002c-summary"></a>
+</dd>
+<dt><samp class="option">--use-compress-program=<var class="var">prog</var></samp></dt>
+<dt><samp class="option">-I=<var class="var">prog</var></samp></dt>
+<dd>
+<p>Instructs <code class="command">tar</code> to access the archive through <var class="var">prog</var>, which is
+presumed to be a compression program of some sort.  See <a class="xref" href="gzip.html">Creating and Reading Compressed Archives</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dutc"></a><a class="index-entry-id" id="index-utc_002c-summary"></a>
+</dd>
+<dt><samp class="option">--utc</samp></dt>
+<dd>
+<p>Display file modification dates in <abbr class="acronym">UTC</abbr>.  This option implies
+<samp class="option">--verbose</samp>.
+</p>
+<a class="anchor" id="g_t_002d_002dverbatim_002dfiles_002dfrom"></a><a class="index-entry-id" id="index-verbatim_002dfiles_002dfrom_002c-summary"></a>
+</dd>
+<dt><samp class="option">--verbatim-files-from</samp></dt>
+<dd>
+<p>Instructs <abbr class="acronym">GNU</abbr> <code class="command">tar</code> to treat each line read from a file list as a file
+name, even if it starts with a dash.
+</p>
+<p>File lists are supplied with the <samp class="option">--files-from</samp> (<samp class="option">-T</samp>)
+option.  By default, each line read from a file list is first trimmed
+off the leading and trailing whitespace and, if the result begins with
+a dash, it is treated as a <abbr class="acronym">GNU</abbr> <code class="command">tar</code> command line option.
+</p>
+<p>Use the <samp class="option">--verbatim-files-from</samp> option to disable this special
+handling.  This facilitates the use of <code class="command">tar</code> with file lists
+created by <code class="command">file</code> command.
+</p>
+<p>This option affects all <samp class="option">--files-from</samp> options that occur after
+it in the command line.  Its effect is reverted by the
+<samp class="option">--no-verbatim-files-from</samp> option.
+</p>
+<p>This option is implied by the <samp class="option">--null</samp> option.
+</p>
+<p>See <a class="xref" href="files.html#verbatim_002dfiles_002dfrom">verbatim-files-from</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dverbose"></a><a class="index-entry-id" id="index-verbose_002c-summary"></a>
+</dd>
+<dt><samp class="option">--verbose</samp></dt>
+<dt><samp class="option">-v</samp></dt>
+<dd>
+<p>Specifies that <code class="command">tar</code> should be more verbose about the
+operations it is performing.  This option can be specified multiple
+times for some operations to increase the amount of information displayed.
+See <a class="xref" href="verbose.html">Checking <code class="command">tar</code> progress</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dverify"></a><a class="index-entry-id" id="index-verify_002c-summary"></a>
+</dd>
+<dt><samp class="option">--verify</samp></dt>
+<dt><samp class="option">-W</samp></dt>
+<dd>
+<p>Verifies that the archive was correctly written when creating an
+archive.  See <a class="xref" href="verify.html">Verifying Data as It is Stored</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dversion"></a><a class="index-entry-id" id="index-version_002c-summary"></a>
+</dd>
+<dt><samp class="option">--version</samp></dt>
+<dd>
+<p>Print information about the program&rsquo;s name, version, origin and legal
+status, all on standard output, and then exit successfully.
+See <a class="xref" href="help.html"><abbr class="acronym">GNU</abbr> <code class="command">tar</code> documentation</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dvolno_002dfile"></a><a class="index-entry-id" id="index-volno_002dfile_002c-summary"></a>
+</dd>
+<dt><samp class="option">--volno-file=<var class="var">file</var></samp></dt>
+<dd>
+<p>Used in conjunction with <samp class="option">--multi-volume</samp>.  <code class="command">tar</code> will
+keep track of which volume of a multi-volume archive it is working in
+<var class="var">file</var>.  See <a class="xref" href="Multi_002dVolume-Archives.html#volno_002dfile">volno-file</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dwarning"></a><a class="index-entry-id" id="index-warning_002c-summary"></a>
+</dd>
+<dt><samp class="option">--warning=<var class="var">keyword</var></samp></dt>
+<dd>
+<p>Enable or disable warning messages identified by <var class="var">keyword</var>.  The
+messages are suppressed if <var class="var">keyword</var> is prefixed with &lsquo;<samp class="samp">no-</samp>&rsquo;.
+See <a class="xref" href="warnings.html">Controlling Warning Messages</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dwildcards"></a><a class="index-entry-id" id="index-wildcards_002c-summary"></a>
+</dd>
+<dt><samp class="option">--wildcards</samp></dt>
+<dd><p>Use wildcards when matching member names with patterns.
+See <a class="xref" href="controlling-pattern_002dmatching.html">Controlling Pattern-Matching</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dwildcards_002dmatch_002dslash"></a><a class="index-entry-id" id="index-wildcards_002dmatch_002dslash_002c-summary"></a>
+</dd>
+<dt><samp class="option">--wildcards-match-slash</samp></dt>
+<dd><p>Wildcards match &lsquo;<samp class="samp">/</samp>&rsquo;.
+See <a class="xref" href="controlling-pattern_002dmatching.html">Controlling Pattern-Matching</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dxattrs"></a><a class="index-entry-id" id="index-xattrs_002c-summary"></a>
+</dd>
+<dt><samp class="option">--xattrs</samp></dt>
+<dd><p>Enable extended attributes support.  See <a class="xref" href="Extended-File-Attributes.html">xattrs</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dxattrs_002dexclude"></a><a class="index-entry-id" id="index-xattrs_002dexclude_002c-summary"></a>
+</dd>
+<dt><samp class="option">--xattrs-exclude=<var class="var">pattern</var></samp></dt>
+<dd><p>Specify exclude pattern for xattr keys.
+See <a class="xref" href="Extended-File-Attributes.html">xattrs-exclude</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dxattrs_002dinclude"></a><a class="index-entry-id" id="index-xattrs_002dinclude_002c-summary"></a>
+</dd>
+<dt><samp class="option">--xattrs-include=<var class="var">pattern</var>.</samp></dt>
+<dd><p>Specify include pattern for xattr keys.  <var class="var">pattern</var> is a globbing
+pattern, e.g. &lsquo;<samp class="samp">--xattrs-include='user.*'</samp>&rsquo; to include
+only attributes from the user namespace.
+See <a class="xref" href="Extended-File-Attributes.html">xattrs-include</a>.
+</p>
+<a class="anchor" id="g_t_002d_002dxz"></a><a class="index-entry-id" id="index-xz_002c-summary"></a>
+</dd>
+<dt><samp class="option">--xz</samp></dt>
+<dt><samp class="option">-J</samp></dt>
+<dd><p>Use <code class="command">xz</code> for compressing or decompressing the archives.  See <a class="xref" href="gzip.html">Creating and Reading Compressed Archives</a>.
+</p>
+</dd>
+<dt><samp class="option">--zstd</samp></dt>
+<dd><p>Use <code class="command">zstd</code> for compressing or decompressing the archives.  See <a class="xref" href="gzip.html">Creating and Reading Compressed Archives</a>.
+</p>
+</dd>
+</dl>
+
+</div>
+<div class="footnotes-segment">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h5 class="footnote-body-heading"><a id="FOOT5" href="#DOCF5">(5)</a></h5>
+<p>Earlier versions of <abbr class="acronym">GNU</abbr> <code class="command">tar</code> understood <samp class="option">-l</samp> as a
+synonym for <samp class="option">--one-file-system</samp>.  The current semantics, which
+complies to UNIX98, was introduced with version
+1.15.91. See <a class="xref" href="Changes.html">Changes</a>, for more information.</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Short-Option-Summary.html">Short Options Cross Reference</a>, Previous: <a href="Operation-Summary.html">Operations</a>, Up: <a href="All-Options.html">All <code class="command">tar</code> Options</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

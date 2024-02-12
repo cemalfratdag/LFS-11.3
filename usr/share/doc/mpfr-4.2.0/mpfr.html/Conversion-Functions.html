@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual documents how to install and use the Multiple Precision
+Floating-Point Reliable Library, version 4.2.0.
+
+Copyright 1991, 1993-2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.2 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the
+license is included in GNU Free Documentation License. -->
+<title>Conversion Functions (GNU MPFR 4.2.0)</title>
+
+<meta name="description" content="How to install and use GNU MPFR, a library for reliable multiple precision
+floating-point arithmetic, version 4.2.0.">
+<meta name="keywords" content="Conversion Functions (GNU MPFR 4.2.0)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="MPFR-Interface.html" rel="up" title="MPFR Interface">
+<link href="Arithmetic-Functions.html" rel="next" title="Arithmetic Functions">
+<link href="Combined-Initialization-and-Assignment-Functions.html" rel="prev" title="Combined Initialization and Assignment Functions">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Conversion-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Arithmetic-Functions.html" accesskey="n" rel="next">Arithmetic Functions</a>, Previous: <a href="Combined-Initialization-and-Assignment-Functions.html" accesskey="p" rel="prev">Combined Initialization and Assignment Functions</a>, Up: <a href="MPFR-Interface.html" accesskey="u" rel="up">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a class="index-entry-id" id="index-Conversion-functions"></a>
+<h3 class="section" id="Conversion-Functions-1">5.4 Conversion Functions</h3>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005fflt"><span class="category-def">Function: </span><span><code class="def-type">float</code> <strong class="def-name">mpfr_get_flt</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fflt'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005fd"><span class="category-def">Function: </span><span><code class="def-type">double</code> <strong class="def-name">mpfr_get_d</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fd'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005fld"><span class="category-def">Function: </span><span><code class="def-type">long double</code> <strong class="def-name">mpfr_get_ld</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fld'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005ffloat128"><span class="category-def">Function: </span><span><code class="def-type">_Float128</code> <strong class="def-name">mpfr_get_float128</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005ffloat128'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005fdecimal64"><span class="category-def">Function: </span><span><code class="def-type">_Decimal64</code> <strong class="def-name">mpfr_get_decimal64</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fdecimal64'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005fdecimal128"><span class="category-def">Function: </span><span><code class="def-type">_Decimal128</code> <strong class="def-name">mpfr_get_decimal128</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fdecimal128'> ¶</a></span></dt>
+<dd><p>Convert <var class="var">op</var> to a <code class="code">float</code> (respectively <code class="code">double</code>,
+<code class="code">long double</code>, <code class="code">_Decimal64</code>, or <code class="code">_Decimal128</code>)
+using the rounding mode <var class="var">rnd</var>.
+If <var class="var">op</var> is NaN, some NaN (either quiet or signaling) or the result
+of 0.0/0.0 is returned (the sign bit is not preserved).
+If <var class="var">op</var> is ±Inf, an infinity of the same
+sign or the result of ±1.0/0.0 is returned. If <var class="var">op</var> is zero, these
+functions return a zero, trying to preserve its sign, if possible.
+The <code class="code">mpfr_get_float128</code>, <code class="code">mpfr_get_decimal64</code> and
+<code class="code">mpfr_get_decimal128</code> functions are built
+only under some conditions: see the documentation of <code class="code">mpfr_set_float128</code>,
+<code class="code">mpfr_set_decimal64</code> and <code class="code">mpfr_set_decimal128</code> respectively.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005fsi"><span class="category-def">Function: </span><span><code class="def-type">long int</code> <strong class="def-name">mpfr_get_si</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fsi'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005fui"><span class="category-def">Function: </span><span><code class="def-type">unsigned long int</code> <strong class="def-name">mpfr_get_ui</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fui'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005fsj"><span class="category-def">Function: </span><span><code class="def-type">intmax_t</code> <strong class="def-name">mpfr_get_sj</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fsj'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005fuj"><span class="category-def">Function: </span><span><code class="def-type">uintmax_t</code> <strong class="def-name">mpfr_get_uj</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fuj'> ¶</a></span></dt>
+<dd><p>Convert <var class="var">op</var> to a <code class="code">long int</code>, an <code class="code">unsigned long int</code>,
+an <code class="code">intmax_t</code> or an <code class="code">uintmax_t</code> (respectively) after rounding
+it to an integer with respect to <var class="var">rnd</var>.
+If <var class="var">op</var> is NaN, 0 is returned and the <em class="emph">erange</em> flag is set.
+If <var class="var">op</var> is too big for the return type, the function returns the maximum
+or the minimum of the corresponding C type, depending on the direction
+of the overflow; the <em class="emph">erange</em> flag is set too.
+When there is no such range error, if the return value differs from
+<var class="var">op</var>, i.e., if <var class="var">op</var> is not an integer, the inexact flag is set.
+See also <code class="code">mpfr_fits_slong_p</code>, <code class="code">mpfr_fits_ulong_p</code>,
+<code class="code">mpfr_fits_intmax_p</code> and <code class="code">mpfr_fits_uintmax_p</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005fd_005f2exp"><span class="category-def">Function: </span><span><code class="def-type">double</code> <strong class="def-name">mpfr_get_d_2exp</strong> <code class="def-code-arguments">(long *<var class="var">exp</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fd_005f2exp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fget_005fld_005f2exp"><span class="category-def">Function: </span><span><code class="def-type">long double</code> <strong class="def-name">mpfr_get_ld_2exp</strong> <code class="def-code-arguments">(long *<var class="var">exp</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fld_005f2exp'> ¶</a></span></dt>
+<dd><p>Return <var class="var">d</var> and set <var class="var">exp</var>
+(formally, the value pointed to by <var class="var">exp</var>)
+such that 0.5 &lt;= abs(<var class="var">d</var>) &lt; 1<!-- /@w -->
+and <var class="var">d</var> times 2 raised to <var class="var">exp</var> equals
+<var class="var">op</var> rounded to double (resp. long double)
+precision, using the given rounding mode.
+If <var class="var">op</var> is zero, then a zero of the same sign (or an unsigned zero,
+if the implementation does not have signed zeros) is returned, and
+<var class="var">exp</var> is set to 0.
+If <var class="var">op</var> is NaN or an infinity, then the corresponding double precision
+(resp. long-double precision)
+value is returned, and <var class="var">exp</var> is undefined.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005ffrexp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_frexp</strong> <code class="def-code-arguments">(mpfr_exp_t *<var class="var">exp</var>, mpfr_t <var class="var">y</var>, mpfr_t <var class="var">x</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffrexp'> ¶</a></span></dt>
+<dd><p>Set <var class="var">exp</var>
+(formally, the value pointed to by <var class="var">exp</var>) and <var class="var">y</var>
+such that 0.5 &lt;= abs(<var class="var">y</var>) &lt; 1<!-- /@w -->
+and <var class="var">y</var> times 2 raised to <var class="var">exp</var> equals
+<var class="var">x</var> rounded to the precision of <var class="var">y</var>, using the given rounding mode.
+If <var class="var">x</var> is zero, then <var class="var">y</var> is set to a zero of the same sign and
+<var class="var">exp</var> is set to 0.
+If <var class="var">x</var> is NaN or an infinity, then <var class="var">y</var> is set to the same value
+and <var class="var">exp</var> is undefined.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005fz_005f2exp"><span class="category-def">Function: </span><span><code class="def-type">mpfr_exp_t</code> <strong class="def-name">mpfr_get_z_2exp</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fz_005f2exp'> ¶</a></span></dt>
+<dd><p>Put the scaled significand of <var class="var">op</var> (regarded as an integer, with the
+precision of <var class="var">op</var>) into <var class="var">rop</var>, and return the exponent <var class="var">exp</var>
+(which may be outside the current exponent range) such that <var class="var">op</var>
+exactly equals <var class="var">rop</var> times 2 raised
+to the power <var class="var">exp</var>.
+If <var class="var">op</var> is zero, the minimal exponent <var class="var">emin</var> is returned.
+If <var class="var">op</var> is NaN or an infinity, the <em class="emph">erange</em> flag is set, <var class="var">rop</var>
+is set to 0, and the minimal exponent <var class="var">emin</var> is returned.
+The returned exponent may be less than the minimal exponent <var class="var">emin</var>
+of MPFR numbers in the current exponent range; in case the exponent is
+not representable in the <code class="code">mpfr_exp_t</code> type, the <em class="emph">erange</em> flag
+is set and the minimal value of the <code class="code">mpfr_exp_t</code> type is returned.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005fz"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_get_z</strong> <code class="def-code-arguments">(mpz_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fz'> ¶</a></span></dt>
+<dd><p>Convert <var class="var">op</var> to a <code class="code">mpz_t</code>, after rounding it with respect to
+<var class="var">rnd</var>. If <var class="var">op</var> is NaN or an infinity, the <em class="emph">erange</em> flag is
+set, <var class="var">rop</var> is set to 0, and 0 is returned. Otherwise the return
+value is zero when <var class="var">rop</var> is equal to <var class="var">op</var> (i.e., when <var class="var">op</var>
+is an integer), positive when it is greater than <var class="var">op</var>, and negative
+when it is smaller than <var class="var">op</var>; moreover, if <var class="var">rop</var> differs from
+<var class="var">op</var>, i.e., if <var class="var">op</var> is not an integer, the inexact flag is set.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005fq"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_get_q</strong> <code class="def-code-arguments">(mpq_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fq'> ¶</a></span></dt>
+<dd><p>Convert <var class="var">op</var> to a <code class="code">mpq_t</code>.
+If <var class="var">op</var> is NaN or an infinity, the <em class="emph">erange</em> flag is
+set and <var class="var">rop</var> is set to 0. Otherwise the conversion is always exact.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005ff"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_get_f</strong> <code class="def-code-arguments">(mpf_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005ff'> ¶</a></span></dt>
+<dd><p>Convert <var class="var">op</var> to a <code class="code">mpf_t</code>, after rounding it with respect to
+<var class="var">rnd</var>.
+The <em class="emph">erange</em> flag is set if <var class="var">op</var> is NaN or an infinity, which
+do not exist in MPF.  If <var class="var">op</var> is NaN, then <var class="var">rop</var> is undefined.
+If <var class="var">op</var> is +Inf (resp. −Inf), then <var class="var">rop</var> is set to
+the maximum (resp. minimum) value in the precision of the MPF number;
+if a future MPF version supports infinities, this behavior will be
+considered incorrect and will change (portable programs should assume
+that <var class="var">rop</var> is set either to this finite number or to an infinite
+number).
+Note that since MPFR currently has the same exponent type as MPF (but
+not with the same radix), the range of values is much larger in MPF
+than in MPFR, so that an overflow or underflow is not possible.
+</p></dd></dl>
+
+<a class="anchor" id="mpfr_005fget_005fstr_005fndigits"></a><dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005fstr_005fndigits"><span class="category-def">Function: </span><span><code class="def-type">size_t</code> <strong class="def-name">mpfr_get_str_ndigits</strong> <code class="def-code-arguments">(int <var class="var">b</var>, mpfr_prec_t <var class="var">p</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fstr_005fndigits'> ¶</a></span></dt>
+<dd><p>Return the minimal integer m<!-- /@w --> such that any number
+of <var class="var">p</var> bits, when output with m<!-- /@w --> digits in radix <var class="var">b</var> with
+rounding to nearest, can be recovered exactly when read again,
+still with rounding to nearest.
+More precisely, we have
+m = 1 + ceil(<var class="var">p</var> times log(2)/log(<var class="var">b</var>)),
+with <var class="var">p</var> replaced by <var class="var">p</var> − 1<!-- /@w --> if <var class="var">b</var> is a power of 2.
+</p>
+<p>The argument <var class="var">b</var> must be in the range 2 to 62; this is the range of bases
+supported by the <code class="code">mpfr_get_str</code> function. Note that contrary to the base
+argument of this function, negative values are not accepted.
+</p></dd></dl>
+
+<a class="anchor" id="mpfr_005fget_005fstr"></a><dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fget_005fstr"><span class="category-def">Function: </span><span><code class="def-type">char *</code> <strong class="def-name">mpfr_get_str</strong> <code class="def-code-arguments">(char *<var class="var">str</var>, mpfr_exp_t *<var class="var">expptr</var>, int <var class="var">base</var>, size_t <var class="var">n</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fget_005fstr'> ¶</a></span></dt>
+<dd><p>Convert <var class="var">op</var> to a string of digits in base abs(<var class="var">base</var>),
+with rounding in the direction <var class="var">rnd</var>, where <var class="var">n</var> is either zero
+(see below) or the number of significant digits output in the string.
+The argument <var class="var">base</var> may vary from 2 to 62 or from −2 to −36;
+otherwise the function does nothing and immediately returns a null pointer.
+</p>
+<p>For <var class="var">base</var> in the range 2 to 36, digits and lower-case letters are used;
+for −2 to −36, digits and upper-case letters are used; for
+37 to 62, digits, upper-case letters, and lower-case letters, in that
+significance order, are used. Warning! This implies that for
+<var class="var">base</var> &gt; 10<!-- /@w -->, the successor of the digit 9 depends on <var class="var">base</var>.
+This choice has been done for compatibility with GMP’s <code class="code">mpf_get_str</code>
+function. Users who wish a more consistent behavior should write a simple
+wrapper.
+</p>
+<p>If the input is NaN, then the returned string is ‘<samp class="samp">@NaN@</samp>’ and the
+NaN flag is set. If the input is +Inf (resp. −Inf), then the
+returned string is ‘<samp class="samp">@Inf@</samp>’ (resp. ‘<samp class="samp">-@Inf@</samp>’).
+</p>
+<p>If the input number is a finite number, the exponent is written through
+the pointer <var class="var">expptr</var> (for input 0, the current minimal exponent is
+written); the type <code class="code">mpfr_exp_t</code> is large enough to hold the exponent
+in all cases.
+</p>
+<p>The generated string is a fraction, with an implicit radix point immediately
+to the left of the first digit.  For example, the number −3.1416 would
+be returned as ‘<samp class="samp">-31416</samp>’ in the string and 1 written at <var class="var">expptr</var>.
+If <var class="var">rnd</var> is to nearest, and <var class="var">op</var> is exactly in the middle of two
+consecutive possible outputs, the one with an even significand is chosen,
+where both significands are considered with the exponent of <var class="var">op</var>.
+Note that for an odd base, this may not correspond to an even last digit:
+for example, with 2 digits in base 7, (14) and a half is rounded to (15),
+which is 12 in decimal, (16) and a half is rounded to (20), which is 14
+in decimal,
+and (26) and a half is rounded to (26), which is 20 in decimal.
+</p>
+<p>If <var class="var">n</var> is zero, the number of digits of the significand is taken as
+<code class="code">mpfr_get_str_ndigits (<var class="var">base</var>, <var class="var">p</var>)</code>, where <var class="var">p</var> is the
+precision of <var class="var">op</var> (see <a class="pxref" href="#mpfr_005fget_005fstr_005fndigits">mpfr_get_str_ndigits</a>).
+</p>
+<p>If <var class="var">str</var> is a null pointer, space for the significand is allocated using
+the allocation function (see <a class="pxref" href="Memory-Handling.html">Memory Handling</a>) and a pointer to the string
+is returned (unless the base is invalid).
+To free the returned string, you must use <code class="code">mpfr_free_str</code>.
+</p>
+<p>If <var class="var">str</var> is not a null pointer, it should point to a block of storage
+large enough for the significand. A safe block size (sufficient for any value)
+is max(<var class="var">n</var> + 2, 7)<!-- /@w --> if <var class="var">n</var> is not zero; if <var class="var">n</var> is
+zero, replace it by <code class="code">mpfr_get_str_ndigits (<var class="var">base</var>, <var class="var">p</var>)</code>, where
+<var class="var">p</var> is the precision of <var class="var">op</var>, as mentioned above.
+The extra two bytes are
+for a possible minus sign, and for the terminating null character, and the
+value 7 accounts for ‘<samp class="samp">-@Inf@</samp>’ plus the terminating null character.
+The pointer to the string <var class="var">str</var> is returned (unless the base is invalid).
+</p>
+<p>Like in usual functions, the inexact flag is set iff the result is inexact.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005ffree_005fstr"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpfr_free_str</strong> <code class="def-code-arguments">(char *<var class="var">str</var>)</code><a class="copiable-link" href='#index-mpfr_005ffree_005fstr'> ¶</a></span></dt>
+<dd><p>Free a string allocated by <code class="code">mpfr_get_str</code> using the unallocation
+function (see <a class="pxref" href="Memory-Handling.html">Memory Handling</a>).
+The block is assumed to be <code class="code">strlen(<var class="var">str</var>)+1</code> bytes.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005ffits_005fulong_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_fits_ulong_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffits_005fulong_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ffits_005fslong_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_fits_slong_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffits_005fslong_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ffits_005fuint_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_fits_uint_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffits_005fuint_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ffits_005fsint_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_fits_sint_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffits_005fsint_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ffits_005fushort_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_fits_ushort_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffits_005fushort_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ffits_005fsshort_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_fits_sshort_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffits_005fsshort_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ffits_005fuintmax_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_fits_uintmax_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffits_005fuintmax_005fp'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ffits_005fintmax_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_fits_intmax_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffits_005fintmax_005fp'> ¶</a></span></dt>
+<dd><p>Return non-zero if <var class="var">op</var> would fit in the respective C data type,
+respectively <code class="code">unsigned long int</code>, <code class="code">long int</code>, <code class="code">unsigned int</code>,
+<code class="code">int</code>, <code class="code">unsigned short</code>, <code class="code">short</code>, <code class="code">uintmax_t</code>,
+<code class="code">intmax_t</code>, when rounded to an integer in the direction <var class="var">rnd</var>.
+For instance, with the <code class="code">MPFR_RNDU</code> rounding mode on −0.5,
+the result will be non-zero for all these functions.
+For <code class="code">MPFR_RNDF</code>, those functions return non-zero when it is guaranteed
+that the corresponding conversion function (for example <code class="code">mpfr_get_ui</code>
+for <code class="code">mpfr_fits_ulong_p</code>), when called with faithful rounding,
+will always return a number that is representable in the corresponding type.
+As a consequence, for <code class="code">MPFR_RNDF</code>, <code class="code">mpfr_fits_ulong_p</code> will return
+non-zero for a non-negative number less than or equal to <code class="code">ULONG_MAX</code>.
+</p></dd></dl>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Arithmetic-Functions.html">Arithmetic Functions</a>, Previous: <a href="Combined-Initialization-and-Assignment-Functions.html">Combined Initialization and Assignment Functions</a>, Up: <a href="MPFR-Interface.html">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

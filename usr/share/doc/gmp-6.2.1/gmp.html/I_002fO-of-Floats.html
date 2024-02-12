@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>I/O of Floats (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="I/O of Floats (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="Floating_002dpoint-Functions.html" rel="up" title="Floating-point Functions">
+<link href="Miscellaneous-Float-Functions.html" rel="next" title="Miscellaneous Float Functions">
+<link href="Float-Comparison.html" rel="prev" title="Float Comparison">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="I_002fO-of-Floats">
+<div class="nav-panel">
+<p>
+Next: <a href="Miscellaneous-Float-Functions.html" accesskey="n" rel="next">Miscellaneous Functions</a>, Previous: <a href="Float-Comparison.html" accesskey="p" rel="prev">Comparison Functions</a>, Up: <a href="Floating_002dpoint-Functions.html" accesskey="u" rel="up">Floating-point Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Input-and-Output-Functions-2">7.7 Input and Output Functions</h3>
+<a class="index-entry-id" id="index-Float-input-and-output-functions"></a>
+<a class="index-entry-id" id="index-Input-functions-2"></a>
+<a class="index-entry-id" id="index-Output-functions-2"></a>
+<a class="index-entry-id" id="index-I_002fO-functions-2"></a>
+
+<p>Functions that perform input from a stdio stream, and functions that output to
+a stdio stream, of <code class="code">mpf</code> numbers.  Passing a <code class="code">NULL</code> pointer for a
+<var class="var">stream</var> argument to any of these functions will make them read from
+<code class="code">stdin</code> and write to <code class="code">stdout</code>, respectively.
+</p>
+<p>When using any of these functions, it is a good idea to include <samp class="file">stdio.h</samp>
+before <samp class="file">gmp.h</samp>, since that will allow <samp class="file">gmp.h</samp> to define prototypes
+for these functions.
+</p>
+<p>See also <a class="ref" href="Formatted-Output.html">Formatted Output</a> and <a class="ref" href="Formatted-Input.html">Formatted Input</a>.
+</p>
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fout_005fstr"><span class="category-def">Function: </span><span><code class="def-type">size_t</code> <strong class="def-name">mpf_out_str</strong> <code class="def-code-arguments">(FILE *<var class="var">stream</var>, int <var class="var">base</var>, size_t <var class="var">n_digits</var>, const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005fout_005fstr'> &para;</a></span></dt>
+<dd><p>Print <var class="var">op</var> to <var class="var">stream</var>, as a string of digits.  Return the number of
+bytes written, or if an error occurred, return 0.
+</p>
+<p>The mantissa is prefixed with an &lsquo;<samp class="samp">0.</samp>&rsquo; and is in the given <var class="var">base</var>,
+which may vary from 2 to 62 or from &minus;2 to &minus;36.  An exponent is
+then printed, separated by an &lsquo;<samp class="samp">e</samp>&rsquo;, or if the base is greater than 10 then
+by an &lsquo;<samp class="samp">@</samp>&rsquo;.  The exponent is always in decimal.  The decimal point follows
+the current locale, on systems providing <code class="code">localeconv</code>.
+</p>
+<p>For <var class="var">base</var> in the range 2..36, digits and lower-case letters are used; for
+&minus;2..&minus;36, digits and upper-case letters are used; for 37..62,
+digits, upper-case letters, and lower-case letters (in that significance order)
+are used.
+</p>
+<p>Up to <var class="var">n_digits</var> will be printed from the mantissa, except that no more
+digits than are accurately representable by <var class="var">op</var> will be printed.
+<var class="var">n_digits</var> can be 0 to select that accurate maximum.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005finp_005fstr"><span class="category-def">Function: </span><span><code class="def-type">size_t</code> <strong class="def-name">mpf_inp_str</strong> <code class="def-code-arguments">(mpf_t <var class="var">rop</var>, FILE *<var class="var">stream</var>, int <var class="var">base</var>)</code><a class="copiable-link" href='#index-mpf_005finp_005fstr'> &para;</a></span></dt>
+<dd><p>Read a string in base <var class="var">base</var> from <var class="var">stream</var>, and put the read float in
+<var class="var">rop</var>.  The string is of the form &lsquo;<samp class="samp">M@N</samp>&rsquo; or, if the base is 10 or
+less, alternatively &lsquo;<samp class="samp">MeN</samp>&rsquo;.  &lsquo;<samp class="samp">M</samp>&rsquo; is the mantissa and &lsquo;<samp class="samp">N</samp>&rsquo; is the
+exponent.  The mantissa is always in the specified base.  The exponent is
+either in the specified base or, if <var class="var">base</var> is negative, in decimal.  The
+decimal point expected is taken from the current locale, on systems providing
+<code class="code">localeconv</code>.
+</p>
+<p>The argument <var class="var">base</var> may be in the ranges 2 to 36, or &minus;36 to
+&minus;2.  Negative values are used to specify that the exponent is in
+decimal.
+</p>
+<p>Unlike the corresponding <code class="code">mpz</code> function, the base will not be determined
+from the leading characters of the string if <var class="var">base</var> is 0.  This is so that
+numbers like &lsquo;<samp class="samp">0.23</samp>&rsquo; are not interpreted as octal.
+</p>
+<p>Return the number of bytes read, or if an error occurred, return 0.
+</p></dd></dl>
+
+
+
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Miscellaneous-Float-Functions.html">Miscellaneous Functions</a>, Previous: <a href="Float-Comparison.html">Comparison Functions</a>, Up: <a href="Floating_002dpoint-Functions.html">Floating-point Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

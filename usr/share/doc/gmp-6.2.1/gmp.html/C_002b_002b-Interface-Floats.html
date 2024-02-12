@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>C++ Interface Floats (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="C++ Interface Floats (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="C_002b_002b-Class-Interface.html" rel="up" title="C++ Class Interface">
+<link href="C_002b_002b-Interface-Random-Numbers.html" rel="next" title="C++ Interface Random Numbers">
+<link href="C_002b_002b-Interface-Rationals.html" rel="prev" title="C++ Interface Rationals">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="C_002b_002b-Interface-Floats">
+<div class="nav-panel">
+<p>
+Next: <a href="C_002b_002b-Interface-Random-Numbers.html" accesskey="n" rel="next">C++ Interface Random Numbers</a>, Previous: <a href="C_002b_002b-Interface-Rationals.html" accesskey="p" rel="prev">C++ Interface Rationals</a>, Up: <a href="C_002b_002b-Class-Interface.html" accesskey="u" rel="up">C++ Class Interface</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="C_002b_002b-Interface-Floats-1">12.4 C++ Interface Floats</h3>
+
+<p>When an expression requires the use of temporary intermediate <code class="code">mpf_class</code>
+values, like <code class="code">f=g*h+x*y</code>, those temporaries will have the same precision
+as the destination <code class="code">f</code>.  Explicit constructors can be used if this
+doesn&rsquo;t suit.
+</p>
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fclass_003a_003ampf_005fclass"><span class="category-def">Function: </span><span><strong class="def-name">mpf_class::mpf_class</strong> <code class="def-code-arguments">(type <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003ampf_005fclass'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003ampf_005fclass-1"><span class="category-def">Function: </span><span><strong class="def-name">mpf_class::mpf_class</strong> <code class="def-code-arguments">(type <var class="var">op</var>, mp_bitcnt_t <var class="var">prec</var>)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003ampf_005fclass-1'> &para;</a></span></dt>
+<dd><p>Construct an <code class="code">mpf_class</code>.  Any standard C++ type can be used, except
+<code class="code">long long</code> and <code class="code">long double</code>, and any of the GMP C++ classes can be
+used.
+</p>
+<p>If <var class="var">prec</var> is given, the initial precision is that value, in bits.  If
+<var class="var">prec</var> is not given, then the initial precision is determined by the type
+of <var class="var">op</var> given.  An <code class="code">mpz_class</code>, <code class="code">mpq_class</code>, or C++
+builtin type will give the default <code class="code">mpf</code> precision (see <a class="pxref" href="Initializing-Floats.html">Initialization Functions</a>).  An <code class="code">mpf_class</code> or expression will give the precision of that
+value.  The precision of a binary expression is the higher of the two
+operands.
+</p>
+<div class="example">
+<pre class="example-preformatted">mpf_class f(1.5);        // default precision
+mpf_class f(1.5, 500);   // 500 bits (at least)
+mpf_class f(x);          // precision of x
+mpf_class f(abs(x));     // precision of x
+mpf_class f(-g, 1000);   // 1000 bits (at least)
+mpf_class f(x+y);        // greater of precisions of x and y
+</pre></div>
+</dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fclass_003a_003ampf_005fclass-2"><span class="category-def">Function: </span><span><code class="def-type">explicit</code> <strong class="def-name">mpf_class::mpf_class</strong> <code class="def-code-arguments">(const mpf_t <var class="var">f</var>)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003ampf_005fclass-2'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003ampf_005fclass-3"><span class="category-def">Function: </span><span><strong class="def-name">mpf_class::mpf_class</strong> <code class="def-code-arguments">(const mpf_t <var class="var">f</var>, mp_bitcnt_t <var class="var">prec</var>)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003ampf_005fclass-3'> &para;</a></span></dt>
+<dd><p>Construct an <code class="code">mpf_class</code> from an <code class="code">mpf_t</code>.  The value in <var class="var">f</var> is
+copied into the new <code class="code">mpf_class</code>, there won&rsquo;t be any permanent association
+between it and <var class="var">f</var>.
+</p>
+<p>If <var class="var">prec</var> is given, the initial precision is that value, in bits.  If
+<var class="var">prec</var> is not given, then the initial precision is that of <var class="var">f</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fclass_003a_003ampf_005fclass-4"><span class="category-def">Function: </span><span><code class="def-type">explicit</code> <strong class="def-name">mpf_class::mpf_class</strong> <code class="def-code-arguments">(const char *<var class="var">s</var>)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003ampf_005fclass-4'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003ampf_005fclass-5"><span class="category-def">Function: </span><span><strong class="def-name">mpf_class::mpf_class</strong> <code class="def-code-arguments">(const char *<var class="var">s</var>, mp_bitcnt_t <var class="var">prec</var>, int <var class="var">base</var> = 0)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003ampf_005fclass-5'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003ampf_005fclass-6"><span class="category-def">Function: </span><span><code class="def-type">explicit</code> <strong class="def-name">mpf_class::mpf_class</strong> <code class="def-code-arguments">(const string&amp; <var class="var">s</var>)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003ampf_005fclass-6'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003ampf_005fclass-7"><span class="category-def">Function: </span><span><strong class="def-name">mpf_class::mpf_class</strong> <code class="def-code-arguments">(const string&amp; <var class="var">s</var>, mp_bitcnt_t <var class="var">prec</var>, int <var class="var">base</var> = 0)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003ampf_005fclass-7'> &para;</a></span></dt>
+<dd><p>Construct an <code class="code">mpf_class</code> converted from a string using <code class="code">mpf_set_str</code>
+(see <a class="pxref" href="Assigning-Floats.html">Assignment Functions</a>).  If <var class="var">prec</var> is given, the initial precision is
+that value, in bits.  If not, the default <code class="code">mpf</code> precision
+(see <a class="pxref" href="Initializing-Floats.html">Initialization Functions</a>) is used.
+</p>
+<p>If the string is not a valid float, an <code class="code">std::invalid_argument</code> exception
+is thrown.  The same applies to <code class="code">operator=</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-operator_0022_0022-2"><span class="category-def">Function: </span><span><code class="def-type">mpf_class</code> <strong class="def-name">operator&quot;&quot;</strong> <code class="def-code-arguments">_mpf (const char *<var class="var">str</var>)</code><a class="copiable-link" href='#index-operator_0022_0022-2'> &para;</a></span></dt>
+<dd><p>With C++11 compilers, floats can be constructed with the syntax
+<code class="code">1.23e-1_mpf</code> which is equivalent to <code class="code">mpf_class(&quot;1.23e-1&quot;)</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fclass_003a_003aoperator_003d"><span class="category-def">Function: </span><span><code class="def-type">mpf_class&amp;</code> <strong class="def-name">mpf_class::operator=</strong> <code class="def-code-arguments">(type <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003aoperator_003d'> &para;</a></span></dt>
+<dd><p>Convert and store the given <var class="var">op</var> value to an <code class="code">mpf_class</code> object.  The
+same types are accepted as for the constructors above.
+</p>
+<p>Note that <code class="code">operator=</code> only stores a new value, it doesn&rsquo;t copy or change
+the precision of the destination, instead the value is truncated if necessary.
+This is the same as <code class="code">mpf_set</code> etc.  Note in particular this means for
+<code class="code">mpf_class</code> a copy constructor is not the same as a default constructor
+plus assignment.
+</p>
+<div class="example">
+<pre class="example-preformatted">mpf_class x (y);   // x created with precision of y
+
+mpf_class x;       // x created with default precision
+x = y;             // value truncated to that precision
+</pre></div>
+
+<p>Applications using templated code may need to be careful about the assumptions
+the code makes in this area, when working with <code class="code">mpf_class</code> values of
+various different or non-default precisions.  For instance implementations of
+the standard <code class="code">complex</code> template have been seen in both styles above,
+though of course <code class="code">complex</code> is normally only actually specified for use
+with the builtin float types.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-abs-2"><span class="category-def">Function: </span><span><code class="def-type">mpf_class</code> <strong class="def-name">abs</strong> <code class="def-code-arguments">(mpf_class <var class="var">op</var>)</code><a class="copiable-link" href='#index-abs-2'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-ceil"><span class="category-def">Function: </span><span><code class="def-type">mpf_class</code> <strong class="def-name">ceil</strong> <code class="def-code-arguments">(mpf_class <var class="var">op</var>)</code><a class="copiable-link" href='#index-ceil'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-cmp-4"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">cmp</strong> <code class="def-code-arguments">(mpf_class <var class="var">op1</var>, type <var class="var">op2</var>)</code><a class="copiable-link" href='#index-cmp-4'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-cmp-5"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">cmp</strong> <code class="def-code-arguments">(type <var class="var">op1</var>, mpf_class <var class="var">op2</var>)</code><a class="copiable-link" href='#index-cmp-5'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003afits_005fsint_005fp"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">mpf_class::fits_sint_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003afits_005fsint_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003afits_005fslong_005fp"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">mpf_class::fits_slong_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003afits_005fslong_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003afits_005fsshort_005fp"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">mpf_class::fits_sshort_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003afits_005fsshort_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003afits_005fuint_005fp"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">mpf_class::fits_uint_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003afits_005fuint_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003afits_005fulong_005fp"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">mpf_class::fits_ulong_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003afits_005fulong_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003afits_005fushort_005fp"><span class="category-def">Function: </span><span><code class="def-type">bool</code> <strong class="def-name">mpf_class::fits_ushort_p</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003afits_005fushort_005fp'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-floor"><span class="category-def">Function: </span><span><code class="def-type">mpf_class</code> <strong class="def-name">floor</strong> <code class="def-code-arguments">(mpf_class <var class="var">op</var>)</code><a class="copiable-link" href='#index-floor'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-hypot"><span class="category-def">Function: </span><span><code class="def-type">mpf_class</code> <strong class="def-name">hypot</strong> <code class="def-code-arguments">(mpf_class <var class="var">op1</var>, mpf_class <var class="var">op2</var>)</code><a class="copiable-link" href='#index-hypot'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003aget_005fd"><span class="category-def">Function: </span><span><code class="def-type">double</code> <strong class="def-name">mpf_class::get_d</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003aget_005fd'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003aget_005fsi"><span class="category-def">Function: </span><span><code class="def-type">long</code> <strong class="def-name">mpf_class::get_si</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003aget_005fsi'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003aget_005fstr"><span class="category-def">Function: </span><span><code class="def-type">string</code> <strong class="def-name">mpf_class::get_str</strong> <code class="def-code-arguments">(mp_exp_t&amp; <var class="var">exp</var>, int <var class="var">base</var> = 10, size_t <var class="var">digits</var> = 0)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003aget_005fstr'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003aget_005fui"><span class="category-def">Function: </span><span><code class="def-type">unsigned long</code> <strong class="def-name">mpf_class::get_ui</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003aget_005fui'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003aset_005fstr"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpf_class::set_str</strong> <code class="def-code-arguments">(const char *<var class="var">str</var>, int <var class="var">base</var>)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003aset_005fstr'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003aset_005fstr-1"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpf_class::set_str</strong> <code class="def-code-arguments">(const string&amp; <var class="var">str</var>, int <var class="var">base</var>)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003aset_005fstr-1'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-sgn-2"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">sgn</strong> <code class="def-code-arguments">(mpf_class <var class="var">op</var>)</code><a class="copiable-link" href='#index-sgn-2'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-sqrt-1"><span class="category-def">Function: </span><span><code class="def-type">mpf_class</code> <strong class="def-name">sqrt</strong> <code class="def-code-arguments">(mpf_class <var class="var">op</var>)</code><a class="copiable-link" href='#index-sqrt-1'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003aswap"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_class::swap</strong> <code class="def-code-arguments">(mpf_class&amp; <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003aswap'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-swap-2"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">swap</strong> <code class="def-code-arguments">(mpf_class&amp; <var class="var">op1</var>, mpf_class&amp; <var class="var">op2</var>)</code><a class="copiable-link" href='#index-swap-2'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-trunc"><span class="category-def">Function: </span><span><code class="def-type">mpf_class</code> <strong class="def-name">trunc</strong> <code class="def-code-arguments">(mpf_class <var class="var">op</var>)</code><a class="copiable-link" href='#index-trunc'> &para;</a></span></dt>
+<dd><p>These functions provide a C++ class interface to the corresponding GMP C
+routines.
+</p>
+<p><code class="code">cmp</code> can be used with any of the classes or the standard C++ types,
+except <code class="code">long long</code> and <code class="code">long double</code>.
+</p>
+<p>The accuracy provided by <code class="code">hypot</code> is not currently guaranteed.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fclass_003a_003aget_005fprec"><span class="category-def">Function: </span><span><code class="def-type">mp_bitcnt_t</code> <strong class="def-name">mpf_class::get_prec</strong> <code class="def-code-arguments">()</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003aget_005fprec'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003aset_005fprec"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_class::set_prec</strong> <code class="def-code-arguments">(mp_bitcnt_t <var class="var">prec</var>)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003aset_005fprec'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpf_005fclass_003a_003aset_005fprec_005fraw"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_class::set_prec_raw</strong> <code class="def-code-arguments">(mp_bitcnt_t <var class="var">prec</var>)</code><a class="copiable-link" href='#index-mpf_005fclass_003a_003aset_005fprec_005fraw'> &para;</a></span></dt>
+<dd><p>Get or set the current precision of an <code class="code">mpf_class</code>.
+</p>
+<p>The restrictions described for <code class="code">mpf_set_prec_raw</code> (see <a class="pxref" href="Initializing-Floats.html">Initialization Functions</a>) apply to <code class="code">mpf_class::set_prec_raw</code>.  Note in particular that the
+<code class="code">mpf_class</code> must be restored to it&rsquo;s allocated precision before being
+destroyed.  This must be done by application code, there&rsquo;s no automatic
+mechanism for it.
+</p></dd></dl>
+
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="C_002b_002b-Interface-Random-Numbers.html">C++ Interface Random Numbers</a>, Previous: <a href="C_002b_002b-Interface-Rationals.html">C++ Interface Rationals</a>, Up: <a href="C_002b_002b-Class-Interface.html">C++ Class Interface</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual documents how to install and use the Multiple Precision
+Floating-Point Reliable Library, version 4.2.0.
+
+Copyright 1991, 1993-2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.2 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the
+license is included in GNU Free Documentation License. -->
+<title>Integer and Remainder Related Functions (GNU MPFR 4.2.0)</title>
+
+<meta name="description" content="How to install and use GNU MPFR, a library for reliable multiple precision
+floating-point arithmetic, version 4.2.0.">
+<meta name="keywords" content="Integer and Remainder Related Functions (GNU MPFR 4.2.0)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="MPFR-Interface.html" rel="up" title="MPFR Interface">
+<link href="Rounding_002dRelated-Functions.html" rel="next" title="Rounding-Related Functions">
+<link href="Formatted-Output-Functions.html" rel="prev" title="Formatted Output Functions">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Integer-and-Remainder-Related-Functions">
+<div class="nav-panel">
+<p>
+Next: <a href="Rounding_002dRelated-Functions.html" accesskey="n" rel="next">Rounding-Related Functions</a>, Previous: <a href="Formatted-Output-Functions.html" accesskey="p" rel="prev">Formatted Output Functions</a>, Up: <a href="MPFR-Interface.html" accesskey="u" rel="up">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a class="index-entry-id" id="index-Integer-related-functions"></a>
+<a class="index-entry-id" id="index-Remainder-related-functions"></a>
+<h3 class="section" id="Integer-and-Remainder-Related-Functions-1">5.10 Integer and Remainder Related Functions</h3>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005frint"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_rint</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005frint'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fceil"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_ceil</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005fceil'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ffloor"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_floor</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005ffloor'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fround"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_round</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005fround'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005froundeven"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_roundeven</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005froundeven'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ftrunc"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_trunc</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005ftrunc'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to <var class="var">op</var> rounded to an integer.
+<code class="code">mpfr_rint</code> rounds to the nearest representable integer in the
+given direction <var class="var">rnd</var>, and the other five functions behave in a
+similar way with some fixed rounding mode:
+</p><ul class="itemize mark-bullet">
+<li><code class="code">mpfr_ceil</code>: to the next higher or equal representable integer
+      (like <code class="code">mpfr_rint</code> with <code class="code">MPFR_RNDU</code>);
+</li><li><code class="code">mpfr_floor</code> to the next lower or equal representable integer
+      (like <code class="code">mpfr_rint</code> with <code class="code">MPFR_RNDD</code>);
+</li><li><code class="code">mpfr_round</code> to the nearest representable integer,
+      rounding halfway cases away from zero
+      (as in the roundTiesToAway mode of IEEE 754);
+</li><li><code class="code">mpfr_roundeven</code> to the nearest representable integer,
+      rounding halfway cases with the even-rounding rule
+      (like <code class="code">mpfr_rint</code> with <code class="code">MPFR_RNDN</code>);
+</li><li><code class="code">mpfr_trunc</code> to the next representable integer toward zero
+      (like <code class="code">mpfr_rint</code> with <code class="code">MPFR_RNDZ</code>).
+</li></ul>
+<p>When <var class="var">op</var> is a zero or an infinity, set <var class="var">rop</var> to the same value
+(with the same sign).
+</p>
+<p>The return value is zero when the result is exact, positive when it is
+greater than the original value of <var class="var">op</var>, and negative when it is smaller.
+More precisely, the return value is 0 when <var class="var">op</var> is an integer
+representable in <var class="var">rop</var>, 1 or −1 when <var class="var">op</var> is an integer
+that is not representable in <var class="var">rop</var>, 2 or −2 when <var class="var">op</var> is
+not an integer.
+</p>
+<p>When <var class="var">op</var> is NaN, the NaN flag is set as usual. In the other cases,
+the inexact flag is set when <var class="var">rop</var> differs from <var class="var">op</var>, following
+the ISO C99 rule for the <code class="code">rint</code> function. If you want the behavior to
+be more like IEEE 754 / ISO TS 18661-1, i.e., the usual behavior
+where the round-to-integer function is regarded as any other mathematical
+function, you should use one of the <code class="code">mpfr_rint_*</code> functions instead.
+</p>
+<p>Note that no double rounding is performed; for instance, 10.5 (1010.1 in
+binary) is rounded by <code class="code">mpfr_rint</code> with rounding to nearest to 12 (1100
+in binary) in 2-bit precision, because the two enclosing numbers representable
+on two bits are 8 and 12, and the closest is 12.
+(If one first rounded to an integer, one would round 10.5 to 10 with
+even rounding, and then 10 would be rounded to 8 again with even rounding.)
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005frint_005fceil"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_rint_ceil</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005frint_005fceil'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005frint_005ffloor"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_rint_floor</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005frint_005ffloor'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005frint_005fround"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_rint_round</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005frint_005fround'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005frint_005froundeven"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_rint_roundeven</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005frint_005froundeven'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005frint_005ftrunc"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_rint_trunc</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005frint_005ftrunc'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to <var class="var">op</var> rounded to an integer:
+</p><ul class="itemize mark-bullet">
+<li><code class="code">mpfr_rint_ceil</code>: to the next higher or equal integer;
+</li><li><code class="code">mpfr_rint_floor</code>: to the next lower or equal integer;
+</li><li><code class="code">mpfr_rint_round</code>: to the nearest integer,
+      rounding halfway cases away from zero;
+</li><li><code class="code">mpfr_rint_roundeven</code>: to the nearest integer,
+      rounding halfway cases to the nearest even integer;
+</li><li><code class="code">mpfr_rint_trunc</code> to the next integer toward zero.
+</li></ul>
+<p>If the result is not representable, it is rounded in the direction <var class="var">rnd</var>.
+When <var class="var">op</var> is a zero or an infinity, set <var class="var">rop</var> to the same value
+(with the same sign).
+The return value is the ternary value associated with the considered
+round-to-integer function (regarded in the same way as any other
+mathematical function).
+</p>
+<p>Contrary to <code class="code">mpfr_rint</code>, those functions do perform a double rounding:
+first <var class="var">op</var> is rounded to the nearest integer in the direction given by
+the function name, then this nearest integer (if not representable) is
+rounded in the given direction <var class="var">rnd</var>.  Thus these round-to-integer
+functions behave more like the other mathematical functions, i.e., the
+returned result is the correct rounding of the exact result of the function
+in the real numbers.
+</p>
+<p>For example, <code class="code">mpfr_rint_round</code> with rounding to nearest and a precision
+of two bits rounds 6.5 to 7 (halfway cases away from zero), then 7 is
+rounded to 8 by the round-even rule, despite the fact that 6 is also
+representable on two bits, and is closer to 6.5 than 8.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005ffrac"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_frac</strong> <code class="def-code-arguments">(mpfr_t <var class="var">rop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffrac'> ¶</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the fractional part of <var class="var">op</var>, having the same sign as
+<var class="var">op</var>, rounded in the direction <var class="var">rnd</var> (unlike in <code class="code">mpfr_rint</code>,
+<var class="var">rnd</var> affects only how the exact fractional part is rounded, not how
+the fractional part is generated).
+When <var class="var">op</var> is an integer or an infinity, set <var class="var">rop</var> to zero with
+the same sign as <var class="var">op</var>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005fmodf"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_modf</strong> <code class="def-code-arguments">(mpfr_t <var class="var">iop</var>, mpfr_t <var class="var">fop</var>, mpfr_t <var class="var">op</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fmodf'> ¶</a></span></dt>
+<dd><p>Set simultaneously <var class="var">iop</var> to the integral part of <var class="var">op</var> and <var class="var">fop</var> to
+the fractional part of <var class="var">op</var>, rounded in the direction <var class="var">rnd</var> with the
+corresponding precision of <var class="var">iop</var> and <var class="var">fop</var> (equivalent to
+<code class="code">mpfr_trunc(<var class="var">iop</var>, <var class="var">op</var>, <var class="var">rnd</var>)</code> and
+<code class="code">mpfr_frac(<var class="var">fop</var>, <var class="var">op</var>, <var class="var">rnd</var>)</code>). The variables <var class="var">iop</var> and
+<var class="var">fop</var> must be different. Return 0 iff both results are exact (see
+<code class="code">mpfr_sin_cos</code> for a more detailed description of the return value).
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005ffmod"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_fmod</strong> <code class="def-code-arguments">(mpfr_t <var class="var">r</var>, mpfr_t <var class="var">x</var>, mpfr_t <var class="var">y</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffmod'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ffmod_005fui"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_fmod_ui</strong> <code class="def-code-arguments">(mpfr_t <var class="var">r</var>, mpfr_t <var class="var">x</var>, unsigned long int <var class="var">y</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffmod_005fui'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005ffmodquo"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_fmodquo</strong> <code class="def-code-arguments">(mpfr_t <var class="var">r</var>, long int* <var class="var">q</var>, mpfr_t <var class="var">x</var>, mpfr_t <var class="var">y</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005ffmodquo'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fremainder"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_remainder</strong> <code class="def-code-arguments">(mpfr_t <var class="var">r</var>, mpfr_t <var class="var">x</var>, mpfr_t <var class="var">y</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fremainder'> ¶</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpfr_005fremquo"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_remquo</strong> <code class="def-code-arguments">(mpfr_t <var class="var">r</var>, long int* <var class="var">q</var>, mpfr_t <var class="var">x</var>, mpfr_t <var class="var">y</var>, mpfr_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpfr_005fremquo'> ¶</a></span></dt>
+<dd><p>Set <var class="var">r</var> to the value of <var class="var">x</var> − <var class="var">n</var><var class="var">y</var><!-- /@w -->, rounded
+according to the direction <var class="var">rnd</var>, where <var class="var">n</var> is the integer quotient
+of <var class="var">x</var> divided by <var class="var">y</var>, defined as follows: <var class="var">n</var> is rounded
+toward zero for <code class="code">mpfr_fmod</code>, <code class="code">mpfr_fmod_ui</code> and <code class="code">mpfr_fmodquo</code>,
+and to the nearest integer (ties rounded to even) for <code class="code">mpfr_remainder</code>
+and <code class="code">mpfr_remquo</code>.
+</p>
+<p>Special values are handled as described in Section F.9.7.1 of
+the ISO C99 standard:
+If <var class="var">x</var> is infinite or <var class="var">y</var> is zero, <var class="var">r</var> is NaN.
+If <var class="var">y</var> is infinite and <var class="var">x</var> is finite, <var class="var">r</var> is <var class="var">x</var> rounded
+to the precision of <var class="var">r</var>.
+If <var class="var">r</var> is zero, it has the sign of <var class="var">x</var>.
+The return value is the ternary value corresponding to <var class="var">r</var>.
+</p>
+<p>Additionally, <code class="code">mpfr_fmodquo</code> and <code class="code">mpfr_remquo</code> store
+the low significant bits from the quotient <var class="var">n</var> in <var class="var">*q</var>
+(more precisely the number of bits in a <code class="code">long int</code> minus one),
+with the sign of <var class="var">x</var> divided by <var class="var">y</var>
+(except if those low bits are all zero, in which case zero is returned).
+If the result is NaN, the value of <var class="var">*q</var> is unspecified.
+Note that <var class="var">x</var> may be so large in magnitude relative to <var class="var">y</var> that an
+exact representation of the quotient is not practical.
+The <code class="code">mpfr_remainder</code> and <code class="code">mpfr_remquo</code> functions are useful for
+additive argument reduction.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpfr_005finteger_005fp"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpfr_integer_p</strong> <code class="def-code-arguments">(mpfr_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpfr_005finteger_005fp'> ¶</a></span></dt>
+<dd><p>Return non-zero iff <var class="var">op</var> is an integer.
+</p></dd></dl>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Rounding_002dRelated-Functions.html">Rounding-Related Functions</a>, Previous: <a href="Formatted-Output-Functions.html">Formatted Output Functions</a>, Up: <a href="MPFR-Interface.html">MPFR Interface</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>Useful Macros and Constants (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="Useful Macros and Constants (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="GMP-Basics.html" rel="up" title="GMP Basics">
+<link href="Compatibility-with-older-versions.html" rel="next" title="Compatibility with older versions">
+<link href="Reentrancy.html" rel="prev" title="Reentrancy">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Useful-Macros-and-Constants">
+<div class="nav-panel">
+<p>
+Next: <a href="Compatibility-with-older-versions.html" accesskey="n" rel="next">Compatibility with older versions</a>, Previous: <a href="Reentrancy.html" accesskey="p" rel="prev">Reentrancy</a>, Up: <a href="GMP-Basics.html" accesskey="u" rel="up">GMP Basics</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Useful-Macros-and-Constants-1">3.8 Useful Macros and Constants</h3>
+<a class="index-entry-id" id="index-Useful-macros-and-constants"></a>
+<a class="index-entry-id" id="index-Constants"></a>
+
+<dl class="first-deftypevr">
+<dt class="deftypevr" id="index-mp_005fbits_005fper_005flimb-1"><span class="category-def">Global Constant: </span><span><code class="def-type">const int</code> <strong class="def-name">mp_bits_per_limb</strong><a class="copiable-link" href='#index-mp_005fbits_005fper_005flimb-1'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-mp_005fbits_005fper_005flimb"></a>
+<a class="index-entry-id" id="index-Bits-per-limb"></a>
+<a class="index-entry-id" id="index-Limb-size"></a>
+<p>The number of bits per limb.
+</p></dd></dl>
+
+<dl class="first-deffn first-defmac-alias-first-deffn">
+<dt class="deffn defmac-alias-deffn" id="index-_005f_005fGNU_005fMP_005fVERSION"><span class="category-def">Macro: </span><span><strong class="def-name">__GNU_MP_VERSION</strong><a class="copiable-link" href='#index-_005f_005fGNU_005fMP_005fVERSION'> &para;</a></span></dt>
+<dt class="deffnx defmacx-alias-deffnx def-cmd-deffn" id="index-_005f_005fGNU_005fMP_005fVERSION_005fMINOR"><span class="category-def">Macro: </span><span><strong class="def-name">__GNU_MP_VERSION_MINOR</strong><a class="copiable-link" href='#index-_005f_005fGNU_005fMP_005fVERSION_005fMINOR'> &para;</a></span></dt>
+<dt class="deffnx defmacx-alias-deffnx def-cmd-deffn" id="index-_005f_005fGNU_005fMP_005fVERSION_005fPATCHLEVEL"><span class="category-def">Macro: </span><span><strong class="def-name">__GNU_MP_VERSION_PATCHLEVEL</strong><a class="copiable-link" href='#index-_005f_005fGNU_005fMP_005fVERSION_005fPATCHLEVEL'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-Version-number"></a>
+<a class="index-entry-id" id="index-GMP-version-number"></a>
+<p>The major and minor GMP version, and patch level, respectively, as integers.
+For GMP i.j, these numbers will be i, j, and 0, respectively.
+For GMP i.j.k, these numbers will be i, j, and k, respectively.
+</p></dd></dl>
+
+<dl class="first-deftypevr">
+<dt class="deftypevr" id="index-gmp_005fversion-1"><span class="category-def">Global Constant: </span><span><code class="def-type">const char * const</code> <strong class="def-name">gmp_version</strong><a class="copiable-link" href='#index-gmp_005fversion-1'> &para;</a></span></dt>
+<dd><a class="index-entry-id" id="index-gmp_005fversion"></a>
+<p>The GMP version number, as a null-terminated string, in the form &ldquo;i.j.k&rdquo;.
+This release is <code class="code">&quot;6.2.1&quot;</code>.  Note that the format &ldquo;i.j&rdquo; was
+used, before version 4.3.0, when k was zero.
+</p></dd></dl>
+
+<dl class="first-deffn first-defmac-alias-first-deffn">
+<dt class="deffn defmac-alias-deffn" id="index-_005f_005fGMP_005fCC"><span class="category-def">Macro: </span><span><strong class="def-name">__GMP_CC</strong><a class="copiable-link" href='#index-_005f_005fGMP_005fCC'> &para;</a></span></dt>
+<dt class="deffnx defmacx-alias-deffnx def-cmd-deffn" id="index-_005f_005fGMP_005fCFLAGS"><span class="category-def">Macro: </span><span><strong class="def-name">__GMP_CFLAGS</strong><a class="copiable-link" href='#index-_005f_005fGMP_005fCFLAGS'> &para;</a></span></dt>
+<dd><p>The compiler and compiler flags, respectively, used when compiling GMP, as
+strings.
+</p></dd></dl>
+
+
+</div>
+
+
+
+</body>
+</html>

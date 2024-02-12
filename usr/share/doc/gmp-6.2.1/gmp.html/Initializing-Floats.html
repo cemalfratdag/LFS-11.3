@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>Initializing Floats (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="Initializing Floats (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="Floating_002dpoint-Functions.html" rel="up" title="Floating-point Functions">
+<link href="Assigning-Floats.html" rel="next" title="Assigning Floats">
+<link href="Floating_002dpoint-Functions.html" rel="prev" title="Floating-point Functions">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Initializing-Floats">
+<div class="nav-panel">
+<p>
+Next: <a href="Assigning-Floats.html" accesskey="n" rel="next">Assignment Functions</a>, Previous: <a href="Floating_002dpoint-Functions.html" accesskey="p" rel="prev">Floating-point Functions</a>, Up: <a href="Floating_002dpoint-Functions.html" accesskey="u" rel="up">Floating-point Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Initialization-Functions-1">7.1 Initialization Functions</h3>
+<a class="index-entry-id" id="index-Float-initialization-functions"></a>
+<a class="index-entry-id" id="index-Initialization-functions-3"></a>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fset_005fdefault_005fprec"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_set_default_prec</strong> <code class="def-code-arguments">(mp_bitcnt_t <var class="var">prec</var>)</code><a class="copiable-link" href='#index-mpf_005fset_005fdefault_005fprec'> &para;</a></span></dt>
+<dd><p>Set the default precision to be <strong class="strong">at least</strong> <var class="var">prec</var> bits.  All
+subsequent calls to <code class="code">mpf_init</code> will use this precision, but previously
+initialized variables are unaffected.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fget_005fdefault_005fprec"><span class="category-def">Function: </span><span><code class="def-type">mp_bitcnt_t</code> <strong class="def-name">mpf_get_default_prec</strong> <code class="def-code-arguments">(void)</code><a class="copiable-link" href='#index-mpf_005fget_005fdefault_005fprec'> &para;</a></span></dt>
+<dd><p>Return the default precision actually used.
+</p></dd></dl>
+
+<p>An <code class="code">mpf_t</code> object must be initialized before storing the first value in
+it.  The functions <code class="code">mpf_init</code> and <code class="code">mpf_init2</code> are used for that
+purpose.
+</p>
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005finit"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_init</strong> <code class="def-code-arguments">(mpf_t <var class="var">x</var>)</code><a class="copiable-link" href='#index-mpf_005finit'> &para;</a></span></dt>
+<dd><p>Initialize <var class="var">x</var> to 0.  Normally, a variable should be initialized once only
+or at least be cleared, using <code class="code">mpf_clear</code>, between initializations.  The
+precision of <var class="var">x</var> is undefined unless a default precision has already been
+established by a call to <code class="code">mpf_set_default_prec</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005finit2"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_init2</strong> <code class="def-code-arguments">(mpf_t <var class="var">x</var>, mp_bitcnt_t <var class="var">prec</var>)</code><a class="copiable-link" href='#index-mpf_005finit2'> &para;</a></span></dt>
+<dd><p>Initialize <var class="var">x</var> to 0 and set its precision to be <strong class="strong">at least</strong>
+<var class="var">prec</var> bits.  Normally, a variable should be initialized once only or at
+least be cleared, using <code class="code">mpf_clear</code>, between initializations.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005finits"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_inits</strong> <code class="def-code-arguments">(mpf_t <var class="var">x</var>, ...)</code><a class="copiable-link" href='#index-mpf_005finits'> &para;</a></span></dt>
+<dd><p>Initialize a NULL-terminated list of <code class="code">mpf_t</code> variables, and set their
+values to 0.  The precision of the initialized variables is undefined unless a
+default precision has already been established by a call to
+<code class="code">mpf_set_default_prec</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fclear"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_clear</strong> <code class="def-code-arguments">(mpf_t <var class="var">x</var>)</code><a class="copiable-link" href='#index-mpf_005fclear'> &para;</a></span></dt>
+<dd><p>Free the space occupied by <var class="var">x</var>.  Make sure to call this function for all
+<code class="code">mpf_t</code> variables when you are done with them.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fclears"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_clears</strong> <code class="def-code-arguments">(mpf_t <var class="var">x</var>, ...)</code><a class="copiable-link" href='#index-mpf_005fclears'> &para;</a></span></dt>
+<dd><p>Free the space occupied by a NULL-terminated list of <code class="code">mpf_t</code> variables.
+</p></dd></dl>
+
+<p>Here is an example on how to initialize floating-point variables:
+</p><div class="example">
+<pre class="example-preformatted">{
+  mpf_t x, y;
+  mpf_init (x);           /* use default precision */
+  mpf_init2 (y, 256);     /* precision <em class="emph">at least</em> 256 bits */
+  &hellip;
+  /* Unless the program is about to exit, do ... */
+  mpf_clear (x);
+  mpf_clear (y);
+}
+</pre></div>
+
+<p>The following three functions are useful for changing the precision during a
+calculation.  A typical use would be for adjusting the precision gradually in
+iterative algorithms like Newton-Raphson, making the computation precision
+closely match the actual accurate part of the numbers.
+</p>
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fget_005fprec"><span class="category-def">Function: </span><span><code class="def-type">mp_bitcnt_t</code> <strong class="def-name">mpf_get_prec</strong> <code class="def-code-arguments">(const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpf_005fget_005fprec'> &para;</a></span></dt>
+<dd><p>Return the current precision of <var class="var">op</var>, in bits.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fset_005fprec"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_set_prec</strong> <code class="def-code-arguments">(mpf_t <var class="var">rop</var>, mp_bitcnt_t <var class="var">prec</var>)</code><a class="copiable-link" href='#index-mpf_005fset_005fprec'> &para;</a></span></dt>
+<dd><p>Set the precision of <var class="var">rop</var> to be <strong class="strong">at least</strong> <var class="var">prec</var> bits.  The
+value in <var class="var">rop</var> will be truncated to the new precision.
+</p>
+<p>This function requires a call to <code class="code">realloc</code>, and so should not be used in
+a tight loop.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpf_005fset_005fprec_005fraw"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpf_set_prec_raw</strong> <code class="def-code-arguments">(mpf_t <var class="var">rop</var>, mp_bitcnt_t <var class="var">prec</var>)</code><a class="copiable-link" href='#index-mpf_005fset_005fprec_005fraw'> &para;</a></span></dt>
+<dd><p>Set the precision of <var class="var">rop</var> to be <strong class="strong">at least</strong> <var class="var">prec</var> bits,
+without changing the memory allocated.
+</p>
+<p><var class="var">prec</var> must be no more than the allocated precision for <var class="var">rop</var>, that
+being the precision when <var class="var">rop</var> was initialized, or in the most recent
+<code class="code">mpf_set_prec</code>.
+</p>
+<p>The value in <var class="var">rop</var> is unchanged, and in particular if it had a higher
+precision than <var class="var">prec</var> it will retain that higher precision.  New values
+written to <var class="var">rop</var> will use the new <var class="var">prec</var>.
+</p>
+<p>Before calling <code class="code">mpf_clear</code> or the full <code class="code">mpf_set_prec</code>, another
+<code class="code">mpf_set_prec_raw</code> call must be made to restore <var class="var">rop</var> to its original
+allocated precision.  Failing to do so will have unpredictable results.
+</p>
+<p><code class="code">mpf_get_prec</code> can be used before <code class="code">mpf_set_prec_raw</code> to get the
+original allocated precision.  After <code class="code">mpf_set_prec_raw</code> it reflects the
+<var class="var">prec</var> value set.
+</p>
+<p><code class="code">mpf_set_prec_raw</code> is an efficient way to use an <code class="code">mpf_t</code> variable at
+different precisions during a calculation, perhaps to gradually increase
+precision in an iteration, or just to use various different precisions for
+different purposes during a calculation.
+</p></dd></dl>
+
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Assigning-Floats.html">Assignment Functions</a>, Previous: <a href="Floating_002dpoint-Functions.html">Floating-point Functions</a>, Up: <a href="Floating_002dpoint-Functions.html">Floating-point Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

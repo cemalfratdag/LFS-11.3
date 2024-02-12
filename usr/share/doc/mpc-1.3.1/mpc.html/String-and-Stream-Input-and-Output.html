@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual is for GNU MPC, a library for multiple precision complex arithmetic,
+version 1.3.1 of December 2022.
+
+Copyright © 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2016, 2018, 2020, 2022 INRIA
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections. A copy of the license is included in the section
+entitled "GNU Free Documentation License." -->
+<title>String and Stream Input and Output (GNU MPC 1.3.1)</title>
+
+<meta name="description" content="String and Stream Input and Output (GNU MPC 1.3.1)">
+<meta name="keywords" content="String and Stream Input and Output (GNU MPC 1.3.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="Complex-Functions.html" rel="up" title="Complex Functions">
+<link href="Complex-Comparison.html" rel="next" title="Complex Comparison">
+<link href="Converting-Complex-Numbers.html" rel="prev" title="Converting Complex Numbers">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="String-and-Stream-Input-and-Output">
+<div class="nav-panel">
+<p>
+Next: <a href="Complex-Comparison.html" accesskey="n" rel="next">Comparison Functions</a>, Previous: <a href="Converting-Complex-Numbers.html" accesskey="p" rel="prev">Conversion Functions</a>, Up: <a href="Complex-Functions.html" accesskey="u" rel="up">Complex Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="String-and-Stream-Input-and-Output-1">5.4 String and Stream Input and Output</h3>
+<a class="index-entry-id" id="index-String-and-stream-input-and-output"></a>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpc_005fstrtoc"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_strtoc</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const char *<var class="var">nptr</var>, char **<var class="var">endptr</var>, int <var class="var">base</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005fstrtoc'> &para;</a></span></dt>
+<dd><p>Read a complex number from a string <var class="var">nptr</var> in base <var class="var">base</var>, rounded to
+the precision of <var class="var">rop</var> with the given rounding mode <var class="var">rnd</var>.
+The <var class="var">base</var> must be either 0 or a number from 2 to 36 (otherwise the
+behaviour is undefined).
+If <var class="var">nptr</var> starts with valid data, the result is stored in <var class="var">rop</var>,
+the usual inexact value is returned (see <a class="pxref" href="GNU-MPC-Basics.html#return_002dvalue">Return
+Value</a>) and, if <var class="var">endptr</var> is not the null pointer,
+<var class="var">*endptr</var> points to the character just after the valid data.
+Otherwise, <var class="var">rop</var> is set to <code class="code">NaN + i * NaN</code>, -1 is returned and,
+if <var class="var">endptr</var> is not the null pointer,
+the value of <var class="var">nptr</var> is stored in the location referenced by
+<var class="var">endptr</var>.
+</p>
+<p>The expected form of a complex number string is either a real number (an
+optional leading whitespace, an optional sign followed by a floating-point
+number), or a pair of real numbers in parentheses separated by whitespace. If
+a real number is read, the missing imaginary part is set to +0.
+The form of a floating-point number depends on the base and is described
+in the documentation of <code class="code">mpfr_strtofr</code>
+in the GNU MPFR manual.
+For instance, <code class="code">&quot;3.1415926&quot;</code>, <code class="code">&quot;(1.25e+7 +.17)&quot;</code>, <code class="code">&quot;(@nan@
+2)&quot;</code> and <code class="code">&quot;(-0 -7)&quot;</code> are valid strings for <var class="var">base</var> = 10.
+If <var class="var">base</var> = 0, then a prefix may be used to indicate the base in which the
+floating-point number is written. Use prefix &rsquo;0b&rsquo; for binary numbers, prefix
+&rsquo;0x&rsquo; for hexadecimal numbers, and no prefix for decimal numbers.
+The real and imaginary part may then be written in different bases.
+For instance, <code class="code">&quot;(1.024e+3 +2.05e+3)&quot;</code> and <code class="code">&quot;(0b1p+10 +0x802)&quot;</code> are
+valid strings for <code class="code">base</code>=0 and represent the same value.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpc_005fset_005fstr"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_set_str</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, const char *<var class="var">s</var>, int <var class="var">base</var>, mpc_rnd_t rnd)</code><a class="copiable-link" href='#index-mpc_005fset_005fstr'> &para;</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the value of the string <var class="var">s</var> in base <var class="var">base</var>, rounded
+to the precision of <var class="var">rop</var> with the given rounding mode <var class="var">rnd</var>.
+See the documentation of <code class="code">mpc_strtoc</code> for a detailed description of the
+valid string formats.
+Contrarily to <code class="code">mpc_strtoc</code>, <code class="code">mpc_set_str</code> requires the <em class="emph">whole</em>
+string to represent a valid complex number (potentially followed by
+additional white space).
+This function returns the usual inexact value (see <a class="pxref" href="GNU-MPC-Basics.html#return_002dvalue">Return
+Value</a>) if the entire string up to the final null character is a valid number
+in base <var class="var">base</var>; otherwise it returns &minus;1, and <var class="var">rop</var> is set to
+NaN+i*NaN.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpc_005fget_005fstr"><span class="category-def">Function: </span><span><code class="def-type">char *</code> <strong class="def-name">mpc_get_str</strong> <code class="def-code-arguments">(int <var class="var">b</var>, size_t <var class="var">n</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005fget_005fstr'> &para;</a></span></dt>
+<dd><p>Convert <var class="var">op</var> to a string containing its real and imaginary parts,
+separated by a space and enclosed in a pair of parentheses.
+The numbers are written in base <var class="var">b</var> (which may vary from 2 to 36) and
+rounded according to <var class="var">rnd</var>. The number of significant digits, at least 2,
+is given by <var class="var">n</var>. It is also possible to let
+<var class="var">n</var> be zero, in which case the number of digits is chosen large
+enough so that re-reading the printed value with the same precision, assuming
+both output and input use rounding to nearest, will recover the original value
+of <var class="var">op</var>.
+Note that <code class="code">mpc_get_str</code> uses the decimal point of the current locale
+if available, and &lsquo;<samp class="samp">.</samp>&rsquo; otherwise.
+</p>
+<p>The string is generated using the current memory allocation function
+(<code class="code">malloc</code> by default, unless it has been modified using the custom
+memory allocation interface of <code class="code">gmp</code>); once it is not needed any more,
+it should be freed by calling <code class="code">mpc_free_str</code>.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpc_005ffree_005fstr"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpc_free_str</strong> <code class="def-code-arguments">(char *<var class="var">str</var>)</code><a class="copiable-link" href='#index-mpc_005ffree_005fstr'> &para;</a></span></dt>
+<dd><p>Free the string <var class="var">str</var>, which needs to have been allocated by
+a call to <code class="code">mpc_get_str</code>.
+</p></dd></dl>
+
+<p>The following two functions read numbers from input streams and write
+them to output streams.
+When using any of these functions, you need to include <samp class="file">stdio.h</samp>
+<em class="emph">before</em> <samp class="file">mpc.h</samp>.
+</p>
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpc_005finp_005fstr"><span class="category-def">Function: </span><span><code class="def-type">int</code> <strong class="def-name">mpc_inp_str</strong> <code class="def-code-arguments">(mpc_t <var class="var">rop</var>, FILE *<var class="var">stream</var>, size_t *<var class="var">read</var>, int <var class="var">base</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005finp_005fstr'> &para;</a></span></dt>
+<dd><p>Input a string in base <var class="var">base</var> in the same format as for <code class="code">mpc_strtoc</code>
+from stdio stream <var class="var">stream</var>, rounded according to <var class="var">rnd</var>, and put the
+read complex number into <var class="var">rop</var>.
+If <var class="var">stream</var> is the null pointer, <var class="var">rop</var> is read from <code class="code">stdin</code>.
+Return the usual inexact value; if an error occurs, set <var class="var">rop</var> to <code class="code">NaN
++ i * NaN</code> and return -1.
+If <var class="var">read</var> is not the null pointer, it is set to the number of read
+characters.
+</p>
+<p>Unlike <code class="code">mpc_strtoc</code>, the function <code class="code">mpc_inp_str</code> does not possess
+perfect knowledge of the string to transform and has to read it
+character by character, so it behaves slightly differently: It tries
+to read a string describing a complex number and processes this string
+through a call to <code class="code">mpc_set_str</code>. Precisely, after skipping optional
+whitespace, a minimal string is read according to the regular expression
+<code class="code">mpfr | '(' \s* mpfr \s+ mpfr \s* ')'</code>, where <code class="code">\s</code> denotes a whitespace,
+and <code class="code">mpfr</code> is either a string containing neither whitespaces nor
+parentheses, or <code class="code">nan(n-char-sequence)</code> or <code class="code">@nan@(n-char-sequence)</code>
+(regardless of capitalisation) with <code class="code">n-char-sequence</code> a string
+of ascii letters, digits or <code class="code">'_'</code>.
+</p>
+<p>For instance, upon input of <code class="code">&quot;nan(13 1)&quot;</code>, the function
+<code class="code">mpc_inp_str</code> starts to recognise a value of NaN followed by an
+n-char-sequence indicated by the opening parenthesis; as soon as the
+space is reached, it becomes clear that the expression in parentheses
+is not an n-char-sequence, and the error flag -1 is returned after 6
+characters have been consumed from the stream (the whitespace itself
+remaining in the stream).
+The function <code class="code">mpc_strtoc</code>, on the other hand, may track back
+when reaching the whitespace; it treats the string as the two successive
+complex numbers <code class="code">NaN + i * 0</code> and <code class="code">13 + i</code>.
+It is thus recommended to have a whitespace follow each floating point number
+to avoid this problem.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpc_005fout_005fstr"><span class="category-def">Function: </span><span><code class="def-type">size_t</code> <strong class="def-name">mpc_out_str</strong> <code class="def-code-arguments">(FILE *<var class="var">stream</var>, int <var class="var">base</var>, size_t <var class="var">n_digits</var>, const mpc_t <var class="var">op</var>, mpc_rnd_t <var class="var">rnd</var>)</code><a class="copiable-link" href='#index-mpc_005fout_005fstr'> &para;</a></span></dt>
+<dd><p>Output <var class="var">op</var> on stdio stream <var class="var">stream</var> in
+base <var class="var">base</var>, rounded according to <var class="var">rnd</var>, in the same format
+as for <code class="code">mpc_strtoc</code>
+If <var class="var">stream</var> is the null pointer, <var class="var">rop</var> is written to <code class="code">stdout</code>.
+</p>
+<p>Return the number of characters written.
+</p></dd></dl>
+
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Complex-Comparison.html">Comparison Functions</a>, Previous: <a href="Converting-Complex-Numbers.html">Conversion Functions</a>, Up: <a href="Complex-Functions.html">Complex Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>hard links (GNU tar 1.34)</title>
+
+<meta name="description" content="hard links (GNU tar 1.34)">
+<meta name="keywords" content="hard links (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Portability.html" rel="up" title="Portability">
+<link href="old.html" rel="next" title="old">
+<link href="dereference.html" rel="prev" title="dereference">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+span.r {font-family: initial; font-weight: normal; font-style: normal}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="hard-links">
+<div class="nav-panel">
+<p>
+Next: <a href="old.html" accesskey="n" rel="next">Old V7 Archives</a>, Previous: <a href="dereference.html" accesskey="p" rel="prev">Symbolic Links</a>, Up: <a href="Portability.html" accesskey="u" rel="up">Making <code class="command">tar</code> Archives More Portable</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="Hard-Links">8.3.3 Hard Links</h4>
+<a class="index-entry-id" id="index-File-names_002c-using-hard-links"></a>
+<a class="index-entry-id" id="index-hard-links_002c-dereferencing"></a>
+<a class="index-entry-id" id="index-dereferencing-hard-links"></a>
+
+<p>Normally, when <code class="command">tar</code> archives a hard link, it writes a
+block to the archive naming the target of the link (a &lsquo;<samp class="samp">1</samp>&rsquo; type
+block).  In that way, the actual file contents is stored in file only
+once.  For example, consider the following two files:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">$ ls -l
+-rw-r--r-- 2 gray staff 4 2007-10-30 15:11 one
+-rw-r--r-- 2 gray staff 4 2007-10-30 15:11 jeden
+</pre></div></div>
+
+<p>Here, <samp class="file">jeden</samp> is a link to <samp class="file">one</samp>.  When archiving this
+directory with a verbose level 2, you will get an output similar to
+the following:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ tar cvvf ../archive.tar .
+drwxr-xr-x gray/staff        0 2007-10-30 15:13 ./
+-rw-r--r-- gray/staff        4 2007-10-30 15:11 ./jeden
+hrw-r--r-- gray/staff        0 2007-10-30 15:11 ./one link to ./jeden
+</pre></div>
+
+<p>The last line shows that, instead of storing two copies of the file,
+<code class="command">tar</code> stored it only once, under the name <samp class="file">jeden</samp>, and
+stored file <samp class="file">one</samp> as a hard link to this file.
+</p>
+<p>It may be important to know that all hard links to the given file are
+stored in the archive.  For example, this may be necessary for exact
+reproduction of the file system.  The following option does that:
+</p>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-check_002dlinks_002c-described"></a>
+</dd>
+<dt><samp class="option">--check-links</samp></dt>
+<dt><samp class="option">-l</samp></dt>
+<dd><p>Check the number of links dumped for each processed file.  If this
+number does not match the total number of hard links for the file, print
+a warning message.
+</p></dd>
+</dl>
+
+<p>For example, trying to archive only file <samp class="file">jeden</samp> with this option
+produces the following diagnostics:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ tar -c -f ../archive.tar -l jeden
+tar: Missing links to 'jeden'.
+</pre></div>
+
+<p>Although creating special records for hard links helps keep a faithful
+record of the file system contents and makes archives more compact, it
+may present some difficulties when extracting individual members from
+the archive.  For example, trying to extract file <samp class="file">one</samp> from the
+archive created in previous examples produces, in the absence of file
+<samp class="file">jeden</samp>:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ tar xf archive.tar ./one
+tar: ./one: Cannot hard link to './jeden': No such file or directory
+tar: Error exit delayed from previous errors
+</pre></div>
+
+<p>The reason for this behavior is that <code class="command">tar</code> cannot seek back in
+the archive to the previous member (in this case, <samp class="file">one</samp>), to
+extract it<a class="footnote" id="DOCF22" href="#FOOT22"><sup>22</sup></a>.
+If you wish to avoid such problems at the cost of a bigger archive,
+use the following option:
+</p>
+<dl class="table">
+<dd><a class="index-entry-id" id="index-hard_002ddereference_002c-described"></a>
+</dd>
+<dt><samp class="option">--hard-dereference</samp></dt>
+<dd><p>Dereference hard links and store the files they refer to.
+</p></dd>
+</dl>
+
+<p>For example, trying this option on our two sample files, we get two
+copies in the archive, each of which can then be extracted
+independently of the other:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">$ tar -c -vv -f ../archive.tar --hard-dereference .
+drwxr-xr-x gray/staff        0 2007-10-30 15:13 ./
+-rw-r--r-- gray/staff        4 2007-10-30 15:11 ./jeden
+-rw-r--r-- gray/staff        4 2007-10-30 15:11 ./one
+</pre></div></div>
+
+</div>
+<div class="footnotes-segment">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h5 class="footnote-body-heading"><a id="FOOT22" href="#DOCF22">(22)</a></h5>
+<p>There are plans to fix this in future releases.</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="old.html">Old V7 Archives</a>, Previous: <a href="dereference.html">Symbolic Links</a>, Up: <a href="Portability.html">Making <code class="command">tar</code> Archives More Portable</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

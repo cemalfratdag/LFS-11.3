@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Checksumming (GNU tar 1.34)</title>
+
+<meta name="description" content="Checksumming (GNU tar 1.34)">
+<meta name="keywords" content="Checksumming (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Portability.html" rel="up" title="Portability">
+<link href="Large-or-Negative-Values.html" rel="next" title="Large or Negative Values">
+<link href="posix.html" rel="prev" title="posix">
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="Checksumming">
+<div class="nav-panel">
+<p>
+Next: <a href="Large-or-Negative-Values.html" accesskey="n" rel="next">Large or Negative Values</a>, Previous: <a href="posix.html" accesskey="p" rel="prev"><abbr class="acronym">GNU</abbr> <code class="command">tar</code> and <abbr class="acronym">POSIX</abbr> <code class="command">tar</code></a>, Up: <a href="Portability.html" accesskey="u" rel="up">Making <code class="command">tar</code> Archives More Portable</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="Checksumming-Problems">8.3.8 Checksumming Problems</h4>
+
+<p>SunOS and HP-UX <code class="command">tar</code> fail to accept archives created using
+<abbr class="acronym">GNU</abbr> <code class="command">tar</code> and containing non-<abbr class="acronym">ASCII</abbr> file names, that
+is, file names having characters with the eighth bit set, because they
+use signed checksums, while <abbr class="acronym">GNU</abbr> <code class="command">tar</code> uses unsigned
+checksums while creating archives, as per <abbr class="acronym">POSIX</abbr> standards.  On
+reading, <abbr class="acronym">GNU</abbr> <code class="command">tar</code> computes both checksums and accepts either of them.
+It is somewhat worrying that a lot of people may go
+around doing backup of their files using faulty (or at least
+non-standard) software, not learning about it until it&rsquo;s time to
+restore their missing files with an incompatible file extractor, or
+vice versa.
+</p>
+<p><abbr class="acronym">GNU</abbr> <code class="command">tar</code> computes checksums both ways, and accepts either of them
+on read, so <abbr class="acronym">GNU</abbr> tar can read Sun tapes even with their
+wrong checksums.  <abbr class="acronym">GNU</abbr> <code class="command">tar</code> produces the standard
+checksum, however, raising incompatibilities with Sun.  That is to
+say, <abbr class="acronym">GNU</abbr> <code class="command">tar</code> has not been modified to
+<em class="emph">produce</em> incorrect archives to be read by buggy <code class="command">tar</code>&rsquo;s.
+I&rsquo;ve been told that more recent Sun <code class="command">tar</code> now read standard
+archives, so maybe Sun did a similar patch, after all?
+</p>
+<p>The story seems to be that when Sun first imported <code class="command">tar</code>
+sources on their system, they recompiled it without realizing that
+the checksums were computed differently, because of a change in
+the default signing of <code class="code">char</code>&rsquo;s in their compiler.  So they
+started computing checksums wrongly.  When they later realized their
+mistake, they merely decided to stay compatible with it, and with
+themselves afterwards.  Presumably, but I do not really know, HP-UX
+has chosen their <code class="command">tar</code> archives to be compatible with Sun&rsquo;s.
+The current standards do not favor Sun <code class="command">tar</code> format.  In any
+case, it now falls on the shoulders of SunOS and HP-UX users to get
+a <code class="command">tar</code> able to read the good archives they receive.
+</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Large-or-Negative-Values.html">Large or Negative Values</a>, Previous: <a href="posix.html"><abbr class="acronym">GNU</abbr> <code class="command">tar</code> and <abbr class="acronym">POSIX</abbr> <code class="command">tar</code></a>, Up: <a href="Portability.html">Making <code class="command">tar</code> Archives More Portable</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

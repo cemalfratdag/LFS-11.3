@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>gnu (GNU tar 1.34)</title>
+
+<meta name="description" content="gnu (GNU tar 1.34)">
+<meta name="keywords" content="gnu (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Portability.html" rel="up" title="Portability">
+<link href="posix.html" rel="next" title="posix">
+<link href="ustar.html" rel="prev" title="ustar">
+
+
+</head>
+
+<body lang="en">
+<div class="subsection-level-extent" id="gnu">
+<div class="nav-panel">
+<p>
+Next: <a href="posix.html" accesskey="n" rel="next"><abbr class="acronym">GNU</abbr> <code class="command">tar</code> and <abbr class="acronym">POSIX</abbr> <code class="command">tar</code></a>, Previous: <a href="ustar.html" accesskey="p" rel="prev">Ustar Archive Format</a>, Up: <a href="Portability.html" accesskey="u" rel="up">Making <code class="command">tar</code> Archives More Portable</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="subsection" id="GNU-and-old-GNU-tar-format">8.3.6 <abbr class="acronym">GNU</abbr> and old <abbr class="acronym">GNU</abbr> <code class="command">tar</code> format</h4>
+
+<a class="index-entry-id" id="index-GNU-archive-format"></a>
+<a class="index-entry-id" id="index-Old-GNU-archive-format"></a>
+<p><abbr class="acronym">GNU</abbr> <code class="command">tar</code> was based on an early draft of the
+<abbr class="acronym">POSIX</abbr> 1003.1 <code class="code">ustar</code> standard.  <abbr class="acronym">GNU</abbr> extensions to
+<code class="command">tar</code>, such as the support for file names longer than 100
+characters, use portions of the <code class="command">tar</code> header record which were
+specified in that <abbr class="acronym">POSIX</abbr> draft as unused.  Subsequent changes in
+<abbr class="acronym">POSIX</abbr> have allocated the same parts of the header record for
+other purposes.  As a result, <abbr class="acronym">GNU</abbr> <code class="command">tar</code> format is
+incompatible with the current <abbr class="acronym">POSIX</abbr> specification, and with
+<code class="command">tar</code> programs that follow it.
+</p>
+<p>In the majority of cases, <code class="command">tar</code> will be configured to create
+this format by default.  This will change in future releases, since
+we plan to make &lsquo;<samp class="samp">POSIX</samp>&rsquo; format the default.
+</p>
+<p>To force creation a <abbr class="acronym">GNU</abbr> <code class="command">tar</code> archive, use option
+<samp class="option">--format=gnu</samp>.
+</p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Definitions (GNU tar 1.34)</title>
+
+<meta name="description" content="Definitions (GNU tar 1.34)">
+<meta name="keywords" content="Definitions (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Introduction.html" rel="up" title="Introduction">
+<link href="What-tar-Does.html" rel="next" title="What tar Does">
+<link href="Book-Contents.html" rel="prev" title="Book Contents">
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Definitions">
+<div class="nav-panel">
+<p>
+Next: <a href="What-tar-Does.html" accesskey="n" rel="next">What <code class="command">tar</code> Does</a>, Previous: <a href="Book-Contents.html" accesskey="p" rel="prev">What this Book Contains</a>, Up: <a href="Introduction.html" accesskey="u" rel="up">Introduction</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Some-Definitions">1.2 Some Definitions</h3>
+
+<a class="index-entry-id" id="index-archive"></a>
+<a class="index-entry-id" id="index-tar-archive"></a>
+<p>The <code class="command">tar</code> program is used to create and manipulate <code class="command">tar</code>
+archives.  An <em class="dfn">archive</em> is a single file which contains the contents
+of many files, while still identifying the names of the files, their
+owner(s), and so forth.  (In addition, archives record access
+permissions, user and group, size in bytes, and data modification time.
+Some archives also record the file names in each archived directory, as
+well as other file and directory information.)  You can use <code class="command">tar</code>
+to <em class="dfn">create</em> a new archive in a specified directory.
+</p>
+<a class="index-entry-id" id="index-member"></a>
+<a class="index-entry-id" id="index-archive-member"></a>
+<a class="index-entry-id" id="index-file-name"></a>
+<a class="index-entry-id" id="index-member-name"></a>
+<p>The files inside an archive are called <em class="dfn">members</em>.  Within this
+manual, we use the term <em class="dfn">file</em> to refer only to files accessible in
+the normal ways (by <code class="command">ls</code>, <code class="command">cat</code>, and so forth), and the term
+<em class="dfn">member</em> to refer only to the members of an archive.  Similarly, a
+<em class="dfn">file name</em> is the name of a file, as it resides in the file system,
+and a <em class="dfn">member name</em> is the name of an archive member within the
+archive.
+</p>
+<a class="index-entry-id" id="index-extraction"></a>
+<a class="index-entry-id" id="index-unpacking"></a>
+<p>The term <em class="dfn">extraction</em> refers to the process of copying an archive
+member (or multiple members) into a file in the file system.  Extracting
+all the members of an archive is often called <em class="dfn">extracting the
+archive</em>.  The term <em class="dfn">unpack</em> can also be used to refer to the
+extraction of many or all the members of an archive.  Extracting an
+archive does not destroy the archive&rsquo;s structure, just as creating an
+archive does not destroy the copies of the files that exist outside of
+the archive.  You may also <em class="dfn">list</em> the members in a given archive
+(this is often thought of as &ldquo;printing&rdquo; them to the standard output,
+or the command line), or <em class="dfn">append</em> members to a pre-existing archive.
+All of these operations can be performed using <code class="command">tar</code>.
+</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="What-tar-Does.html">What <code class="command">tar</code> Does</a>, Previous: <a href="Book-Contents.html">What this Book Contains</a>, Up: <a href="Introduction.html">Introduction</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

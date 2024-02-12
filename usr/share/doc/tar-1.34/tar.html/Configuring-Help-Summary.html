@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>Configuring Help Summary (GNU tar 1.34)</title>
+
+<meta name="description" content="Configuring Help Summary (GNU tar 1.34)">
+<meta name="keywords" content="Configuring Help Summary (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html" rel="up" title="Top">
+<link href="Fixing-Snapshot-Files.html" rel="next" title="Fixing Snapshot Files">
+<link href="Recipes.html" rel="prev" title="Recipes">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="appendix-level-extent" id="Configuring-Help-Summary">
+<div class="nav-panel">
+<p>
+Next: <a href="Fixing-Snapshot-Files.html" accesskey="n" rel="next">Fixing Snapshot Files</a>, Previous: <a href="Recipes.html" accesskey="p" rel="prev">Recipes</a>, Up: <a href="index.html" accesskey="u" rel="up"><abbr class="acronym">GNU</abbr> tar: an archiver tool</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h2 class="appendix" id="Configuring-Help-Summary-1">Appendix C Configuring Help Summary</h2>
+
+<p>Running <kbd class="kbd">tar --help</kbd> displays the short <code class="command">tar</code> option
+summary (see <a class="pxref" href="help.html"><abbr class="acronym">GNU</abbr> <code class="command">tar</code> documentation</a>). This summary is organized by <em class="dfn">groups</em> of
+semantically close options. The options within each group are printed
+in the following order: a short option, eventually followed by a list
+of corresponding long option names, followed by a short description of
+the option. For example, here is an excerpt from the actual <kbd class="kbd">tar
+--help</kbd> output:
+</p>
+<pre class="verbatim"> Main operation mode:
+
+  -A, --catenate, --concatenate   append tar files to an archive
+  -c, --create               create a new archive
+  -d, --diff, --compare      find differences between archive and
+                             file system
+      --delete               delete from the archive
+</pre>
+<a class="index-entry-id" id="index-ARGP_005fHELP_005fFMT_002c-environment-variable"></a>
+<p>The exact visual representation of the help output is configurable via
+<code class="env">ARGP_HELP_FMT</code> environment variable. The value of this variable
+is a comma-separated list of <em class="dfn">format variable</em> assignments. There
+are two kinds of format variables. An <em class="dfn">offset variable</em> keeps the
+offset of some part of help output text from the leftmost column on
+the screen. A <em class="dfn">boolean</em> variable is a flag that toggles some
+output feature on or off. Depending on the type of the corresponding
+variable, there are two kinds of assignments:
+</p>
+<dl class="table">
+<dt>Offset assignment</dt>
+<dd>
+<p>The assignment to an offset variable has the following syntax:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted"><var class="var">variable</var>=<var class="var">value</var>
+</pre></div>
+
+<p>where <var class="var">variable</var> is the variable name, and <var class="var">value</var> is a
+numeric value to be assigned to the variable.
+</p>
+</dd>
+<dt>Boolean assignment</dt>
+<dd>
+<p>To assign <code class="code">true</code> value to a variable, simply put this variable name. To
+assign <code class="code">false</code> value, prefix the variable name with &lsquo;<samp class="samp">no-</samp>&rsquo;. For
+example:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted"># Assign <code class="code">true</code> value:
+dup-args
+# Assign <code class="code">false</code> value:
+no-dup-args
+</pre></div></div>
+</dd>
+</dl>
+
+<p>Following variables are declared:
+</p>
+<dl class="first-deftypevr">
+<dt class="deftypevr" id="index-dup_002dargs"><span class="category-def">Help Output: </span><span><code class="def-type">boolean</code> <strong class="def-name">dup-args</strong><a class="copiable-link" href='#index-dup_002dargs'> &para;</a></span></dt>
+<dd><p>If true, arguments for an option are shown with both short and long
+options, even when a given option has both forms, for example:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">  -f ARCHIVE, --file=ARCHIVE use archive file or device ARCHIVE
+</pre></div>
+
+<p>If false, then if an option has both short and long forms, the
+argument is only shown with the long one, for example:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">  -f, --file=ARCHIVE         use archive file or device ARCHIVE
+</pre></div>
+
+<p>and a message indicating that the argument is applicable to both
+forms is printed below the options. This message can be disabled
+using <code class="code">dup-args-note</code> (see below).
+</p>
+<p>The default is false.
+</p></dd></dl>
+
+<dl class="first-deftypevr">
+<dt class="deftypevr" id="index-dup_002dargs_002dnote"><span class="category-def">Help Output: </span><span><code class="def-type">boolean</code> <strong class="def-name">dup-args-note</strong><a class="copiable-link" href='#index-dup_002dargs_002dnote'> &para;</a></span></dt>
+<dd><p>If this variable is true, which is the default, the following notice
+is displayed at the end of the help output:
+</p>
+<blockquote class="quotation">
+<p>Mandatory or optional arguments to long options are also mandatory or
+optional for any corresponding short options.
+</p></blockquote>
+
+<p>Setting <code class="code">no-dup-args-note</code> inhibits this message. Normally, only one of
+variables <code class="code">dup-args</code> or <code class="code">dup-args-note</code> should be set.
+</p></dd></dl>
+
+<dl class="first-deftypevr">
+<dt class="deftypevr" id="index-short_002dopt_002dcol"><span class="category-def">Help Output: </span><span><code class="def-type">offset</code> <strong class="def-name">short-opt-col</strong><a class="copiable-link" href='#index-short_002dopt_002dcol'> &para;</a></span></dt>
+<dd><p>Column in which short options start. Default is 2.
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">$ <kbd class="kbd">tar --help|grep ARCHIVE</kbd>
+  -f, --file=ARCHIVE   use archive file or device ARCHIVE
+$ <kbd class="kbd">ARGP_HELP_FMT=short-opt-col=6 tar --help|grep ARCHIVE</kbd>
+      -f, --file=ARCHIVE   use archive file or device ARCHIVE
+</pre></div></div>
+</dd></dl>
+
+<dl class="first-deftypevr">
+<dt class="deftypevr" id="index-long_002dopt_002dcol"><span class="category-def">Help Output: </span><span><code class="def-type">offset</code> <strong class="def-name">long-opt-col</strong><a class="copiable-link" href='#index-long_002dopt_002dcol'> &para;</a></span></dt>
+<dd><p>Column in which long options start. Default is 6. For example:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">$ <kbd class="kbd">tar --help|grep ARCHIVE</kbd>
+  -f, --file=ARCHIVE   use archive file or device ARCHIVE
+$ <kbd class="kbd">ARGP_HELP_FMT=long-opt-col=16 tar --help|grep ARCHIVE</kbd>
+  -f,           --file=ARCHIVE   use archive file or device ARCHIVE
+</pre></div></div>
+</dd></dl>
+
+<dl class="first-deftypevr">
+<dt class="deftypevr" id="index-doc_002dopt_002dcol"><span class="category-def">Help Output: </span><span><code class="def-type">offset</code> <strong class="def-name">doc-opt-col</strong><a class="copiable-link" href='#index-doc_002dopt_002dcol'> &para;</a></span></dt>
+<dd><p>Column in which <em class="dfn">doc options</em> start.  A doc option isn&rsquo;t actually
+an option, but rather an arbitrary piece of documentation that is
+displayed in much the same manner as the options.  For example, in
+the description of <samp class="option">--format</samp> option:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">  -H, --format=FORMAT        create archive of the given format.
+
+ FORMAT is one of the following:
+
+    gnu                      GNU tar 1.13.x format
+    oldgnu                   GNU format as per tar &lt;= 1.12
+    pax                      POSIX 1003.1-2001 (pax) format
+    posix                    same as pax
+    ustar                    POSIX 1003.1-1988 (ustar) format
+    v7                       old V7 tar format
+</pre></div></div>
+
+<p>the format names are doc options. Thus, if you set
+<kbd class="kbd">ARGP_HELP_FMT=doc-opt-col=6</kbd> the above part of the help output
+will look as follows:
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">  -H, --format=FORMAT        create archive of the given format.
+
+ FORMAT is one of the following:
+
+        gnu                      GNU tar 1.13.x format
+        oldgnu                   GNU format as per tar &lt;= 1.12
+        pax                      POSIX 1003.1-2001 (pax) format
+        posix                    same as pax
+        ustar                    POSIX 1003.1-1988 (ustar) format
+        v7                       old V7 tar format
+</pre></div></div>
+</dd></dl>
+
+<dl class="first-deftypevr">
+<dt class="deftypevr" id="index-opt_002ddoc_002dcol"><span class="category-def">Help Output: </span><span><code class="def-type">offset</code> <strong class="def-name">opt-doc-col</strong><a class="copiable-link" href='#index-opt_002ddoc_002dcol'> &para;</a></span></dt>
+<dd><p>Column in which option description starts. Default is 29.
+</p>
+<div class="example smallexample">
+<div class="group"><pre class="example-preformatted">$ <kbd class="kbd">tar --help|grep ARCHIVE</kbd>
+  -f, --file=ARCHIVE         use archive file or device ARCHIVE
+$ <kbd class="kbd">ARGP_HELP_FMT=opt-doc-col=19 tar --help|grep ARCHIVE</kbd>
+  -f, --file=ARCHIVE   use archive file or device ARCHIVE
+$ <kbd class="kbd">ARGP_HELP_FMT=opt-doc-col=9 tar --help|grep ARCHIVE</kbd>
+  -f, --file=ARCHIVE
+           use archive file or device ARCHIVE
+</pre></div></div>
+
+<p>Notice, that the description starts on a separate line if
+<code class="code">opt-doc-col</code> value is too small.
+</p></dd></dl>
+
+<dl class="first-deftypevr">
+<dt class="deftypevr" id="index-header_002dcol"><span class="category-def">Help Output: </span><span><code class="def-type">offset</code> <strong class="def-name">header-col</strong><a class="copiable-link" href='#index-header_002dcol'> &para;</a></span></dt>
+<dd><p>Column in which <em class="dfn">group headers</em> are printed.  A group header is a
+descriptive text preceding an option group.  For example, in the
+following text:
+</p>
+<pre class="verbatim"> Main operation mode:
+
+  -A, --catenate, --concatenate   append tar files to
+                             an archive
+  -c, --create               create a new archive
+</pre><p>&lsquo;<samp class="samp">Main operation mode:</samp>&rsquo; is the group header.
+</p>
+<p>The default value is 1.
+</p></dd></dl>
+
+<dl class="first-deftypevr">
+<dt class="deftypevr" id="index-usage_002dindent"><span class="category-def">Help Output: </span><span><code class="def-type">offset</code> <strong class="def-name">usage-indent</strong><a class="copiable-link" href='#index-usage_002dindent'> &para;</a></span></dt>
+<dd><p>Indentation of wrapped usage lines. Affects <samp class="option">--usage</samp>
+output. Default is 12.
+</p></dd></dl>
+
+<dl class="first-deftypevr">
+<dt class="deftypevr" id="index-rmargin"><span class="category-def">Help Output: </span><span><code class="def-type">offset</code> <strong class="def-name">rmargin</strong><a class="copiable-link" href='#index-rmargin'> &para;</a></span></dt>
+<dd><p>Right margin of the text output. Used for wrapping.
+</p></dd></dl>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Fixing-Snapshot-Files.html">Fixing Snapshot Files</a>, Previous: <a href="Recipes.html">Recipes</a>, Up: <a href="index.html"><abbr class="acronym">GNU</abbr> tar: an archiver tool</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

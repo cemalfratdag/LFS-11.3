@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- This manual documents how to install and use the Multiple Precision
+Floating-Point Reliable Library, version 4.2.0.
+
+Copyright 1991, 1993-2023 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.2 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with no Front-Cover Texts, and with no Back-Cover Texts.  A copy of the
+license is included in GNU Free Documentation License. -->
+<title>Headers and Libraries (GNU MPFR 4.2.0)</title>
+
+<meta name="description" content="How to install and use GNU MPFR, a library for reliable multiple precision
+floating-point arithmetic, version 4.2.0.">
+<meta name="keywords" content="Headers and Libraries (GNU MPFR 4.2.0)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="MPFR-Basics.html" rel="up" title="MPFR Basics">
+<link href="Nomenclature-and-Types.html" rel="next" title="Nomenclature and Types">
+<link href="MPFR-Basics.html" rel="prev" title="MPFR Basics">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Headers-and-Libraries">
+<div class="nav-panel">
+<p>
+Next: <a href="Nomenclature-and-Types.html" accesskey="n" rel="next">Nomenclature and Types</a>, Previous: <a href="MPFR-Basics.html" accesskey="p" rel="prev">MPFR Basics</a>, Up: <a href="MPFR-Basics.html" accesskey="u" rel="up">MPFR Basics</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Headers-and-Libraries-1">4.1 Headers and Libraries</h3>
+
+<a class="index-entry-id" id="index-mpfr_002eh"></a>
+<p>All declarations needed to use MPFR are collected in the include file
+<samp class="file">mpfr.h</samp>.  It is designed to work with both C and C++ compilers.
+You should include that file in any program using the MPFR library:
+</p>
+<div class="example">
+<pre class="example-preformatted">#include &lt;mpfr.h&gt;
+</pre></div>
+
+<a class="index-entry-id" id="index-stdio_002eh"></a>
+<p>Note, however, that prototypes for MPFR functions with <code class="code">FILE *</code> parameters
+are provided only if <code class="code">&lt;stdio.h&gt;</code> is included too (before <samp class="file">mpfr.h</samp>):
+</p>
+<div class="example">
+<pre class="example-preformatted">#include &lt;stdio.h&gt;
+#include &lt;mpfr.h&gt;
+</pre></div>
+
+<a class="index-entry-id" id="index-stdarg_002eh"></a>
+<p>Likewise <code class="code">&lt;stdarg.h&gt;</code> (or <code class="code">&lt;varargs.h&gt;</code>) is required for prototypes
+with <code class="code">va_list</code> parameters, such as <code class="code">mpfr_vprintf</code>.
+</p>
+<a class="index-entry-id" id="index-stdint_002eh"></a>
+<a class="index-entry-id" id="index-inttypes_002eh"></a>
+<a class="index-entry-id" id="index-intmax_005ft"></a>
+<a class="index-entry-id" id="index-uintmax_005ft"></a>
+<p>And for any functions using <code class="code">intmax_t</code>, you must include
+<code class="code">&lt;stdint.h&gt;</code> or <code class="code">&lt;inttypes.h&gt;</code> before <samp class="file">mpfr.h</samp>, to
+allow <samp class="file">mpfr.h</samp> to define prototypes for these functions.
+Moreover, under some platforms (in particular with C++ compilers),
+users may need to define
+<code class="code">MPFR_USE_INTMAX_T</code> (and should do it for portability) before
+<samp class="file">mpfr.h</samp> has been included; of course, it is possible to do that
+on the command line, e.g., with <code class="code">-DMPFR_USE_INTMAX_T</code>.
+</p>
+<p>Note: If <samp class="file">mpfr.h</samp> and/or <samp class="file">gmp.h</samp> (used by <samp class="file">mpfr.h</samp>)
+are included several times (possibly from another header file),
+<code class="code">&lt;stdio.h&gt;</code> and/or <code class="code">&lt;stdarg.h&gt;</code> (or <code class="code">&lt;varargs.h&gt;</code>)
+should be included <strong class="strong">before the first inclusion</strong> of
+<samp class="file">mpfr.h</samp> or <samp class="file">gmp.h</samp>.  Alternatively, you can define
+<code class="code">MPFR_USE_FILE</code> (for MPFR I/O functions) and/or
+<code class="code">MPFR_USE_VA_LIST</code> (for MPFR functions with <code class="code">va_list</code>
+parameters) anywhere before the last inclusion of <samp class="file">mpfr.h</samp>.
+As a consequence, if your file is a public header that includes
+<samp class="file">mpfr.h</samp>, you need to use the latter method.
+</p>
+<p>When calling a MPFR macro, it is not allowed to have previously defined
+a macro with the same name as some keywords (currently <code class="code">do</code>,
+<code class="code">while</code> and <code class="code">sizeof</code>).
+</p>
+<p>You can avoid the use of MPFR macros encapsulating functions by defining
+the <code class="code">MPFR_USE_NO_MACRO</code> macro before <samp class="file">mpfr.h</samp> is included.  In
+general this should not be necessary, but this can be useful when debugging
+user code: with some macros, the compiler may emit spurious warnings with
+some warning options, and macros can prevent some prototype checking.
+</p>
+<a class="index-entry-id" id="index-Libraries"></a>
+<a class="index-entry-id" id="index-Linking"></a>
+<a class="index-entry-id" id="index-libmpfr"></a>
+<p>All programs using MPFR must link against both <samp class="file">libmpfr</samp> and
+<samp class="file">libgmp</samp> libraries.  On a typical Unix-like system this can be
+done with ‘<samp class="samp">-lmpfr -lgmp</samp>’ (in that order), for example:
+</p>
+<div class="example">
+<pre class="example-preformatted">gcc myprogram.c -lmpfr -lgmp
+</pre></div>
+
+<a class="index-entry-id" id="index-Libtool"></a>
+<p>MPFR is built using Libtool and an application can use that to link if
+desired, see <cite class="cite">GNU Libtool</cite>.
+</p>
+<p>If MPFR has been installed to a non-standard location, then it may be
+necessary to set up environment variables such as ‘<samp class="samp">C_INCLUDE_PATH</samp>’
+and ‘<samp class="samp">LIBRARY_PATH</samp>’, or use ‘<samp class="samp">-I</samp>’ and ‘<samp class="samp">-L</samp>’ compiler options,
+in order to point to the right directories. For a shared library, it may
+also be necessary to set up some sort of run-time library path (e.g.,
+‘<samp class="samp">LD_LIBRARY_PATH</samp>’) on some systems. Please read the <samp class="file">INSTALL</samp>
+file for additional information.
+</p>
+<p>Alternatively, it is possible to use ‘<samp class="samp">pkg-config</samp>’ (a file
+‘<samp class="samp">mpfr.pc</samp>’ is provided as of MPFR 4.0):
+</p>
+<div class="example">
+<pre class="example-preformatted">cc myprogram.c $(pkg-config --cflags --libs mpfr)
+</pre></div>
+
+<p>Note that the ‘<samp class="samp">MPFR_</samp>’ and ‘<samp class="samp">mpfr_</samp>’ prefixes are reserved for MPFR.
+As a general rule, in order to avoid clashes, software using MPFR (directly
+or indirectly) and system headers/libraries should not define macros and
+symbols using these prefixes.
+</p>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Nomenclature-and-Types.html">Nomenclature and Types</a>, Previous: <a href="MPFR-Basics.html">MPFR Basics</a>, Up: <a href="MPFR-Basics.html">MPFR Basics</a>   [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

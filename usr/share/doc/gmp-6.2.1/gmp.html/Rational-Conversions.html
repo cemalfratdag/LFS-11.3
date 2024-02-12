@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<!-- This manual describes how to install and use the GNU multiple precision
+arithmetic library, version 6.2.1.
+
+Copyright 1991, 1993-2016, 2018-2020 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation License, Version 1.3 or any later
+version published by the Free Software Foundation; with no Invariant Sections,
+with the Front-Cover Texts being "A GNU Manual", and with the Back-Cover
+Texts being "You have freedom to copy and modify this GNU Manual, like GNU
+software".  A copy of the license is included in
+GNU Free Documentation License. -->
+<title>Rational Conversions (GNU MP 6.2.1)</title>
+
+<meta name="description" content="How to install and use the GNU multiple precision arithmetic library, version 6.2.1.">
+<meta name="keywords" content="Rational Conversions (GNU MP 6.2.1)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Concept-Index.html" rel="index" title="Concept Index">
+<link href="Rational-Number-Functions.html" rel="up" title="Rational Number Functions">
+<link href="Rational-Arithmetic.html" rel="next" title="Rational Arithmetic">
+<link href="Initializing-Rationals.html" rel="prev" title="Initializing Rationals">
+<style type="text/css">
+<!--
+a.copiable-link {visibility: hidden; text-decoration: none; line-height: 0em}
+div.example {margin-left: 3.2em}
+span:hover a.copiable-link {visibility: visible}
+strong.def-name {font-family: monospace; font-weight: bold; font-size: larger}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="section-level-extent" id="Rational-Conversions">
+<div class="nav-panel">
+<p>
+Next: <a href="Rational-Arithmetic.html" accesskey="n" rel="next">Arithmetic Functions</a>, Previous: <a href="Initializing-Rationals.html" accesskey="p" rel="prev">Initialization and Assignment Functions</a>, Up: <a href="Rational-Number-Functions.html" accesskey="u" rel="up">Rational Number Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h3 class="section" id="Conversion-Functions-1">6.2 Conversion Functions</h3>
+<a class="index-entry-id" id="index-Rational-conversion-functions"></a>
+<a class="index-entry-id" id="index-Conversion-functions-1"></a>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpq_005fget_005fd"><span class="category-def">Function: </span><span><code class="def-type">double</code> <strong class="def-name">mpq_get_d</strong> <code class="def-code-arguments">(const mpq_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpq_005fget_005fd'> &para;</a></span></dt>
+<dd><p>Convert <var class="var">op</var> to a <code class="code">double</code>, truncating if necessary (i.e. rounding
+towards zero).
+</p>
+<p>If the exponent from the conversion is too big or too small to fit a
+<code class="code">double</code> then the result is system dependent.  For too big an infinity is
+returned when available.  For too small <em class="math">0.0</em> is normally returned.
+Hardware overflow, underflow and denorm traps may or may not occur.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpq_005fset_005fd"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpq_set_d</strong> <code class="def-code-arguments">(mpq_t <var class="var">rop</var>, double <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpq_005fset_005fd'> &para;</a></span></dt>
+<dt class="deftypefnx deftypefunx-alias-deftypefnx def-cmd-deftypefn" id="index-mpq_005fset_005ff"><span class="category-def">Function: </span><span><code class="def-type">void</code> <strong class="def-name">mpq_set_f</strong> <code class="def-code-arguments">(mpq_t <var class="var">rop</var>, const mpf_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpq_005fset_005ff'> &para;</a></span></dt>
+<dd><p>Set <var class="var">rop</var> to the value of <var class="var">op</var>.  There is no rounding, this conversion
+is exact.
+</p></dd></dl>
+
+<dl class="first-deftypefn first-deftypefun-alias-first-deftypefn">
+<dt class="deftypefn deftypefun-alias-deftypefn" id="index-mpq_005fget_005fstr"><span class="category-def">Function: </span><span><code class="def-type">char *</code> <strong class="def-name">mpq_get_str</strong> <code class="def-code-arguments">(char *<var class="var">str</var>, int <var class="var">base</var>, const mpq_t <var class="var">op</var>)</code><a class="copiable-link" href='#index-mpq_005fget_005fstr'> &para;</a></span></dt>
+<dd><p>Convert <var class="var">op</var> to a string of digits in base <var class="var">base</var>.  The base argument
+may vary from 2 to 62 or from &minus;2 to &minus;36.  The string will be of
+the form &lsquo;<samp class="samp">num/den</samp>&rsquo;, or if the denominator is 1 then just &lsquo;<samp class="samp">num</samp>&rsquo;.
+</p>
+<p>For <var class="var">base</var> in the range 2..36, digits and lower-case letters are used; for
+&minus;2..&minus;36, digits and upper-case letters are used; for 37..62,
+digits, upper-case letters, and lower-case letters (in that significance order)
+are used.
+</p>
+<p>If <var class="var">str</var> is <code class="code">NULL</code>, the result string is allocated using the current
+allocation function (see <a class="pxref" href="Custom-Allocation.html">Custom Allocation</a>).  The block will be
+<code class="code">strlen(str)+1</code> bytes, that being exactly enough for the string and
+null-terminator.
+</p>
+<p>If <var class="var">str</var> is not <code class="code">NULL</code>, it should point to a block of storage large
+enough for the result, that being
+</p>
+<div class="example">
+<pre class="example-preformatted">mpz_sizeinbase (mpq_numref(<var class="var">op</var>), <var class="var">base</var>)
++ mpz_sizeinbase (mpq_denref(<var class="var">op</var>), <var class="var">base</var>) + 3
+</pre></div>
+
+<p>The three extra bytes are for a possible minus sign, possible slash, and the
+null-terminator.
+</p>
+<p>A pointer to the result string is returned, being either the allocated block,
+or the given <var class="var">str</var>.
+</p></dd></dl>
+
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="Rational-Arithmetic.html">Arithmetic Functions</a>, Previous: <a href="Initializing-Rationals.html">Initialization and Assignment Functions</a>, Up: <a href="Rational-Number-Functions.html">Rational Number Functions</a> &nbsp; [<a href="Concept-Index.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>

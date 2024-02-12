@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.2, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- 
+This manual is for GNU tar (version
+1.34, 4 February 2021), which creates and extracts files
+from archives.
+
+Copyright © 1992, 1994-1997, 1999-2001, 2003-2017, 2021
+Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with the
+Invariant Sections being "GNU General Public License", with the
+Front-Cover Texts being "A GNU Manual", and with the Back-Cover Texts
+as in (a) below.  A copy of the license is included in the section
+entitled "GNU Free Documentation License".
+
+(a) The FSF's Back-Cover Text is: "You have the freedom to
+copy and modify this GNU manual." -->
+<title>problems with exclude (GNU tar 1.34)</title>
+
+<meta name="description" content="problems with exclude (GNU tar 1.34)">
+<meta name="keywords" content="problems with exclude (GNU tar 1.34)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="Index-of-Command-Line-Options.html" rel="index" title="Index of Command Line Options">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="exclude.html" rel="up" title="exclude">
+<style type="text/css">
+<!--
+div.example {margin-left: 3.2em}
+kbd.kbd {font-style: oblique}
+span.r {font-family: initial; font-weight: normal; font-style: normal}
+ul.mark-bullet {list-style-type: disc}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="unnumberedsubsec-level-extent" id="problems-with-exclude">
+<div class="nav-panel">
+<p>
+Up: <a href="exclude.html" accesskey="u" rel="up">Excluding Some Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<h4 class="unnumberedsubsec" id="Problems-with-Using-the-exclude-Options">Problems with Using the <code class="code">exclude</code> Options</h4>
+
+<a class="index-entry-id" id="index-exclude_002c-potential-problems-with"></a>
+<p>Some users find &lsquo;<samp class="samp">exclude</samp>&rsquo; options confusing.  Here are some common
+pitfalls:
+</p>
+<ul class="itemize mark-bullet">
+<li>The main operating mode of <code class="command">tar</code> does not act on a file name
+explicitly listed on the command line, if one of its file name
+components is excluded.  In the example above, if
+you create an archive and exclude files that end with &lsquo;<samp class="samp">*.o</samp>&rsquo;, but
+explicitly name the file &lsquo;<samp class="samp">dir.o/foo</samp>&rsquo; after all the options have been
+listed, &lsquo;<samp class="samp">dir.o/foo</samp>&rsquo; will be excluded from the archive.
+
+</li><li>You can sometimes confuse the meanings of <samp class="option">--exclude</samp> and
+<samp class="option">--exclude-from</samp>.  Be careful: use <samp class="option">--exclude</samp> when files
+to be excluded are given as a pattern on the command line.  Use
+<samp class="option">--exclude-from</samp> to introduce the name of a file which contains
+a list of patterns, one per line; each of these patterns can exclude
+zero, one, or many files.
+
+</li><li>When you use <samp class="option">--exclude=<var class="var">pattern</var></samp>, be sure to quote the
+<var class="var">pattern</var> parameter, so <abbr class="acronym">GNU</abbr> <code class="command">tar</code> sees wildcard characters
+like &lsquo;<samp class="samp">*</samp>&rsquo;.  If you do not do this, the shell might expand the
+&lsquo;<samp class="samp">*</samp>&rsquo; itself using files at hand, so <code class="command">tar</code> might receive a
+list of files instead of one pattern, or none at all, making the
+command somewhat illegal.  This might not correspond to what you want.
+
+<p>For example, write:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted">$ <kbd class="kbd">tar -c -f <var class="var">archive.tar</var> --exclude '*.o' <var class="var">directory</var></kbd>
+</pre></div>
+
+<p>rather than:
+</p>
+<div class="example smallexample">
+<pre class="example-preformatted"># <em class="emph">Wrong!</em>
+$ <kbd class="kbd">tar -c -f <var class="var">archive.tar</var> --exclude *.o <var class="var">directory</var></kbd>
+</pre></div>
+
+</li><li>You must use use shell syntax, or globbing, rather than <code class="code">regexp</code>
+syntax, when using exclude options in <code class="command">tar</code>.  If you try to use
+<code class="code">regexp</code> syntax to describe files to be excluded, your command
+might fail.
+
+</li><li>
+In earlier versions of <code class="command">tar</code>, what is now the
+<samp class="option">--exclude-from</samp> option was called <samp class="option">--exclude</samp> instead.
+Now, <samp class="option">--exclude</samp> applies to patterns listed on the command
+line and <samp class="option">--exclude-from</samp> applies to patterns listed in a
+file.
+
+</li></ul>
+
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Up: <a href="exclude.html">Excluding Some Files</a> &nbsp; [<a href="index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="Index-of-Command-Line-Options.html" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+</body>
+</html>
